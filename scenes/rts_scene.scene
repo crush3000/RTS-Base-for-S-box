@@ -1,0 +1,108 @@
+{
+  "__guid": "ffc78fc6-a8ef-42ea-8292-784983d0f225",
+  "GameObjects": [
+    {
+      "__guid": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
+      "Name": "Player_Camera",
+      "Position": "184.5454,120.8161,520.5134",
+      "Rotation": "-0.08282786,0.1999641,0.3736123,0.9019799",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "Components": [
+        {
+          "__type": "RTSCamComponent",
+          "__guid": "c2d6d821-9684-4d1c-8316-ba4108fc12f2",
+          "CamModel": {
+            "_type": "component",
+            "component_id": "499ac151-7a9d-432a-af59-534dc5693dd6",
+            "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
+            "component_type": "ModelRenderer"
+          },
+          "CamView": {
+            "_type": "component",
+            "component_id": "a38674f6-1f11-4de6-8a5f-75a1a387c4aa",
+            "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
+            "component_type": "CameraComponent"
+          }
+        },
+        {
+          "__type": "CameraComponent",
+          "__guid": "a38674f6-1f11-4de6-8a5f-75a1a387c4aa",
+          "BackgroundColor": "0.33333,0.46275,0.52157,1",
+          "ClearFlags": "All",
+          "FieldOfView": 60,
+          "IsMainCamera": true,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "Priority": 1,
+          "RenderExcludeTags": "",
+          "RenderTags": "",
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 10000,
+          "ZNear": 10
+        },
+        {
+          "__type": "ModelRenderer",
+          "__guid": "499ac151-7a9d-432a-af59-534dc5693dd6",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/sbox_props/watermelon/watermelon.vmdl",
+          "RenderType": "Off",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "9fe8a9d1-d2b6-40dd-98ff-f7f8984aab67",
+      "Name": "Map",
+      "Position": "0,0,100",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "Components": [
+        {
+          "__type": "MapInstance",
+          "__guid": "d05ad306-2733-45cd-b870-12dc8b12ec74",
+          "MapName": "rts_river",
+          "UseMapFromLaunch": false
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "c085e3e0-a912-479c-b038-3912d6416b80",
+      "Name": "Object",
+      "Position": "43.96707,-52.8457,545.0882",
+      "Enabled": true,
+      "NetworkMode": 2
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "Lerping": true,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 30,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "rts_scene",
+  "Description": "",
+  "LastSaved": "2024-03-24T21:08:55.138268-04:00",
+  "ResourceVersion": 1,
+  "__version": 1,
+  "__references": [
+    "facepunch.watermelon"
+  ]
+}
