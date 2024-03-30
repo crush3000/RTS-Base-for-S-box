@@ -15,7 +15,15 @@
       "HasCode": false,
       "CodePath": null,
       "PackageReferences": [],
-      "EditorReferences": [],
+      "EditorReferences": [
+        "fish.ground_blendable#16471",
+        "facepunch.floor_grass_dirt_cliff_blend_a#18754",
+        "agentep.stonewall01#40777",
+        "rustextended.wood_planks_a#43387",
+        "drakefruit.bark_007#20320",
+        "rustextended.stonewall_a#43368",
+        "fpopium.brick_b#48340"
+      ],
       "Metadata": {
         "SingleAssetSource": "maps/rts_river.vmap"
       }
