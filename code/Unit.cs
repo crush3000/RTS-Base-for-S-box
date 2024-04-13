@@ -2,7 +2,7 @@
 
 class Unit : Component
 {
-	[Property] public UnitModel PhysicalModel { get; set; }
+	[Property] public UnitModelBase PhysicalModel { get; set; }
 	[Property] public NavMeshAgent UnitNavAgent { get; set; }
 
 	Vector3 UnitSize { get; set; }
@@ -12,6 +12,43 @@ class Unit : Component
 	public bool CommandGiven { get; set; }
 	public Vector3 TargetLocation { get; set; }
 
+	//public Unit()
+	//{
+	//	Log.Info("Creating Unit");
+	//	PhysicalModel = new UnitModel();
+	//	UnitNavAgent = new NavMeshAgent();
+	//	UnitSize = new Vector3(60, 60);
+	//	Selected = false;
+	//	CommandGiven = false;
+	//	TargetLocation = Vector3.Zero;
+	//}
+
+	//protected override void OnAwake()
+	//{
+		//base.OnAwake();
+		//Log.Info( "Creating Unit for " + this.GameObject );
+		//PhysicalModel = new UnitModel();
+
+		//UnitNavAgent = new NavMeshAgent();
+		//UnitNavAgent.Height = 20;
+		//UnitNavAgent.Radius = 5;
+		//UnitNavAgent.MaxSpeed = 60;
+		//UnitNavAgent.Acceleration = 600;
+		//UnitNavAgent.UpdatePosition = true;
+		//UnitNavAgent.UpdateRotation = true;
+
+		//UnitSize = new Vector3( 60, 60 );
+		//Selected = false;
+		//CommandGiven = false;
+		//TargetLocation = Vector3.Zero;
+	//}
+
+	//protected override void OnStart()
+	//{
+		//base.OnStart();
+
+	//}
+
 	protected override void OnUpdate()
 	{
 		// Handle Move Command
@@ -20,28 +57,33 @@ class Unit : Component
 			UnitNavAgent.MoveTo( TargetLocation );
 		}
 		CommandGiven = false;
+		//Log.Info( "Do I still have a gameobject? " + this.GameObject );
 		// Handle Animations
-		if( !UnitNavAgent.Velocity.IsNearZeroLength ) 
+		if (PhysicalModel != null && UnitNavAgent != null) 
 		{
-			PhysicalModel.animationHandler.MoveStyle = Sandbox.Citizen.CitizenAnimationHelper.MoveStyles.Run;
-			PhysicalModel.animationHandler.WithVelocity( UnitNavAgent.Velocity );
-			PhysicalModel.animationHandler.WithWishVelocity( UnitNavAgent.WishVelocity );
-		}
-		else
-		{
-			PhysicalModel.animationHandler.MoveStyle = Sandbox.Citizen.CitizenAnimationHelper.MoveStyles.Auto;
-			PhysicalModel.animationHandler.WithVelocity( Vector3.Zero );
-			PhysicalModel.animationHandler.WithWishVelocity( Vector3.Zero );
+			//Log.Info( PhysicalModel );
+			//Log.Info( UnitNavAgent );
+			//Log.Info( UnitNavAgent.Velocity );
+			if ( !UnitNavAgent.Velocity.IsNearZeroLength )
+			{
+				PhysicalModel.animateMovement(UnitNavAgent.Velocity, UnitNavAgent.WishVelocity);
+			}
+			else
+			{
+				PhysicalModel.stopMovementAnimate();
+			}
 		}
 	}
 
 	public void SelectUnit()
 	{
 		Selected = true;
+		PhysicalModel.setOutlineState( UnitModelUtils.OutlineState.Selected );
 	}
 
 	public void DeSelectUnit()
 	{
 		Selected = false;
+		PhysicalModel.setOutlineState( UnitModelUtils.OutlineState.Mine );
 	}
 }

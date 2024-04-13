@@ -1,0 +1,45 @@
+@using Sandbox;
+@using Sandbox.UI;
+@inherits PanelComponent
+@attribute [StyleSheet]
+
+<!--//public class SelectionPanel : ScreenPanel-->
+@code
+{
+	public bool showPanel = true;
+
+	public Rect panelArea = new Rect();
+
+	
+	public Length? getWidth()
+	{
+		return  panelArea.Width;
+	}
+
+	public Length? getHeight()
+	{
+		return  panelArea.Height;
+	}
+
+	public Length? getXCoord()
+	{
+		return  Length.Pixels(panelArea.TopLeft.x);
+	}
+
+	public Length? getYCoord()
+	{
+		return  Length.Pixels(panelArea.TopLeft.y);
+	}
+
+	public void setShowPanel(bool setShow)
+	{
+		showPanel = setShow;
+	}
+
+	void setPanelStyle() {
+}
+
+}
+
+<root style="left: @getXCoord()px; top: @getYCoord()px; width: @getWidth()px; height: @getHeight()px;" class="selection">
+</root>

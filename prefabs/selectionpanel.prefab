@@ -1,0 +1,39 @@
+{
+  "RootObject": {
+    "__guid": "8d7dc72e-6a4e-4cc0-b30d-5d3c734510a2",
+    "Name": "SelectionPanelInstance",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "Components": [
+      {
+        "__type": "Sandbox.ScreenPanel",
+        "__guid": "ad44614f-b9f1-46da-b6f5-940d090a880c",
+        "AutoScreenScale": true,
+        "Opacity": 1,
+        "Scale": 1,
+        "ZIndex": 100
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "bdcfd38e-3ec2-4709-a881-5912496ef410",
+        "Name": "SelectionPanel",
+        "Position": "-230.037,-378.4017,-357.3299",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "Components": [
+          {
+            "__type": "SelectionPanel",
+            "__guid": "62981179-c421-4ee4-bbfe-40ddb1016470"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__version": 1,
+  "__references": []
+}

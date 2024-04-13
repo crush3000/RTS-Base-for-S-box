@@ -1,0 +1,38 @@
+{
+  "RootObject": {
+    "__guid": "0341ba11-a8d6-482e-8cbf-cf21beffa91d",
+    "Name": "RTSScreenInstance",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "Components": [
+      {
+        "__type": "Sandbox.ScreenPanel",
+        "__guid": "97a00092-14f0-4b91-bf8d-b3debbc0f446",
+        "AutoScreenScale": true,
+        "Opacity": 1,
+        "Scale": 1,
+        "ZIndex": 100
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "c4d57b44-e936-4638-9c39-3092e477afca",
+        "Name": "RtsScreen",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "Components": [
+          {
+            "__type": "RTSScreen",
+            "__guid": "9fd462a9-158a-41e1-ba9d-dba78ebe3f77"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__version": 1,
+  "__references": []
+}

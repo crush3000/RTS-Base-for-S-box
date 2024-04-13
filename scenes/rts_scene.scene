@@ -8,74 +8,7 @@
       "Rotation": "-0.08282786,0.1999641,0.3736123,0.9019799",
       "Enabled": true,
       "NetworkMode": 2,
-      "Components": [
-        {
-          "__type": "RTSCamComponent",
-          "__guid": "c2d6d821-9684-4d1c-8316-ba4108fc12f2",
-          "CamModel": {
-            "_type": "component",
-            "component_id": "69f8dc69-742e-4322-a7d6-dd2edc027eab",
-            "go": "7edcc219-da7e-40b9-bdf5-98101fabcf61",
-            "component_type": "ModelRenderer"
-          },
-          "CamView": {
-            "_type": "component",
-            "component_id": "696eeed9-e514-4404-af04-459dd4e1e78d",
-            "go": "7edcc219-da7e-40b9-bdf5-98101fabcf61",
-            "component_type": "CameraComponent"
-          }
-        },
-        {
-          "__type": "PlayerUnitControl",
-          "__guid": "c24bc613-9c9e-4cb1-b8c5-1153b60fc4e5",
-          "RTSCam": {
-            "_type": "component",
-            "component_id": "c2d6d821-9684-4d1c-8316-ba4108fc12f2",
-            "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
-            "component_type": "RTSCamComponent"
-          }
-        }
-      ],
-      "Children": [
-        {
-          "__guid": "7edcc219-da7e-40b9-bdf5-98101fabcf61",
-          "Name": "RTS_Camera",
-          "Position": "0,0,0",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "Components": [
-            {
-              "__type": "CameraComponent",
-              "__guid": "696eeed9-e514-4404-af04-459dd4e1e78d",
-              "BackgroundColor": "0.33333,0.46275,0.52157,1",
-              "ClearFlags": "All",
-              "FieldOfView": 60,
-              "IsMainCamera": true,
-              "Orthographic": false,
-              "OrthographicHeight": 1204,
-              "Priority": 1,
-              "RenderExcludeTags": "",
-              "RenderTags": "",
-              "TargetEye": "None",
-              "Viewport": "0,0,1,1",
-              "ZFar": 10000,
-              "ZNear": 10
-            },
-            {
-              "__type": "ModelRenderer",
-              "__guid": "69f8dc69-742e-4322-a7d6-dd2edc027eab",
-              "BodyGroups": 18446744073709551615,
-              "Model": "models/sbox_props/watermelon/watermelon.vmdl",
-              "RenderType": "On",
-              "Tint": "1,1,1,1"
-            },
-            {
-              "__type": "Highlight",
-              "__guid": "589faab7-0cb5-4f05-8a77-944ec1a0e541"
-            }
-          ]
-        }
-      ]
+      "__Prefab": "prefabs/player.prefab"
     },
     {
       "__guid": "9fe8a9d1-d2b6-40dd-98ff-f7f8984aab67",
@@ -85,10 +18,10 @@
       "NetworkMode": 2,
       "Components": [
         {
-          "__type": "MapInstance",
+          "__type": "Sandbox.MapInstance",
           "__guid": "d05ad306-2733-45cd-b870-12dc8b12ec74",
-          "MapName": "rts_river",
-          "UseMapFromLaunch": false
+          "MapName": "maps/rts_river.vmap",
+          "UseMapFromLaunch": true
         }
       ],
       "Children": []
@@ -96,180 +29,11 @@
     {
       "__guid": "4c9f145e-50b9-4008-8cf5-2be4256c2873",
       "Name": "TheFirst",
-      "Position": "401.976,782.4896,34.86164",
+      "Position": "422.3962,782.4896,33.10279",
       "Scale": "0.25,0.25,0.25",
       "Enabled": true,
       "NetworkMode": 2,
-      "Components": [
-        {
-          "__type": "Unit",
-          "__guid": "a256e0d3-7a8a-47d4-9f42-7dd3bc698da7",
-          "PhysicalModel": {
-            "_type": "component",
-            "component_id": "1ccc26ec-efbd-476d-ac32-0e6be8df0e0c",
-            "go": "e0ccae29-20f1-4ed3-ad45-0c7d2bda090d",
-            "component_type": "UnitModel"
-          },
-          "UnitNavAgent": {
-            "_type": "component",
-            "component_id": "414dfb2e-e3a7-4cea-9816-deb046b4e26e",
-            "go": "4c9f145e-50b9-4008-8cf5-2be4256c2873",
-            "component_type": "NavMeshAgent"
-          }
-        },
-        {
-          "__type": "NavMeshAgent",
-          "__guid": "414dfb2e-e3a7-4cea-9816-deb046b4e26e",
-          "Acceleration": 600,
-          "Height": 20,
-          "MaxSpeed": 60,
-          "Radius": 5,
-          "Separation": 0,
-          "UpdatePosition": true,
-          "UpdateRotation": true
-        }
-      ],
-      "Children": [
-        {
-          "__guid": "e0ccae29-20f1-4ed3-ad45-0c7d2bda090d",
-          "Name": "UnitModel",
-          "Position": "0,0,0",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "Components": [
-            {
-              "__type": "UnitModel",
-              "__guid": "1ccc26ec-efbd-476d-ac32-0e6be8df0e0c",
-              "animationHandler": {
-                "_type": "component",
-                "component_id": "be1f07aa-321c-44ec-aeb3-09941af9c1fa",
-                "go": "e0ccae29-20f1-4ed3-ad45-0c7d2bda090d",
-                "component_type": "CitizenAnimationHelper"
-              },
-              "model": {
-                "_type": "component",
-                "component_id": "d4f7c2f1-a3c0-4a3e-bd6e-b72d9298bf8d",
-                "go": "e0ccae29-20f1-4ed3-ad45-0c7d2bda090d",
-                "component_type": "SkinnedModelRenderer"
-              },
-              "UnitCollider": {
-                "_type": "component",
-                "component_id": "e8943072-61d2-4a99-9662-ae4a050b3670",
-                "go": "787ad5cb-28b1-4bce-ac6e-7401aafc1ccc",
-                "component_type": "CapsuleCollider"
-              }
-            },
-            {
-              "__type": "SkinnedModelRenderer",
-              "__guid": "d4f7c2f1-a3c0-4a3e-bd6e-b72d9298bf8d",
-              "AnimationGraph": "models/citizen/citizen.vanmgrph",
-              "BodyGroups": 341,
-              "CreateBoneObjects": false,
-              "MaterialOverride": "models/citizen/skin/citizen_skin_zombie.vmat",
-              "Model": "models/citizen/citizen.vmdl",
-              "RenderType": "On",
-              "Tint": "1,1,1,1"
-            },
-            {
-              "__type": "CitizenAnimationHelper",
-              "__guid": "be1f07aa-321c-44ec-aeb3-09941af9c1fa",
-              "BodyWeight": 1,
-              "EyesWeight": 1,
-              "HeadWeight": 1,
-              "LookAtEnabled": false,
-              "Target": {
-                "_type": "component",
-                "component_id": "d4f7c2f1-a3c0-4a3e-bd6e-b72d9298bf8d",
-                "go": "e0ccae29-20f1-4ed3-ad45-0c7d2bda090d",
-                "component_type": "SkinnedModelRenderer"
-              }
-            },
-            {
-              "__type": "HighlightOutline",
-              "__guid": "56892f88-35ce-4e3c-ab62-f721ded0aac7",
-              "Color": "0,1,0,1",
-              "InsideColor": "0,0,0,0",
-              "InsideObscuredColor": "0,0.6,0,1",
-              "ObscuredColor": "0,0.6,0,1",
-              "Width": 0.25
-            }
-          ],
-          "Children": [
-            {
-              "__guid": "684731a5-a4f7-43d0-98f0-bf0d632f1aa2",
-              "Name": "UnitOutline",
-              "Position": "0,0,0",
-              "Enabled": true,
-              "NetworkMode": 2,
-              "Components": [
-                {
-                  "__type": "SpriteRenderer",
-                  "__guid": "f872b32f-9fb4-49cb-af27-f05e94f4ee18",
-                  "Additive": false,
-                  "CastShadows": false,
-                  "Color": "1,1,1,1",
-                  "DepthFeather": 0,
-                  "FlipHorizontal": false,
-                  "FlipVertical": false,
-                  "FogStrength": 1,
-                  "Opaque": false,
-                  "Size": "20,20",
-                  "Texture": "materials/particles/shapes/circle1.vtex"
-                },
-                {
-                  "__type": "HighlightOutline",
-                  "__guid": "a67ddb20-8fae-4d91-a072-e606b3f1d05b",
-                  "Color": "1,1,1,1",
-                  "InsideColor": "1,0,0,1",
-                  "InsideObscuredColor": "1,0,0,1",
-                  "ObscuredColor": "1,0,0,1",
-                  "Width": 50
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "__guid": "eee023e6-8807-400f-b568-2aa7e0d45bf3",
-          "Name": "UnitNav",
-          "Position": "0,0,0",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "Components": [
-            {
-              "__type": "NavMeshAgent",
-              "__guid": "db55fd89-19a3-4f9e-b3b4-4385a1cc15c6",
-              "__enabled": false,
-              "Acceleration": 600,
-              "Height": 18,
-              "MaxSpeed": 60,
-              "Radius": 5,
-              "Separation": 0,
-              "UpdatePosition": true,
-              "UpdateRotation": true
-            }
-          ]
-        },
-        {
-          "__guid": "787ad5cb-28b1-4bce-ac6e-7401aafc1ccc",
-          "Name": "UnitCollision",
-          "Position": "0,0,0",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "Components": [
-            {
-              "__type": "CapsuleCollider",
-              "__guid": "e8943072-61d2-4a99-9662-ae4a050b3670",
-              "End": "0,0,70",
-              "IsTrigger": false,
-              "Radius": 20,
-              "Start": "0,0,0",
-              "Static": false,
-              "Surface": "surfaces/flesh.surface"
-            }
-          ]
-        }
-      ]
+      "__Prefab": "prefabs/thefirst.prefab"
     },
     {
       "__guid": "0341ba11-a8d6-482e-8cbf-cf21beffa91d",
@@ -277,31 +41,15 @@
       "Position": "694.0824,200.8844,335.0042",
       "Enabled": true,
       "NetworkMode": 2,
-      "Components": [
-        {
-          "__type": "ScreenPanel",
-          "__guid": "97a00092-14f0-4b91-bf8d-b3debbc0f446",
-          "AutoScreenScale": true,
-          "Opacity": 1,
-          "Scale": 1,
-          "ZIndex": 100
-        }
-      ],
-      "Children": [
-        {
-          "__guid": "c4d57b44-e936-4638-9c39-3092e477afca",
-          "Name": "Screen",
-          "Position": "0,0,0",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "Components": [
-            {
-              "__type": "RTSScreen",
-              "__guid": "9fd462a9-158a-41e1-ba9d-dba78ebe3f77"
-            }
-          ]
-        }
-      ]
+      "__Prefab": "prefabs/selectionscreen.prefab"
+    },
+    {
+      "__guid": "6ea9d562-e823-455a-a53b-5a1785e27804",
+      "Name": "BasicUnit",
+      "Position": "495.874,909.9093,32.30187",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "__Prefab": "prefabs/basicunit.prefab"
     }
   ],
   "SceneProperties": {
@@ -327,10 +75,8 @@
   },
   "Title": "rts_scene",
   "Description": "",
-  "LastSaved": "2024-03-30T14:38:43.8310351-04:00",
+  "LastSaved": "2024-04-13T18:51:17.6856565-04:00",
   "ResourceVersion": 1,
   "__version": 1,
-  "__references": [
-    "facepunch.watermelon"
-  ]
+  "__references": []
 }
