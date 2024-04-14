@@ -1,0 +1,131 @@
+{
+  "RootObject": {
+    "__guid": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
+    "Name": "EnemyUnit",
+    "Position": "767.5653,909.9093,32.30187",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "Components": [
+      {
+        "__type": "Unit",
+        "__guid": "e1b4ae95-8ca7-46ba-9cb2-c17647a701b6",
+        "PhysicalModel": {
+          "_type": "component",
+          "component_id": "d72b46ef-bea7-4e00-9ac0-37c52db49098",
+          "go": "d40521bb-c963-450a-b88a-3b0fc2b74b57",
+          "component_type": "UnitModelBasic"
+        },
+        "team": 1,
+        "UnitNavAgent": {
+          "_type": "component",
+          "component_id": "19d1321a-d0a3-4e19-862b-11cb97f1c965",
+          "go": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
+          "component_type": "NavMeshAgent"
+        }
+      },
+      {
+        "__type": "Sandbox.NavMeshAgent",
+        "__guid": "19d1321a-d0a3-4e19-862b-11cb97f1c965",
+        "Acceleration": 600,
+        "Height": 13,
+        "MaxSpeed": 60,
+        "Radius": 5,
+        "Separation": 0,
+        "UpdatePosition": true,
+        "UpdateRotation": true
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "d40521bb-c963-450a-b88a-3b0fc2b74b57",
+        "Name": "BasicUnitModel",
+        "Position": "0,0,0",
+        "Scale": "0.5,0.5,0.5",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "Components": [
+          {
+            "__type": "UnitModelBasic",
+            "__guid": "d72b46ef-bea7-4e00-9ac0-37c52db49098",
+            "selectionOutlineState": "Hostile",
+            "baseStand": {
+              "_type": "component",
+              "component_id": "d5cc9c59-9f5a-4b50-8f30-2c66836ac405",
+              "go": "6ce98d59-44c9-4d6c-b992-113b71e48223",
+              "component_type": "UnitBaseStand"
+            },
+            "model": {
+              "_type": "component",
+              "component_id": "c7a90aed-8bac-4f20-87fd-5e4ec4de812c",
+              "go": "d40521bb-c963-450a-b88a-3b0fc2b74b57",
+              "component_type": "ModelRenderer"
+            },
+            "outline": {
+              "_type": "component",
+              "component_id": "85c0972a-4af6-4f89-84f0-69ae63c8105e",
+              "go": "d40521bb-c963-450a-b88a-3b0fc2b74b57",
+              "component_type": "HighlightOutline"
+            }
+          },
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "c7a90aed-8bac-4f20-87fd-5e4ec4de812c",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/sbox_props/watermelon/watermelon.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          },
+          {
+            "__type": "Sandbox.HighlightOutline",
+            "__guid": "85c0972a-4af6-4f89-84f0-69ae63c8105e",
+            "Color": "0,0,0,0",
+            "InsideColor": "0,0,0,0",
+            "InsideObscuredColor": "0,0,0,0",
+            "ObscuredColor": "1,0,0,0.50196",
+            "Width": 0.25
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "6ce98d59-44c9-4d6c-b992-113b71e48223",
+            "Name": "BasicUnitBaseStand",
+            "Position": "0,0,0",
+            "Scale": "0.4,0.4,0.01",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "Components": [
+              {
+                "__type": "UnitBaseStand",
+                "__guid": "d5cc9c59-9f5a-4b50-8f30-2c66836ac405",
+                "selectionOutlineState": "Hostile",
+                "baseStandModel": {
+                  "_type": "component",
+                  "component_id": "4a77223e-8e27-4e4d-9360-45af704530a5",
+                  "go": "6ce98d59-44c9-4d6c-b992-113b71e48223",
+                  "component_type": "ModelRenderer"
+                }
+              },
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "4a77223e-8e27-4e4d-9360-45af704530a5",
+                "BodyGroups": 18446744073709551615,
+                "Model": "models/vidya/cylinder_white_64.vmdl",
+                "RenderType": "On",
+                "Tint": "1,0,0,0.50196"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__version": 1,
+  "__references": [
+    "facepunch.watermelon",
+    "vidya.model-cylinder64"
+  ]
+}

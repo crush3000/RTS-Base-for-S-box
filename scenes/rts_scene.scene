@@ -3,7 +3,7 @@
   "GameObjects": [
     {
       "__guid": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
-      "Name": "Player_Controller",
+      "Name": "Player1_Controller",
       "Position": "184.5454,120.8161,520.5134",
       "Rotation": "-0.08282786,0.1999641,0.3736123,0.9019799",
       "Enabled": true,
@@ -50,6 +50,66 @@
       "Enabled": true,
       "NetworkMode": 2,
       "__Prefab": "prefabs/basicunit.prefab"
+    },
+    {
+      "__guid": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
+      "Name": "EnemyUnit",
+      "Position": "478.3602,1253.781,57.33863",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "__Prefab": "prefabs/basicenemyunit.prefab"
+    },
+    {
+      "__guid": "fe1c5aed-c081-4d04-b8a7-22aa574a5750",
+      "Name": "BasicUnit (4)",
+      "Position": "474.9613,909.9093,32.30187",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "__Prefab": "prefabs/basicunit.prefab"
+    },
+    {
+      "__guid": "4558411e-3b0a-4e20-8ea5-65facf2a0dbb",
+      "Name": "BasicUnit (3)",
+      "Position": "495.874,940.0331,32.30187",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "__Prefab": "prefabs/basicunit.prefab"
+    },
+    {
+      "__guid": "e3fc2188-0c1d-4f8d-bb3d-e79cc98c2d30",
+      "Name": "BasicUnit (2)",
+      "Position": "523.0367,909.9093,32.30187",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "__Prefab": "prefabs/basicunit.prefab"
+    },
+    {
+      "__guid": "be8ba9c9-d8f1-440f-87da-6d2acf3875cb",
+      "Name": "BasicUnit (1)",
+      "Position": "495.874,883.9622,32.30187",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "__Prefab": "prefabs/basicunit.prefab"
+    },
+    {
+      "__guid": "88fe0df8-db2f-4954-9a8e-ff064164a8ea",
+      "Name": "Player1",
+      "Position": "453.1334,961.2402,50.9276",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "Components": [
+        {
+          "__type": "RTSPlayer",
+          "__guid": "e4f86cb1-f9a1-4e97-8a8a-c9df9b67f540",
+          "team": 0,
+          "UnitControl": {
+            "_type": "component",
+            "component_id": "b7ab1028-17db-4ffa-b028-e27f3bdd7273",
+            "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
+            "component_type": "PlayerUnitControl"
+          }
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -75,7 +135,7 @@
   },
   "Title": "rts_scene",
   "Description": "",
-  "LastSaved": "2024-04-13T18:51:17.6856565-04:00",
+  "LastSaved": "2024-04-14T17:08:04.4438339-04:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": []

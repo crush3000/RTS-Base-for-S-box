@@ -25,12 +25,12 @@ class UnitModelBasic : UnitModelBase
 
 	public override void animateMovement( Vector3 velocity, Vector3 wishVelocity )
 	{
-		Log.Info( "Animate Basic Start" );
+		//Log.Info( "Animate Basic Start" );
 	}
 
 	public override void stopMovementAnimate()
 	{
-		Log.Info( "Animate Basic Stop" );
+		//Log.Info( "Animate Basic Stop" );
 	}
 
 	//protected override void OnStart()

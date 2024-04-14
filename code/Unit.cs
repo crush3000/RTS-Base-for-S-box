@@ -4,6 +4,7 @@ class Unit : Component
 {
 	[Property] public UnitModelBase PhysicalModel { get; set; }
 	[Property] public NavMeshAgent UnitNavAgent { get; set; }
+	[Property] public int team { get; set; }
 
 	Vector3 UnitSize { get; set; }
 	//Enum UnitType { get; set; }
@@ -46,7 +47,10 @@ class Unit : Component
 	//protected override void OnStart()
 	//{
 		//base.OnStart();
-
+		//PhysicalModel = new UnitModelBasic();
+		//UnitNavAgent = new NavMeshAgent();
+		//team = 99;
+		//UnitSize = new Vector3( 5, 5, 5 );
 	//}
 
 	protected override void OnUpdate()

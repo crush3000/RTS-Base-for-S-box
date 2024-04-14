@@ -1,0 +1,157 @@
+{
+  "__guid": "3b57da32-a0c0-4e75-b352-97177ac05f5b",
+  "GameObjects": [
+    {
+      "__guid": "48cccf3b-1dba-4523-afdf-b7c74025735e",
+      "Name": "Main Camera",
+      "Position": "-573.208,0,100",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "Components": [
+        {
+          "__type": "CameraComponent",
+          "__guid": "9a860e84-1e73-4bcf-b47b-6ac5e0f402fa",
+          "BackgroundColor": "0.33333,0.46275,0.52157,1",
+          "ClearFlags": "All",
+          "FieldOfView": 60,
+          "IsMainCamera": true,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "Priority": 1,
+          "RenderExcludeTags": "",
+          "RenderTags": "",
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 10000,
+          "ZNear": 10
+        }
+      ]
+    },
+    {
+      "__guid": "cf9cc1bd-4df0-41a0-8b9e-dc940a013ca9",
+      "Name": "Directional Light",
+      "Position": "0,0,200",
+      "Rotation": "-0.2459842,0.5938582,0.2931525,0.7077327",
+      "Tags": "light_directional,light",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "Components": [
+        {
+          "__type": "DirectionalLight",
+          "__guid": "a7fa8747-386e-4337-b9c0-2b2b3198f47b",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Shadows": true,
+          "SkyColor": "0.05882,0.07451,0.08235,1"
+        }
+      ]
+    },
+    {
+      "__guid": "15f5148b-5c94-43fd-a795-f34b2f833273",
+      "Name": "Plane",
+      "Position": "-5.034729,2.574111,45.32937",
+      "Scale": "8.808511,11.41619,1",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "Components": [
+        {
+          "__type": "ModelRenderer",
+          "__guid": "6e622270-1828-43b8-afb9-b054a780ba92",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/dev/plane.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "3c757e3c-25a7-42a6-8197-79ddcb943cb2",
+      "Name": "Unit1",
+      "Position": "-348.4793,-352.9723,206.0503",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "Components": [
+        {
+          "__type": "Unit",
+          "__guid": "71514625-453d-4786-b287-247373636ab1"
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "e3643043-e3db-4516-abf0-42897958c3d0",
+          "Name": "Model",
+          "Position": "0,0,0",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "Components": [
+            {
+              "__type": "UnitModel",
+              "__guid": "8d1af0ed-848d-4580-9527-aee15baacf5a",
+              "selectionOutlineState": "Mine"
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "0c254235-c440-41f1-8913-b370ef121a52",
+              "Name": "Base",
+              "Position": "0,0,0",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "Components": [
+                {
+                  "__type": "UnitBaseStand",
+                  "__guid": "9ecf47fc-b4e8-4c7c-9a3f-2d2016bff21f",
+                  "selectionOutlineState": "Mine"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "2195d652-38bf-40a1-b37b-1d022c8c53b1",
+      "Name": "Object",
+      "Position": "-226.8427,-298.5919,181.4567",
+      "Enabled": true,
+      "NetworkMode": 2
+    },
+    {
+      "__guid": "1851669a-1805-4db1-b2ed-4afb30c2e9ce",
+      "Name": "TheFirst (1)",
+      "Position": "0,0,68.62948",
+      "Scale": "0.25,0.25,0.25",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "__Prefab": "prefabs/thefirstunit.prefab"
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "Lerping": true,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 30,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "basic_scene",
+  "Description": "",
+  "LastSaved": "2024-04-06T23:19:52.1786329-04:00",
+  "ResourceVersion": 1,
+  "__version": 1,
+  "__references": []
+}
