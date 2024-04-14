@@ -1,8 +1,7 @@
 {
   "RootObject": {
     "__guid": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
-    "Name": "EnemyUnit",
-    "Position": "767.5653,909.9093,32.30187",
+    "Name": "basicenemyunit",
     "Enabled": true,
     "NetworkMode": 2,
     "Components": [
@@ -33,13 +32,21 @@
         "Separation": 0,
         "UpdatePosition": true,
         "UpdateRotation": true
+      },
+      {
+        "__type": "Sandbox.CapsuleCollider",
+        "__guid": "50ce98ba-0e06-4cec-aa7c-e30a221292dc",
+        "End": "0,0,12.86034",
+        "IsTrigger": true,
+        "Radius": 6,
+        "Start": "0,0,0",
+        "Static": false
       }
     ],
     "Children": [
       {
         "__guid": "d40521bb-c963-450a-b88a-3b0fc2b74b57",
         "Name": "BasicUnitModel",
-        "Position": "0,0,0",
         "Scale": "0.5,0.5,0.5",
         "Enabled": true,
         "NetworkMode": 2,
@@ -89,7 +96,6 @@
           {
             "__guid": "6ce98d59-44c9-4d6c-b992-113b71e48223",
             "Name": "BasicUnitBaseStand",
-            "Position": "0,0,0",
             "Scale": "0.4,0.4,0.01",
             "Enabled": true,
             "NetworkMode": 2,

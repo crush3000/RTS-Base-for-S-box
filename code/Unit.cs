@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Sandbox;
+using System;
 
 class Unit : Component
 {
 	[Property] public UnitModelBase PhysicalModel { get; set; }
 	[Property] public NavMeshAgent UnitNavAgent { get; set; }
+	[Property] public Collider UnitCollider { get; set; }
 	[Property] public int team { get; set; }
 
 	Vector3 UnitSize { get; set; }
@@ -12,6 +14,14 @@ class Unit : Component
 	bool Selected { get; set; }
 	public bool CommandGiven { get; set; }
 	public Vector3 TargetLocation { get; set; }
+
+	private int health_points = 100;
+
+	private int melee_attack_damage = 20;
+
+	private float melee_attack_speed = 1.5f;
+
+	private float last_melee_time = Time.Now;
 
 	//public Unit()
 	//{
@@ -61,13 +71,32 @@ class Unit : Component
 			UnitNavAgent.MoveTo( TargetLocation );
 		}
 		CommandGiven = false;
-		//Log.Info( "Do I still have a gameobject? " + this.GameObject );
+
+		// Handle Attacks
+		if( UnitCollider != null ) 
+		{
+			var unitsInMeleeRange = UnitCollider.Touching;
+			if ( unitsInMeleeRange.Any())
+			{
+				foreach(var collisions in unitsInMeleeRange)
+				{
+					var collidedObjectGOComponents = collisions.GameObject.Components.GetAll();
+					if ( collidedObjectGOComponents.OfType<Unit>().Any() && collidedObjectGOComponents.OfType<Unit>().First().team != team) 
+					{
+						if(Time.Now - last_melee_time > melee_attack_speed )
+						{
+							Log.Info( this.GameObject.Name + " attacks " + collisions.GameObject.Name + " for " + melee_attack_damage + " damage!" );
+							directMeleeAttack( collidedObjectGOComponents.OfType<Unit>().First());
+						}
+					}
+				}
+			}
+		}
+
+
 		// Handle Animations
 		if (PhysicalModel != null && UnitNavAgent != null) 
 		{
-			//Log.Info( PhysicalModel );
-			//Log.Info( UnitNavAgent );
-			//Log.Info( UnitNavAgent.Velocity );
 			if ( !UnitNavAgent.Velocity.IsNearZeroLength )
 			{
 				PhysicalModel.animateMovement(UnitNavAgent.Velocity, UnitNavAgent.WishVelocity);
@@ -77,6 +106,13 @@ class Unit : Component
 				PhysicalModel.stopMovementAnimate();
 			}
 		}
+	}
+
+	//TODO GOTTA FIGURE OUT HOW TO MAKE IT ACTUALLY DISSAPEAR
+	protected override void OnDestroy()
+	{
+		base.OnDestroy();
+
 	}
 
 	public void SelectUnit()
@@ -89,5 +125,31 @@ class Unit : Component
 	{
 		Selected = false;
 		PhysicalModel.setOutlineState( UnitModelUtils.OutlineState.Mine );
+	}
+
+	public void takeDamage(int damage)
+	{
+		Log.Info( this.GameObject.Name + " takes " + damage + " damage!");
+		health_points -= damage;
+		if( health_points < 0 )
+		{
+			die();
+		}
+	}
+
+	private void die()
+	{
+		Log.Info( this.GameObject.Name + " dies!" );
+		PhysicalModel.Destroy();
+		UnitNavAgent.Destroy();
+		UnitCollider.Destroy();
+		this.Enabled = false;
+		this.Destroy();
+	}
+
+	private void directMeleeAttack(Unit targetUnit)
+	{
+		targetUnit.takeDamage( melee_attack_damage );
+		last_melee_time = Time.Now;
 	}
 }
