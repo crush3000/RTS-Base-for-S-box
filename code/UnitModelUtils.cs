@@ -12,6 +12,13 @@ public class UnitModelUtils
 	public const uint hostileColor = 0x80FF0000;
 	public const uint selectedColor = 0xFF00FF80;
 
+	public enum CommandType
+	{
+		Move,
+		Attack,
+		None
+	}
+
 	public enum OutlineState
 	{
 		Mine,

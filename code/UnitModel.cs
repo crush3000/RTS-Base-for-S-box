@@ -4,14 +4,13 @@ using System;
 class UnitModel : UnitModelBase
 {
 
-	[Property] public CitizenAnimationHelper animationHandler {  get; set; }
+	[Property] public SkinnedModelRenderer model {  get; set; }
 
 	//public UnitModel()
 	//{
 	//	Log.Info( "Create Model" );
 	//	model =	new SkinnedModelRenderer();
 	//	unitCollider = new CapsuleCollider();
-	//	animationHandler = new CitizenAnimationHelper();
 	//	outline = new HighlightOutline();
 	//	baseStand = new UnitBaseStand( OutlineState.Neutral );
 	//	setOutlineState( OutlineState.Neutral );
@@ -27,24 +26,27 @@ class UnitModel : UnitModelBase
 
 	public override void animateMovement(Vector3 velocity, Vector3 wishVelocity)
 	{
-		animationHandler.AimAngle = Transform.Rotation.Forward.EulerAngles;
-		animationHandler.IsGrounded = true;
-		animationHandler.WithLook( Transform.Rotation.Forward, 1f, 0.75f, 0.5f );
-		animationHandler.MoveStyle = Sandbox.Citizen.CitizenAnimationHelper.MoveStyles.Run;
-		animationHandler.WithVelocity( velocity );
-		animationHandler.WithWishVelocity( wishVelocity );
-		animationHandler.DuckLevel = 0f;
+		model.SceneModel.SetAnimParameter( "isMoving", true );
 	}
 
 	public override void stopMovementAnimate()
 	{
-		animationHandler.AimAngle = Transform.Rotation.Forward.EulerAngles;
-		animationHandler.IsGrounded = true;
-		animationHandler.WithLook( Transform.Rotation.Forward, 1f, 0.75f, 0.5f );
-		animationHandler.MoveStyle = Sandbox.Citizen.CitizenAnimationHelper.MoveStyles.Auto;
-		animationHandler.WithVelocity( Vector3.Zero );
-		animationHandler.WithWishVelocity( Vector3.Zero );
-		animationHandler.DuckLevel = 0f;
+		model.SceneModel.SetAnimParameter( "isMoving", false );
+	}
+
+	public override void animateMeleeAttack()
+	{
+		model.SceneModel.SetAnimParameter( "onAttack", true );
+	}
+
+	public override void animateDamageTaken()
+	{
+		model.SceneModel.SetAnimParameter( "onDamage", true );
+	}
+
+	public override void animateDeath()
+	{
+		model.SceneModel.SetAnimParameter( "onDeath", true );
 	}
 
 	protected override void OnStart()
@@ -74,14 +76,24 @@ class UnitModel : UnitModelBase
 		//setOutlineState( OutlineState.Neutral );
 
 		Log.Info( "Trying to start the animationhandler" );
-		animationHandler.AimAngle = Transform.Rotation.Forward.EulerAngles;
-		animationHandler.IsGrounded = true;
-		animationHandler.WithLook( Transform.Rotation.Forward, 1f, 0.75f, 0.5f );
-		animationHandler.MoveStyle = CitizenAnimationHelper.MoveStyles.Auto;
-		animationHandler.DuckLevel = 0f;
+
+		//model.SceneModel.UseAnimGraph = true;
+		//model.SceneModel.DirectPlayback.Play( "animations/Infantry/Anim_infantry_01_idle.FBX" );
+		//model.SceneModel.DirectPlayback.Play( "Anim_infantry_01_idle" );
+		//model.SceneModel.DirectPlayback.Play( "PlayAnimation" );
+		foreach ( var anim in model.SceneModel.DirectPlayback.Animations )
+		{
+			Log.Info( anim );
+		}
 	}
 
 	protected override void OnUpdate()
 	{
+		//Log.Info( model.SceneModel.Tags.TryGetAll() );
+		//if ( model.SceneModel.Tags. )
+		//{
+		//	attackSet = false;
+		//	model.SceneModel.SetAnimParameter( "isAttacking", false );
+		//}
 	}
 }

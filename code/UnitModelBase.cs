@@ -4,7 +4,7 @@ using System;
 public abstract class UnitModelBase : Component
 {
 
-	[Property] public ModelRenderer model { get; set; }
+	//[Property] public ModelRenderer model { get; set; }
 	[Property] Collider unitCollider { get; set; }
 
 	[Property] public HighlightOutline outline { get; set; }
@@ -14,6 +14,8 @@ public abstract class UnitModelBase : Component
 	[Property] public UnitModelUtils.OutlineState selectionOutlineState = UnitModelUtils.OutlineState.Mine;
 
 	public Vector3 UnitSize { get; set; }
+
+	protected bool attackSet = false;
 
 	public virtual void setOutlineState( UnitModelUtils.OutlineState newState )
 	{
@@ -49,6 +51,12 @@ public abstract class UnitModelBase : Component
 	public abstract void animateMovement( Vector3 velocity, Vector3 wishVelocity );
 
 	public abstract void stopMovementAnimate();
+
+	public abstract void animateMeleeAttack();
+
+	public abstract void animateDamageTaken();
+
+	public abstract void animateDeath();
 
 	protected override void OnUpdate()
 	{

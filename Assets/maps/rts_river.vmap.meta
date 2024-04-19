@@ -9,11 +9,7 @@
       "Ident": "rts_river",
       "Tags": null,
       "Schema": 0,
-      "HasAssets": false,
-      "AssetsPath": null,
       "Resources": null,
-      "HasCode": false,
-      "CodePath": null,
       "PackageReferences": [],
       "EditorReferences": [
         "fish.ground_blendable#16471",
@@ -23,7 +19,8 @@
         "drakefruit.bark_007#20320",
         "rustextended.stonewall_a#43368",
         "fpopium.brick_b#48340",
-        "alex.sky_hdri_001#28450"
+        "alex.sky_hdri_001#28450",
+        "fpopium.brick_b#55274"
       ],
       "Metadata": {
         "SingleAssetSource": "maps/rts_river.vmap"

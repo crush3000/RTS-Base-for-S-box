@@ -1,0 +1,143 @@
+{
+  "RootObject": {
+    "__guid": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
+    "Name": "enemyskeltal",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "Components": [
+      {
+        "__type": "Unit",
+        "__guid": "995580de-2d22-4bca-a225-42c663e3b303",
+        "PhysicalModel": {
+          "_type": "component",
+          "component_id": "ade42ab9-eb04-44ea-a252-8ac0bc0ca736",
+          "go": "30d479cd-5b1b-4bf3-920b-e15a743d4094",
+          "component_type": "UnitModel"
+        },
+        "team": 1,
+        "UnitCollider": {
+          "_type": "component",
+          "component_id": "c9950371-221e-42f6-b00e-41e8308ccbb9",
+          "go": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
+          "component_type": "CapsuleCollider"
+        },
+        "UnitNavAgent": {
+          "_type": "component",
+          "component_id": "37eabd0e-82fc-497f-b041-c89bf6415d3b",
+          "go": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
+          "component_type": "NavMeshAgent"
+        }
+      },
+      {
+        "__type": "Sandbox.NavMeshAgent",
+        "__guid": "37eabd0e-82fc-497f-b041-c89bf6415d3b",
+        "Acceleration": 600,
+        "Height": 20,
+        "MaxSpeed": 60,
+        "Radius": 5,
+        "Separation": 0,
+        "UpdatePosition": true,
+        "UpdateRotation": true
+      },
+      {
+        "__type": "Sandbox.CapsuleCollider",
+        "__guid": "c9950371-221e-42f6-b00e-41e8308ccbb9",
+        "End": "0,0,180",
+        "IsTrigger": true,
+        "Radius": 70,
+        "Start": "0,0,0",
+        "Static": false
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "30d479cd-5b1b-4bf3-920b-e15a743d4094",
+        "Name": "BasicUnitModel",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "Components": [
+          {
+            "__type": "Sandbox.HighlightOutline",
+            "__guid": "314c1440-b7d7-4ccd-b000-e3bea268ed90",
+            "Color": "0,0,0,0",
+            "InsideColor": "0,0,0,0",
+            "InsideObscuredColor": "0,0,0,0",
+            "ObscuredColor": "1,0,0,0.50196",
+            "Width": 0.25
+          },
+          {
+            "__type": "UnitModel",
+            "__guid": "ade42ab9-eb04-44ea-a252-8ac0bc0ca736",
+            "selectionOutlineState": "Hostile",
+            "baseStand": {
+              "_type": "component",
+              "component_id": "aebbfc34-c6dd-480c-a716-2dcaacae452a",
+              "go": "21f61158-117c-4fe2-a2fb-d09227f164e1",
+              "component_type": "UnitBaseStand"
+            },
+            "model": {
+              "_type": "component",
+              "component_id": "0f252950-a22b-4100-8bda-e37b4b56020b",
+              "go": "30d479cd-5b1b-4bf3-920b-e15a743d4094",
+              "component_type": "SkinnedModelRenderer"
+            },
+            "outline": {
+              "_type": "component",
+              "component_id": "314c1440-b7d7-4ccd-b000-e3bea268ed90",
+              "go": "30d479cd-5b1b-4bf3-920b-e15a743d4094",
+              "component_type": "HighlightOutline"
+            }
+          },
+          {
+            "__type": "Sandbox.SkinnedModelRenderer",
+            "__guid": "0f252950-a22b-4100-8bda-e37b4b56020b",
+            "AnimationGraph": "animgraphs/sk_light_infantry_a.vanmgrph",
+            "BodyGroups": 18446744073709551615,
+            "CreateBoneObjects": false,
+            "Model": "models/prebuilt_characters/sk_light_infantry_a.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "21f61158-117c-4fe2-a2fb-d09227f164e1",
+            "Name": "BasicUnitBaseStand",
+            "Scale": "2,2,0.01",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "Components": [
+              {
+                "__type": "UnitBaseStand",
+                "__guid": "aebbfc34-c6dd-480c-a716-2dcaacae452a",
+                "selectionOutlineState": "Hostile",
+                "baseStandModel": {
+                  "_type": "component",
+                  "component_id": "a367853f-5e1b-4c3d-b5fe-306c3bd8f66b",
+                  "go": "21f61158-117c-4fe2-a2fb-d09227f164e1",
+                  "component_type": "ModelRenderer"
+                }
+              },
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "a367853f-5e1b-4c3d-b5fe-306c3bd8f66b",
+                "BodyGroups": 18446744073709551615,
+                "Model": "models/vidya/cylinder_white_64.vmdl",
+                "RenderType": "On",
+                "Tint": "1,0,0,0.50196"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__version": 1,
+  "__references": [
+    "vidya.model-cylinder64"
+  ]
+}

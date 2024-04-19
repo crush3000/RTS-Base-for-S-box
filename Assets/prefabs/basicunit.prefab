@@ -67,12 +67,6 @@
               "go": "5550ea39-f1c1-48a6-89b3-65bfc3bd18e7",
               "component_type": "UnitBaseStand"
             },
-            "model": {
-              "_type": "component",
-              "component_id": "05f68956-7970-4df4-97df-af6f6007a289",
-              "go": "6106bfe8-521d-40a2-aef3-b0b38571c58d",
-              "component_type": "ModelRenderer"
-            },
             "outline": {
               "_type": "component",
               "component_id": "e613aa97-38b4-4b96-8088-c160201256b7",

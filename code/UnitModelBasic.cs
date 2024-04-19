@@ -4,12 +4,13 @@ using System;
 class UnitModelBasic : UnitModelBase
 {
 
+	[Property] public ModelRenderer model { get; set; }
+
 	//public UnitModel()
 	//{
 	//	Log.Info( "Create Model" );
 	//	model =	new SkinnedModelRenderer();
 	//	unitCollider = new CapsuleCollider();
-	//	animationHandler = new CitizenAnimationHelper();
 	//	outline = new HighlightOutline();
 	//	baseStand = new UnitBaseStand( OutlineState.Neutral );
 	//	setOutlineState( OutlineState.Neutral );
@@ -31,6 +32,21 @@ class UnitModelBasic : UnitModelBase
 	public override void stopMovementAnimate()
 	{
 		//Log.Info( "Animate Basic Stop" );
+	}
+
+	public override void animateMeleeAttack()
+	{
+		//
+	}
+
+	public override void animateDamageTaken()
+	{
+		//
+	}
+
+	public override void animateDeath()
+	{
+		//
 	}
 
 	//protected override void OnStart()
@@ -59,12 +75,6 @@ class UnitModelBasic : UnitModelBase
 	//baseStand = new UnitBaseStand();
 	//setOutlineState( OutlineState.Neutral );
 
-	//Log.Info( "Trying to start the animationhandler" );
-	//animationHandler.AimAngle = Transform.Rotation.Forward.EulerAngles;
-	//animationHandler.IsGrounded = true;
-	//animationHandler.WithLook( Transform.Rotation.Forward, 1f, 0.75f, 0.5f );
-	//animationHandler.MoveStyle = CitizenAnimationHelper.MoveStyles.Auto;
-	//animationHandler.DuckLevel = 0f;
 	//}
 
 	protected override void OnUpdate()

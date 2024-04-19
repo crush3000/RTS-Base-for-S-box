@@ -12,8 +12,10 @@ class Unit : Component
 	//Enum UnitType { get; set; }
 	//Enum UnitState { get; set; }
 	bool Selected { get; set; }
-	public bool CommandGiven { get; set; }
+	public UnitModelUtils.CommandType CommandGiven { get; set; }
 	public Vector3 TargetLocation { get; set; }
+
+	public Unit TargetUnit { get; set; }
 
 	private int health_points = 100;
 
@@ -63,14 +65,36 @@ class Unit : Component
 		//UnitSize = new Vector3( 5, 5, 5 );
 	//}
 
+	protected override void OnStart()
+	{
+		base.OnStart();
+		CommandGiven = UnitModelUtils.CommandType.None;
+	}
+
 	protected override void OnUpdate()
 	{
 		// Handle Move Command
-		if ( CommandGiven )
+		if ( CommandGiven != UnitModelUtils.CommandType.None )
 		{
-			UnitNavAgent.MoveTo( TargetLocation );
+			if(CommandGiven == UnitModelUtils.CommandType.Attack)
+			{
+				if(TargetUnit != null )
+				{
+					UnitNavAgent.MoveTo( TargetUnit.Transform.Position );
+				}
+				//Reset if unit is killed or deleted or something
+				else
+				{
+					CommandGiven = UnitModelUtils.CommandType.None;
+				}
+
+			}
+			else if(CommandGiven == UnitModelUtils.CommandType.Move )
+			{
+				UnitNavAgent.MoveTo( TargetLocation );
+				CommandGiven = UnitModelUtils.CommandType.None;
+			}
 		}
-		CommandGiven = false;
 
 		// Handle Attacks
 		if( UnitCollider != null ) 
@@ -130,6 +154,7 @@ class Unit : Component
 	public void takeDamage(int damage)
 	{
 		Log.Info( this.GameObject.Name + " takes " + damage + " damage!");
+		PhysicalModel.animateDamageTaken();
 		health_points -= damage;
 		if( health_points < 0 )
 		{
@@ -140,6 +165,7 @@ class Unit : Component
 	private void die()
 	{
 		Log.Info( this.GameObject.Name + " dies!" );
+		PhysicalModel.animateDeath();
 		PhysicalModel.Destroy();
 		UnitNavAgent.Destroy();
 		UnitCollider.Destroy();
@@ -149,6 +175,7 @@ class Unit : Component
 
 	private void directMeleeAttack(Unit targetUnit)
 	{
+		PhysicalModel.animateMeleeAttack();
 		targetUnit.takeDamage( melee_attack_damage );
 		last_melee_time = Time.Now;
 	}

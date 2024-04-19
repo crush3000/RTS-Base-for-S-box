@@ -71,6 +71,11 @@ class PlayerUnitControl : Component
 		}
 		if (Input.Pressed("Select"))
 		{
+			//var mouseDirection = RTSCam.CamView.ScreenPixelToRay( Mouse.Position );
+			//var mouseRay = Scene.Trace.Ray( mouseDirection, 5000f );
+			//var tr = mouseRay.HitTriggers().Run();
+			//Log.Info( "Hit " + tr.GameObject.Name + "!" );
+
 			//Log.Info( "Click" );
 			////SELECTION CODE
 			///TODO IMPLEMENT SINGLE SELECT CLICK
@@ -105,15 +110,49 @@ class PlayerUnitControl : Component
 		}
 		if( Input.Down( "Command" ) && SelectedUnits.Count > 0)
 		{
-			foreach( var unit in SelectedUnits )
+			UnitModelUtils.CommandType commandType = UnitModelUtils.CommandType.Move;
+			Unit commandTarget = null;
+			var mouseScreenPos = Mouse.Position;
+			var units = Scene.GetAllComponents<Unit>();
+			if ( units != null )
+			{
+				foreach ( var unit in units )
+				{
+					if ( unit != null && unit.team != team )
+					{
+						var unitPos = RTSCam.CamView.PointToScreenPixels( unit.Transform.Position );
+						var screenX = unitPos.x;
+						var screenY = unitPos.y;
+						var unitRec = new Rect( screenX, screenY, 100f, 100f );
+						//Log.Info( "Unit Pos: " + unitRec );
+						if ( unitRec.IsInside( mouseScreenPos ) )
+						{
+							Log.Info( "Team " + team + " " + unit.GameObject.Name + " Selected to be attacked!");
+							commandType = UnitModelUtils.CommandType.Attack;
+							commandTarget = unit;
+							//SelectedUnits.Add( unit );
+							//unit.SelectUnit();
+						}
+					}
+				}
+			}
+			foreach ( var unit in SelectedUnits )
 			{
 				if( unit != null)
 				{
-					//Log.Info( "Unit Moving!" );
-					var mouseDirection = RTSCam.CamView.ScreenPixelToRay( Mouse.Position );
-					var tr = Scene.Trace.Ray( mouseDirection, 5000f ).Run();
-					unit.CommandGiven = true;
-					unit.TargetLocation = tr.EndPosition;
+					if(commandType == UnitModelUtils.CommandType.Move)
+					{
+						//Log.Info( "Unit Moving!" );
+						var mouseDirection = RTSCam.CamView.ScreenPixelToRay( Mouse.Position );
+						var tr = Scene.Trace.Ray( mouseDirection, 5000f ).Run();
+						unit.TargetLocation = tr.EndPosition;
+						
+					}
+					else
+					{
+						unit.TargetUnit = commandTarget;
+					}
+					unit.CommandGiven = commandType;
 				}
 			}
 			/////COMMAND CODE
