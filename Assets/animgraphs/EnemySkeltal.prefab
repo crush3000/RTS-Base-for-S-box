@@ -2,6 +2,7 @@
   "RootObject": {
     "__guid": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
     "Name": "enemyskeltal",
+    "Tags": "unit",
     "Enabled": true,
     "NetworkMode": 2,
     "Components": [

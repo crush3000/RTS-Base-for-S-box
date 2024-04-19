@@ -71,10 +71,20 @@ class PlayerUnitControl : Component
 		}
 		if (Input.Pressed("Select"))
 		{
-			//var mouseDirection = RTSCam.CamView.ScreenPixelToRay( Mouse.Position );
-			//var mouseRay = Scene.Trace.Ray( mouseDirection, 5000f );
-			//var tr = mouseRay.HitTriggers().Run();
-			//Log.Info( "Hit " + tr.GameObject.Name + "!" );
+			var mouseDirection = RTSCam.CamView.ScreenPixelToRay( Mouse.Position );
+			var mouseRay = Scene.Trace.Ray( mouseDirection, 5000f );
+			var tr = mouseRay.HitTriggers().Run();
+			Log.Info( "Hit " + tr.GameObject.Name + "!" );
+			//var hitObjectComponents = tr.GameObject.Components.GetAll().OfType<Unit>();
+			var hitObjectComponents = tr.GameObject.Components.GetAll();
+			foreach ( var hitObjectComponent in hitObjectComponents )
+			{
+				Log.Info( "Hit " + hitObjectComponent.GetType().ToString() + "!" );
+			}
+			if ( hitObjectComponents.Any() )
+			{
+				//Log.Info( "Hit " + hitObjectComponents.First().GetType().ToString() + "!" );
+			}
 
 			//Log.Info( "Click" );
 			////SELECTION CODE
@@ -110,52 +120,57 @@ class PlayerUnitControl : Component
 		}
 		if( Input.Down( "Command" ) && SelectedUnits.Count > 0)
 		{
-			UnitModelUtils.CommandType commandType = UnitModelUtils.CommandType.Move;
+			UnitModelUtils.CommandType commandType = UnitModelUtils.CommandType.None;
 			Unit commandTarget = null;
+			Vector3 moveTarget = new Vector3();
 			var mouseScreenPos = Mouse.Position;
 			var units = Scene.GetAllComponents<Unit>();
-			if ( units != null )
+			//Attack Command
+			var mouseDirection = RTSCam.CamView.ScreenPixelToRay( mouseScreenPos );
+			var mouseRay = Scene.Trace.Ray( mouseDirection, 5000f );
+			var tr = mouseRay.HitTriggers().Run();
+
+			var hitUnitComponents = tr.GameObject.Components.GetAll().OfType<Unit>();
+			var hitWorldObjects = tr.GameObject.Components.GetAll().OfType<MapCollider>();
+
+			if ( hitUnitComponents.Any() )
 			{
-				foreach ( var unit in units )
+				commandType = UnitModelUtils.CommandType.Attack;
+				if (((Unit)(hitUnitComponents.First())).team != team)
 				{
-					if ( unit != null && unit.team != team )
-					{
-						var unitPos = RTSCam.CamView.PointToScreenPixels( unit.Transform.Position );
-						var screenX = unitPos.x;
-						var screenY = unitPos.y;
-						var unitRec = new Rect( screenX, screenY, 100f, 100f );
-						//Log.Info( "Unit Pos: " + unitRec );
-						if ( unitRec.IsInside( mouseScreenPos ) )
-						{
-							Log.Info( "Team " + team + " " + unit.GameObject.Name + " Selected to be attacked!");
-							commandType = UnitModelUtils.CommandType.Attack;
-							commandTarget = unit;
-							//SelectedUnits.Add( unit );
-							//unit.SelectUnit();
-						}
-					}
+					Log.Info( "Team " + team + " " + ((Unit)(hitUnitComponents.First())).GameObject.Name + " Selected to be attacked!" );
+					commandTarget = (Unit)(hitUnitComponents.First());
 				}
 			}
+			else
+			{
+				Log.Info( "Should be a move command" );
+				//Move Command
+				if ( hitWorldObjects.Any())
+				{
+					Log.Info( "MOVIN" );
+					commandType = UnitModelUtils.CommandType.Move;
+					tr = Scene.Trace.Ray( mouseDirection, 5000f ).Run();
+					moveTarget = tr.EndPosition;
+				}
+			}
+			/////COMMAND CODE
 			foreach ( var unit in SelectedUnits )
 			{
-				if( unit != null)
+				if ( unit != null )
 				{
-					if(commandType == UnitModelUtils.CommandType.Move)
+					switch(commandType)
 					{
-						//Log.Info( "Unit Moving!" );
-						var mouseDirection = RTSCam.CamView.ScreenPixelToRay( Mouse.Position );
-						var tr = Scene.Trace.Ray( mouseDirection, 5000f ).Run();
-						unit.TargetLocation = tr.EndPosition;
-						
-					}
-					else
-					{
-						unit.TargetUnit = commandTarget;
+						case UnitModelUtils.CommandType.Move:
+							unit.TargetLocation = moveTarget;
+							break;
+						case UnitModelUtils.CommandType.Attack:
+							unit.TargetUnit = commandTarget;
+							break;
 					}
 					unit.CommandGiven = commandType;
 				}
 			}
-			/////COMMAND CODE
 		}
 	}
 

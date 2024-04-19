@@ -2,6 +2,7 @@
   "RootObject": {
     "__guid": "1ad99cde-ebec-480b-ba4d-58ef33985c9e",
     "Name": "skeltal",
+    "Tags": "unit",
     "Enabled": true,
     "NetworkMode": 2,
     "Components": [

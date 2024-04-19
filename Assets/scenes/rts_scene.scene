@@ -14,7 +14,7 @@
           "team": 0,
           "UnitControl": {
             "_type": "component",
-            "component_id": "f46aa425-999f-4f21-9a65-6a331c77a664",
+            "component_id": "fb8ffabd-6b16-4c27-8f57-3a40db692b09",
             "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
             "component_type": "PlayerUnitControl"
           }
@@ -181,7 +181,7 @@
   },
   "Title": "rts_scene",
   "Description": "",
-  "LastSaved": "2024-04-18T21:46:21.1458987-04:00",
+  "LastSaved": "2024-04-19T16:25:09.5047206-04:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": []

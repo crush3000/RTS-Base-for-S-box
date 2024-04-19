@@ -2,6 +2,7 @@
   "RootObject": {
     "__guid": "6ea9d562-e823-455a-a53b-5a1785e27804",
     "Name": "basicunit",
+    "Tags": "unit",
     "Enabled": true,
     "NetworkMode": 2,
     "Components": [
