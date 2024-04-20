@@ -135,6 +135,13 @@ class Unit : Component
 	//TODO GOTTA FIGURE OUT HOW TO MAKE IT ACTUALLY DISSAPEAR
 	protected override void OnDestroy()
 	{
+		PhysicalModel.Enabled = false;
+		PhysicalModel.Destroy();
+		UnitNavAgent.Enabled = false;
+		UnitNavAgent.Destroy();
+		UnitCollider.Enabled = false;
+		UnitCollider.Destroy();
+		this.Enabled = false;
 		base.OnDestroy();
 
 	}
@@ -166,11 +173,7 @@ class Unit : Component
 	{
 		Log.Info( this.GameObject.Name + " dies!" );
 		PhysicalModel.animateDeath();
-		PhysicalModel.Destroy();
-		UnitNavAgent.Destroy();
-		UnitCollider.Destroy();
-		this.Enabled = false;
-		this.Destroy();
+		Destroy();
 	}
 
 	private void directMeleeAttack(Unit targetUnit)

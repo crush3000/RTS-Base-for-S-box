@@ -47,6 +47,7 @@ class UnitModel : UnitModelBase
 	public override void animateDeath()
 	{
 		model.SceneModel.SetAnimParameter( "onDeath", true );
+		addToCorpsePile();
 	}
 
 	protected override void OnStart()
@@ -76,11 +77,6 @@ class UnitModel : UnitModelBase
 		//setOutlineState( OutlineState.Neutral );
 
 		Log.Info( "Trying to start the animationhandler" );
-
-		//model.SceneModel.UseAnimGraph = true;
-		//model.SceneModel.DirectPlayback.Play( "animations/Infantry/Anim_infantry_01_idle.FBX" );
-		//model.SceneModel.DirectPlayback.Play( "Anim_infantry_01_idle" );
-		//model.SceneModel.DirectPlayback.Play( "PlayAnimation" );
 		foreach ( var anim in model.SceneModel.DirectPlayback.Animations )
 		{
 			Log.Info( anim );

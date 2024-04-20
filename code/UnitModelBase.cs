@@ -4,8 +4,7 @@ using System;
 public abstract class UnitModelBase : Component
 {
 
-	//[Property] public ModelRenderer model { get; set; }
-	[Property] Collider unitCollider { get; set; }
+	[Property] public ModelRenderer model { get; set; }
 
 	[Property] public HighlightOutline outline { get; set; }
 
@@ -16,6 +15,15 @@ public abstract class UnitModelBase : Component
 	public Vector3 UnitSize { get; set; }
 
 	protected bool attackSet = false;
+
+	protected void addToCorpsePile()
+	{
+		var corpseListObjects = Scene.GetAllComponents<CorpseList>();
+		if ( corpseListObjects.Any() )
+		{
+			corpseListObjects.First().addCorpse( model, Time.Now );
+		}
+	}
 
 	public virtual void setOutlineState( UnitModelUtils.OutlineState newState )
 	{
@@ -56,9 +64,18 @@ public abstract class UnitModelBase : Component
 
 	public abstract void animateDamageTaken();
 
-	public abstract void animateDeath();
+	public abstract void animateDeath(); 
 
 	protected override void OnUpdate()
 	{
+	}
+
+	protected override void OnDestroy() 
+	{
+		outline.Enabled = false;
+		outline.Destroy();
+		baseStand.Enabled = false;
+		baseStand.Destroy();
+		base.OnDestroy();
 	}
 }

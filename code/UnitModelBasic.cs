@@ -46,6 +46,7 @@ class UnitModelBasic : UnitModelBase
 
 	public override void animateDeath()
 	{
+		addToCorpsePile();
 		//
 	}
 

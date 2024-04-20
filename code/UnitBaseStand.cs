@@ -62,8 +62,15 @@ public class UnitBaseStand : Component
 		}
 	}
 
-protected override void OnUpdate()
-{
+	protected override void OnUpdate()
+	{
 
-}
+	}
+
+	protected override void OnDestroy()
+	{
+		baseStandModel.Enabled = false;
+		baseStandModel.Destroy();
+		base.OnDestroy();
+	}
 }

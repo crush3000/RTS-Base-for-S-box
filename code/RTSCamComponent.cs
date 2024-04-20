@@ -1,7 +1,6 @@
 
 public sealed class RTSCamComponent : Component
 {
-	[Property] ModelRenderer CamModel { get; set; }
 	[Property] public CameraComponent CamView { get; set; }
 
 	float camMoveSpeed = 2.0F;
