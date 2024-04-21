@@ -5,7 +5,10 @@ class Unit : Component
 {
 	[Property] public UnitModelBase PhysicalModel { get; set; }
 	[Property] public NavMeshAgent UnitNavAgent { get; set; }
-	[Property] public Collider UnitCollider { get; set; }
+	[Property] public Collider UnitMeleeCollider { get; set; }
+	[Property] public Collider UnitAutoMeleeCollider { get; set; }
+	[Property] public Collider UnitRangedAttackCollider { get; set; }
+
 	[Property] public int team { get; set; }
 
 	Vector3 UnitSize { get; set; }
@@ -97,9 +100,9 @@ class Unit : Component
 		}
 
 		// Handle Attacks
-		if( UnitCollider != null ) 
+		if( UnitMeleeCollider != null ) 
 		{
-			var unitsInMeleeRange = UnitCollider.Touching;
+			var unitsInMeleeRange = UnitMeleeCollider.Touching;
 			if ( unitsInMeleeRange.Any())
 			{
 				foreach(var collisions in unitsInMeleeRange)
@@ -139,8 +142,8 @@ class Unit : Component
 		PhysicalModel.Destroy();
 		UnitNavAgent.Enabled = false;
 		UnitNavAgent.Destroy();
-		UnitCollider.Enabled = false;
-		UnitCollider.Destroy();
+		UnitMeleeCollider.Enabled = false;
+		UnitMeleeCollider.Destroy();
 		this.Enabled = false;
 		base.OnDestroy();
 

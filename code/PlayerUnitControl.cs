@@ -154,11 +154,10 @@ class PlayerUnitControl : Component
 			}
 			else
 			{
-				Log.Info( "Should be a move command" );
+				//Log.Info( "Should be a move command" );
 				//Move Command
 				if ( hitWorldObjects.Any())
 				{
-					Log.Info( "MOVIN" );
 					commandType = UnitModelUtils.CommandType.Move;
 					tr = Scene.Trace.Ray( mouseDirection, 5000f ).Run();
 					moveTarget = tr.EndPosition;

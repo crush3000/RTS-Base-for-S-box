@@ -19,9 +19,6 @@ public sealed class RTSCamComponent : Component
 		var currentGroundZLevel = tr.EndPosition.z;
 		//Log.Info("Z Level Below Me: " +  currentGroundZLevel);
 
-
-		//var bbox = BBox.FromPositionAndSize( 0, 5 );
-
 		// Move Camera
 		Vector3 movement = 0;
 		// Handle WASD Movement

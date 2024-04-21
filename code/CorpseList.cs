@@ -25,6 +25,7 @@ class CorpseList : Component
 			}
 			foreach( var corpse in removeCorpses )
 			{
+				Log.Info( "Corpse Removed, corpse timeout!" );
 				corpsePile.Remove( corpse );
 				corpse.Item1.Enabled = false;
 				corpse.Item1.Destroy();
@@ -35,10 +36,13 @@ class CorpseList : Component
 	public void addCorpse(ModelRenderer corpseModel, float timeOfDeath)
 	{
 		corpsePile.Add( (corpseModel, timeOfDeath) );
+		Log.Info( "Corpse Added!" );
 		if( ImposeCorpseLimit)
 		{
 			if ( corpsePile.Count > CorpseLimit )
 			{
+				Log.Info( "Corpse Removed, hit corpse limit!" );
+				corpsePile.First().Item1.Destroy();
 				corpsePile.Remove( corpsePile.First() );
 			}
 		}

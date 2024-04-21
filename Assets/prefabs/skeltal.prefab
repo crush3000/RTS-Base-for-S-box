@@ -16,12 +16,6 @@
           "component_type": "UnitModel"
         },
         "team": 0,
-        "UnitCollider": {
-          "_type": "component",
-          "component_id": "216155b9-4652-4087-8f4d-6195a5752c60",
-          "go": "1ad99cde-ebec-480b-ba4d-58ef33985c9e",
-          "component_type": "CapsuleCollider"
-        },
         "UnitNavAgent": {
           "_type": "component",
           "component_id": "7a9f19cb-70f2-44ed-948b-1c85f63dc65b",
@@ -45,8 +39,16 @@
         "__guid": "216155b9-4652-4087-8f4d-6195a5752c60",
         "End": "0,0,180",
         "IsTrigger": true,
-        "Radius": 70,
+        "Radius": 100,
         "Start": "0,0,0",
+        "Static": false
+      },
+      {
+        "__type": "Sandbox.SphereCollider",
+        "__guid": "dc4a05e7-30f3-4df6-b261-79dbc628ead6",
+        "Center": "0,0,0",
+        "IsTrigger": false,
+        "Radius": 600,
         "Static": false
       }
     ],
