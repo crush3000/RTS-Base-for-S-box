@@ -223,6 +223,7 @@ class Unit : Component
 
 	public void stopMoving()
 	{
+		homeTargetLocation = Transform.Position;
 		UnitNavAgent.Stop();
 	}
 
