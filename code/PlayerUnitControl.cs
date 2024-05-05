@@ -92,13 +92,13 @@ class PlayerUnitControl : Component
 								//Log.Info( "Team " + team + " " + unit.GameObject.Name + " Selected from team " + unit.team );
 								//Select Unit
 								SelectedUnits.Add( unit );
-								unit.SelectUnit();
+								unit.selectUnit();
 							}
 							// Deselect and units that are not selected
 							else
 							{
 								SelectedUnits.Remove( unit );
-								unit.DeSelectUnit();
+								unit.deSelectUnit();
 							}
 						}
 					}
@@ -112,7 +112,7 @@ class PlayerUnitControl : Component
 				// Delesect all currently selected
 				foreach ( Unit unit in SelectedUnits )
 				{
-						unit.DeSelectUnit();
+						unit.deSelectUnit();
 				}
 				SelectedUnits.Clear();
 				// Set up and run mouse ray to find what we're now selecting
@@ -133,7 +133,7 @@ class PlayerUnitControl : Component
 						//Log.Info( "Team " + team + " " + selectedUnit.GameObject.Name + " Selected from team " + selectedUnit.team );
 						// Select Unit
 						SelectedUnits.Add( selectedUnit );
-						selectedUnit.SelectUnit();
+						selectedUnit.selectUnit();
 					}
 				}
 			}

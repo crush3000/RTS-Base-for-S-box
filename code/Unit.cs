@@ -32,10 +32,12 @@ class Unit : Component
 	private float maxChaseDistanceFromHome = 600f;
 
 	private int currentHealthPoints = 100;
-	private const string MELEE_COLLIDER_TAG = "melee_collider";
 	private const string UNIT_TAG = "unit";
 
 	private float lastMeleeTime = Time.Now;
+
+	private float lastMoveOrderTime = Time.Now;
+	private const float MOVE_ORDER_FREQUENCY = .1f;
 
 	protected override void OnStart()
 	{
@@ -57,19 +59,19 @@ class Unit : Component
 			{
 				if(targetUnit != null )
 				{
-					UnitNavAgent.MoveTo( targetUnit.Transform.Position );
+					move( targetUnit.Transform.Position, false );
 				}
 				//Reset if unit is killed or deleted or something
 				else
 				{
 					commandGiven = UnitModelUtils.CommandType.None;
-					UnitNavAgent.Stop();
+					stopMoving();
 				}
 			}
 			// Move Command
 			else if (commandGiven == UnitModelUtils.CommandType.Move )
 			{
-				UnitNavAgent.MoveTo( homeTargetLocation );
+				move( homeTargetLocation, true );
 				commandGiven = UnitModelUtils.CommandType.None;
 			}
 		}
@@ -78,16 +80,16 @@ class Unit : Component
 		{
 			if( tempTargetUnit.Transform.Position.Distance( homeTargetLocation ) < maxChaseDistanceFromHome )
 			{
-				UnitNavAgent.MoveTo(tempTargetUnit.Transform.Position);
+				move( tempTargetUnit.Transform.Position, false);
 			}
 			else
 			{
-				UnitNavAgent.MoveTo( homeTargetLocation );
+				move( homeTargetLocation, false );
 			}
 		}
 		else
 		{
-			UnitNavAgent.MoveTo( homeTargetLocation );
+			move( homeTargetLocation, false );
 		}
 
 		// Handle Attacks
@@ -116,27 +118,31 @@ class Unit : Component
 			}
 		}
 		// Auto Melee
-		if(UnitAutoMeleeCollider != null && tempTargetUnit == null )
+		if(UnitAutoMeleeCollider != null)
 		{
-			// Get touching trigger colliders
-			var collidersInAutoMeleeRange = UnitAutoMeleeCollider.Touching;
 			var validUnitFound = false;
-			// Select colliders belonging to Units
-			if(collidersInAutoMeleeRange.Where(col => col.Tags.Has(UNIT_TAG)).Any())
+			if ( tempTargetUnit == null )
 			{
-				// Select only melee colliders
-				foreach ( var collision in collidersInAutoMeleeRange.Where( col => col == (col.GameObject.Components.Get<Unit>()).UnitMeleeCollider ))
+				// Get touching trigger colliders
+				var collidersInAutoMeleeRange = UnitAutoMeleeCollider.Touching;
+				// Select colliders belonging to Units
+				if ( collidersInAutoMeleeRange.Where( col => col.Tags.Has( UNIT_TAG ) ).Any() )
 				{
-					var unitCollidedWith = collision.GameObject.Components.GetAll().OfType<Unit>().First();
-					// If it is a unit of the opposite team
-					if (unitCollidedWith.team != team)
+					// Select only melee colliders
+					foreach ( var collision in collidersInAutoMeleeRange.Where( col => col == (col.GameObject.Components.Get<Unit>()).UnitMeleeCollider ) )
 					{
-						//Log.Info( this.GameObject.Name + " will attack " + collisions.GameObject.Name + "!" );
-						tempTargetUnit = unitCollidedWith;
-						validUnitFound = true;
+						var unitCollidedWith = collision.GameObject.Components.GetAll().OfType<Unit>().First();
+						// If it is a unit of the opposite team
+						if ( unitCollidedWith.team != team )
+						{
+							//Log.Info( this.GameObject.Name + " will attack " + collisions.GameObject.Name + "!" );
+							tempTargetUnit = unitCollidedWith;
+							validUnitFound = true;
+						}
 					}
 				}
 			}
+			// Reset automelee if nothing in range
 			if(validUnitFound != true) 
 			{
 				tempTargetUnit = null;
@@ -178,13 +184,13 @@ class Unit : Component
 
 	}
 
-	public void SelectUnit()
+	public void selectUnit()
 	{
 		selected = true;
 		PhysicalModel.setOutlineState( UnitModelUtils.OutlineState.Selected );
 	}
 
-	public void DeSelectUnit()
+	public void deSelectUnit()
 	{
 		selected = false;
 		PhysicalModel.setOutlineState( UnitModelUtils.OutlineState.Mine );
@@ -199,6 +205,24 @@ class Unit : Component
 		{
 			die();
 		}
+	}
+
+	public void move(Vector3 location, bool isNewMoveCommand)
+	{
+		if(location != UnitNavAgent.TargetPosition)
+		{
+			if(isNewMoveCommand || Time.Now - lastMoveOrderTime >= MOVE_ORDER_FREQUENCY )
+			{
+				lastMoveOrderTime = Time.Now;
+				Log.Info( "Move Command Sent: " + UnitNavAgent.TargetPosition );
+				UnitNavAgent.MoveTo( location );
+			}
+		}
+	}
+
+	public void stopMoving()
+	{
+		UnitNavAgent.Stop();
 	}
 
 	private void die()
