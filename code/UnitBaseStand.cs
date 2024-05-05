@@ -8,34 +8,6 @@ public class UnitBaseStand : Component
 
 	[Property] public UnitModelUtils.OutlineState selectionOutlineState = UnitModelUtils.OutlineState.Mine;
 
-
-	//public UnitBaseStand()
-	//{
-	//	Log.Info( "Create Base Stand!" );
-	//	baseStandModel = new ModelRenderer();
-	//	selectionOutlineState = UnitModel.OutlineState.Neutral;
-	//}
-
-	//public UnitBaseStand(UnitModel.OutlineState originalOState)
-	//{
-	//	Log.Info( "Create Specific Base Stand!" );
-	//	baseStandModel = new ModelRenderer();
-	//	selectionOutlineState = originalOState;
-	//}
-
-	//protected override void OnStart()
-	//{
-		//base.OnStart();
-		//baseStandModel = new ModelRenderer();
-		//baseStandModel.Model = Model.Load( "models/vidya/cylinder_white_64.vmdl_c" );
-		//baseStandModel.Model = Model.Load( "models/cylinder_white_64.vmdl_c" );
-		//baseStandModel.Transform.LocalScale = new Vector3( 0.5f, 0.5f, 0.01f );
-		//baseStandModel.Tint = new Color( UnitModel.mineColor );
-
-
-		//selectionOutlineState = UnitModel.OutlineState.Neutral;
-	//}
-
 	public void setOutlineState(UnitModelUtils.OutlineState newOState )
 	{
 		selectionOutlineState = newOState;

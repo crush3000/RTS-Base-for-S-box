@@ -10,6 +10,5 @@ class RTSPlayer : Component
 	{
 		base.OnStart();
 		UnitControl = new PlayerUnitControl();
-		//team = 99;
 	}
 }

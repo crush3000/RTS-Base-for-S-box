@@ -10,116 +10,138 @@ class Unit : Component
 	[Property] public Collider UnitRangedAttackCollider { get; set; }
 
 	[Property] public int team { get; set; }
+	[Property] public Vector3 UnitSize { get; set; }
+	[Property] public float UnitSpeed { get; set; }
+	[Property] public int UnitMaxHealth { get; set; }
+	[Property] public bool HasMeleeAttack { get; set; }
+	[Property] public int MeleeAttackDamage { get; set; }
+	[Property] public float MeleeAttackSpeed { get; set; }
+	[Property] public bool HasRangedAttack { get; set; }
+	[Property] public int RangedAttackDamage { get; set; }
+	[Property] public float RangedAttackSpeed { get; set; }
+	//[Property] public UnitType ThisUnitType { get; set; }
+	[Property] public UnitTriggerListener TriggerListener { get; set; }
 
-	Vector3 UnitSize { get; set; }
-	//Enum UnitType { get; set; }
-	//Enum UnitState { get; set; }
-	bool Selected { get; set; }
-	public UnitModelUtils.CommandType CommandGiven { get; set; }
-	public Vector3 TargetLocation { get; set; }
+	bool selected { get; set; }
+	public UnitModelUtils.CommandType commandGiven { get; set; }
+	public Vector3 homeTargetLocation { get; set; }
+	public Unit targetUnit { get; set; }
+	public Unit tempTargetUnit { get; set; }
 
-	public Unit TargetUnit { get; set; }
+	// This will be a factor of the unit size I imagine
+	private float maxChaseDistanceFromHome = 600f;
 
-	private int health_points = 100;
+	private int currentHealthPoints = 100;
+	private const string MELEE_COLLIDER_TAG = "melee_collider";
+	private const string UNIT_TAG = "unit";
 
-	private int melee_attack_damage = 20;
-
-	private float melee_attack_speed = 1.5f;
-
-	private float last_melee_time = Time.Now;
-
-	//public Unit()
-	//{
-	//	Log.Info("Creating Unit");
-	//	PhysicalModel = new UnitModel();
-	//	UnitNavAgent = new NavMeshAgent();
-	//	UnitSize = new Vector3(60, 60);
-	//	Selected = false;
-	//	CommandGiven = false;
-	//	TargetLocation = Vector3.Zero;
-	//}
-
-	//protected override void OnAwake()
-	//{
-		//base.OnAwake();
-		//Log.Info( "Creating Unit for " + this.GameObject );
-		//PhysicalModel = new UnitModel();
-
-		//UnitNavAgent = new NavMeshAgent();
-		//UnitNavAgent.Height = 20;
-		//UnitNavAgent.Radius = 5;
-		//UnitNavAgent.MaxSpeed = 60;
-		//UnitNavAgent.Acceleration = 600;
-		//UnitNavAgent.UpdatePosition = true;
-		//UnitNavAgent.UpdateRotation = true;
-
-		//UnitSize = new Vector3( 60, 60 );
-		//Selected = false;
-		//CommandGiven = false;
-		//TargetLocation = Vector3.Zero;
-	//}
-
-	//protected override void OnStart()
-	//{
-		//base.OnStart();
-		//PhysicalModel = new UnitModelBasic();
-		//UnitNavAgent = new NavMeshAgent();
-		//team = 99;
-		//UnitSize = new Vector3( 5, 5, 5 );
-	//}
+	private float lastMeleeTime = Time.Now;
 
 	protected override void OnStart()
 	{
 		base.OnStart();
-		CommandGiven = UnitModelUtils.CommandType.None;
+		commandGiven = UnitModelUtils.CommandType.None;
+		homeTargetLocation = Transform.Position;
+		currentHealthPoints = UnitMaxHealth;
+		setRelativeUnitSizeHelper(UnitSize);
+		Tags.Add( UNIT_TAG );
 	}
 
 	protected override void OnUpdate()
 	{
-		// Handle Move Command
-		if ( CommandGiven != UnitModelUtils.CommandType.None )
+		// Handle Player Commands
+		if ( commandGiven != UnitModelUtils.CommandType.None )
 		{
-			if(CommandGiven == UnitModelUtils.CommandType.Attack)
+			// Attack Command
+			if(commandGiven == UnitModelUtils.CommandType.Attack)
 			{
-				if(TargetUnit != null )
+				if(targetUnit != null )
 				{
-					UnitNavAgent.MoveTo( TargetUnit.Transform.Position );
+					UnitNavAgent.MoveTo( targetUnit.Transform.Position );
 				}
 				//Reset if unit is killed or deleted or something
 				else
 				{
-					CommandGiven = UnitModelUtils.CommandType.None;
+					commandGiven = UnitModelUtils.CommandType.None;
+					UnitNavAgent.Stop();
 				}
-
 			}
-			else if(CommandGiven == UnitModelUtils.CommandType.Move )
+			// Move Command
+			else if (commandGiven == UnitModelUtils.CommandType.Move )
 			{
-				UnitNavAgent.MoveTo( TargetLocation );
-				CommandGiven = UnitModelUtils.CommandType.None;
+				UnitNavAgent.MoveTo( homeTargetLocation );
+				commandGiven = UnitModelUtils.CommandType.None;
 			}
+		}
+		// Move To closeby enemy
+		else if( tempTargetUnit != null)
+		{
+			if( tempTargetUnit.Transform.Position.Distance( homeTargetLocation ) < maxChaseDistanceFromHome )
+			{
+				UnitNavAgent.MoveTo(tempTargetUnit.Transform.Position);
+			}
+			else
+			{
+				UnitNavAgent.MoveTo( homeTargetLocation );
+			}
+		}
+		else
+		{
+			UnitNavAgent.MoveTo( homeTargetLocation );
 		}
 
 		// Handle Attacks
-		if( UnitMeleeCollider != null ) 
+		// Attack Unit in melee range
+		if ( UnitMeleeCollider != null ) 
 		{
-			var unitsInMeleeRange = UnitMeleeCollider.Touching;
-			if ( unitsInMeleeRange.Any())
+			// Get touching trigger colliders
+			var collidersInMeleeRange = UnitMeleeCollider.Touching;
+			// Select colliders belonging to Units
+			if ( collidersInMeleeRange.Where( col => col.Tags.Has( UNIT_TAG ) ).Any() )
 			{
-				foreach(var collisions in unitsInMeleeRange)
+				// Select only melee colliders
+				foreach ( var collision in collidersInMeleeRange.Where( col => col == (col.GameObject.Components.Get<Unit>()).UnitMeleeCollider ))
 				{
-					var collidedObjectGOComponents = collisions.GameObject.Components.GetAll();
-					if ( collidedObjectGOComponents.OfType<Unit>().Any() && collidedObjectGOComponents.OfType<Unit>().First().team != team) 
+					var unitCollidedWith = collision.GameObject.Components.GetAll().OfType<Unit>().First();
+					// If it is a unit of the opposite team
+					if ( unitCollidedWith.team != team) 
 					{
-						if(Time.Now - last_melee_time > melee_attack_speed )
+						if (Time.Now - lastMeleeTime > MeleeAttackSpeed )
 						{
-							Log.Info( this.GameObject.Name + " attacks " + collisions.GameObject.Name + " for " + melee_attack_damage + " damage!" );
-							directMeleeAttack( collidedObjectGOComponents.OfType<Unit>().First());
+							//Log.Info( this.GameObject.Name + " attacks " + collisions.GameObject.Name + " for " + melee_attack_damage + " damage!" );
+							directMeleeAttack( unitCollidedWith);
 						}
 					}
 				}
 			}
 		}
-
+		// Auto Melee
+		if(UnitAutoMeleeCollider != null && tempTargetUnit == null )
+		{
+			// Get touching trigger colliders
+			var collidersInAutoMeleeRange = UnitAutoMeleeCollider.Touching;
+			var validUnitFound = false;
+			// Select colliders belonging to Units
+			if(collidersInAutoMeleeRange.Where(col => col.Tags.Has(UNIT_TAG)).Any())
+			{
+				// Select only melee colliders
+				foreach ( var collision in collidersInAutoMeleeRange.Where( col => col == (col.GameObject.Components.Get<Unit>()).UnitMeleeCollider ))
+				{
+					var unitCollidedWith = collision.GameObject.Components.GetAll().OfType<Unit>().First();
+					// If it is a unit of the opposite team
+					if (unitCollidedWith.team != team)
+					{
+						//Log.Info( this.GameObject.Name + " will attack " + collisions.GameObject.Name + "!" );
+						tempTargetUnit = unitCollidedWith;
+						validUnitFound = true;
+					}
+				}
+			}
+			if(validUnitFound != true) 
+			{
+				tempTargetUnit = null;
+			}
+		}
 
 		// Handle Animations
 		if (PhysicalModel != null && UnitNavAgent != null) 
@@ -135,7 +157,7 @@ class Unit : Component
 		}
 	}
 
-	//TODO GOTTA FIGURE OUT HOW TO MAKE IT ACTUALLY DISSAPEAR
+	// Cleanup
 	protected override void OnDestroy()
 	{
 		PhysicalModel.Enabled = false;
@@ -144,6 +166,13 @@ class Unit : Component
 		UnitNavAgent.Destroy();
 		UnitMeleeCollider.Enabled = false;
 		UnitMeleeCollider.Destroy();
+		UnitAutoMeleeCollider.Enabled = false;
+		UnitAutoMeleeCollider.Destroy();
+		if(UnitRangedAttackCollider != null )
+		{
+			UnitRangedAttackCollider.Enabled = false;
+			UnitRangedAttackCollider.Destroy();
+		}
 		this.Enabled = false;
 		base.OnDestroy();
 
@@ -151,22 +180,22 @@ class Unit : Component
 
 	public void SelectUnit()
 	{
-		Selected = true;
+		selected = true;
 		PhysicalModel.setOutlineState( UnitModelUtils.OutlineState.Selected );
 	}
 
 	public void DeSelectUnit()
 	{
-		Selected = false;
+		selected = false;
 		PhysicalModel.setOutlineState( UnitModelUtils.OutlineState.Mine );
 	}
 
 	public void takeDamage(int damage)
 	{
-		Log.Info( this.GameObject.Name + " takes " + damage + " damage!");
+		//Log.Info( this.GameObject.Name + " takes " + damage + " damage!");
 		PhysicalModel.animateDamageTaken();
-		health_points -= damage;
-		if( health_points < 0 )
+		currentHealthPoints -= damage;
+		if( currentHealthPoints < 0 )
 		{
 			die();
 		}
@@ -174,7 +203,7 @@ class Unit : Component
 
 	private void die()
 	{
-		Log.Info( this.GameObject.Name + " dies!" );
+		//Log.Info( this.GameObject.Name + " dies!" );
 		PhysicalModel.animateDeath();
 		Destroy();
 	}
@@ -182,7 +211,13 @@ class Unit : Component
 	private void directMeleeAttack(Unit targetUnit)
 	{
 		PhysicalModel.animateMeleeAttack();
-		targetUnit.takeDamage( melee_attack_damage );
-		last_melee_time = Time.Now;
+		targetUnit.takeDamage( MeleeAttackDamage );
+		lastMeleeTime = Time.Now;
+	}
+
+	private void setRelativeUnitSizeHelper(Vector3 unitSize)
+	{
+
+		//TODO
 	}
 }

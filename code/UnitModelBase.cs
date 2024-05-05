@@ -65,6 +65,7 @@ public abstract class UnitModelBase : Component
 	public abstract void animateDamageTaken();
 
 	public abstract void animateDeath(); 
+	public abstract void setModelSize(Vector3 size);
 
 	protected override void OnUpdate()
 	{

@@ -5,18 +5,38 @@
     "Tags": "unit",
     "Enabled": true,
     "NetworkMode": 2,
+    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Unit",
         "__guid": "995580de-2d22-4bca-a225-42c663e3b303",
+        "HasMeleeAttack": true,
+        "HasRangedAttack": false,
+        "MeleeAttackDamage": 20,
+        "MeleeAttackSpeed": 1.5,
         "PhysicalModel": {
           "_type": "component",
           "component_id": "ade42ab9-eb04-44ea-a252-8ac0bc0ca736",
           "go": "30d479cd-5b1b-4bf3-920b-e15a743d4094",
           "component_type": "UnitModel"
         },
+        "RangedAttackDamage": 0,
+        "RangedAttackSpeed": 0,
         "team": 1,
-        "UnitCollider": {
+        "TriggerListener": {
+          "_type": "component",
+          "component_id": "edb9b623-4979-4ee6-b715-330fff102d0c",
+          "go": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
+          "component_type": "UnitTriggerListener"
+        },
+        "UnitAutoMeleeCollider": {
+          "_type": "component",
+          "component_id": "ff3a35cf-d4fc-4589-979c-ebab9821c354",
+          "go": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
+          "component_type": "SphereCollider"
+        },
+        "UnitMaxHealth": 100,
+        "UnitMeleeCollider": {
           "_type": "component",
           "component_id": "c9950371-221e-42f6-b00e-41e8308ccbb9",
           "go": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
@@ -27,7 +47,9 @@
           "component_id": "37eabd0e-82fc-497f-b041-c89bf6415d3b",
           "go": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
           "component_type": "NavMeshAgent"
-        }
+        },
+        "UnitSize": "0.1,0.1,0.1",
+        "UnitSpeed": 60
       },
       {
         "__type": "Sandbox.NavMeshAgent",
@@ -48,6 +70,18 @@
         "Radius": 100,
         "Start": "0,0,0",
         "Static": false
+      },
+      {
+        "__type": "Sandbox.SphereCollider",
+        "__guid": "ff3a35cf-d4fc-4589-979c-ebab9821c354",
+        "Center": "0,0,0",
+        "IsTrigger": true,
+        "Radius": 600,
+        "Static": false
+      },
+      {
+        "__type": "UnitTriggerListener",
+        "__guid": "edb9b623-4979-4ee6-b715-330fff102d0c"
       }
     ],
     "Children": [
@@ -56,6 +90,7 @@
         "Name": "BasicUnitModel",
         "Enabled": true,
         "NetworkMode": 2,
+        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.HighlightOutline",
@@ -107,6 +142,7 @@
             "Scale": "2,2,0.01",
             "Enabled": true,
             "NetworkMode": 2,
+            "NetworkInterpolation": true,
             "Components": [
               {
                 "__type": "UnitBaseStand",

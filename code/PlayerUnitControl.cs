@@ -30,9 +30,11 @@ class PlayerUnitControl : Component
 	protected override void OnUpdate()
 	{
 		// Select Controls
+		// Select Is now Pressed
 		if ( Input.Pressed( "Select" ) )
 		{
 			startSelectTime = Time.Now;
+			//TODO Make some kind of debug interface for logging what's clicked on
 			//var mouseDirection = RTSCam.CamView.ScreenPixelToRay( Mouse.Position );
 			//var mouseRay = Scene.Trace.Ray( mouseDirection, 5000f );
 			//var tr = mouseRay.HitTriggers().Run();
@@ -49,6 +51,7 @@ class PlayerUnitControl : Component
 			//}
 		}
 
+		// Select is held down
 		else if ( Input.Down( "Select" ) )
 		{
 			if ( !isSelecting ) 
@@ -56,37 +59,42 @@ class PlayerUnitControl : Component
 				isSelecting = true;
 				startSelectPos = Mouse.Position;
 			}
-			//Log.Info( "Still Selecting!" );
 			if(Time.Now - startSelectTime > CLICK_TIME)
 			{
 				endRectPos = Mouse.Position;
 				drawSelectionRect();
 			}
-			//var groundRay = Scene.Trace.Ray( new Ray( CamPosition, ), 5000.0F );
 		}
 
+		// Select button has been released
 		else if(Input.Released("Select"))
 		{
+			// For a drag just make sure we give them some time to actually click
 			if( Time.Now - startSelectTime > CLICK_TIME )
 			{
 				//Log.Info( "Release" );
 				isSelecting = false;
 				endRectPos = Mouse.Position;
+				// Get ALL units. This is possibly a bad idea for speed
 				var units = Scene.GetAllComponents<Unit>();
+				// Select Units under rectangle
 				if ( units != null )
 				{
 					foreach ( var unit in units )
 					{
+						// Ensure these are our units
 						if ( unit != null && unit.team == team )
 						{
 							var unitPos = RTSCam.CamView.PointToScreenPixels( unit.Transform.Position );
 							//Log.Info( "Unit Pos: " + unitRec );
 							if ( selectionRect.IsInside( unitPos ) )
 							{
-								Log.Info( "Team " + team + " " + unit.GameObject.Name + " Selected from team " + unit.team );
+								//Log.Info( "Team " + team + " " + unit.GameObject.Name + " Selected from team " + unit.team );
+								//Select Unit
 								SelectedUnits.Add( unit );
 								unit.SelectUnit();
 							}
+							// Deselect and units that are not selected
 							else
 							{
 								SelectedUnits.Remove( unit );
@@ -97,30 +105,33 @@ class PlayerUnitControl : Component
 				}
 				stopDrawSelectionRect();
 			}
+			// This is for a single click
 			else
 			{
-				SelectedUnits.Clear();
 				var mouseScreenPos = Mouse.Position;
-				var units = Scene.GetAllComponents<Unit>();
-				foreach ( Unit unit in units )
+				// Delesect all currently selected
+				foreach ( Unit unit in SelectedUnits )
 				{
-					if ( unit.team == team )
-					{
 						unit.DeSelectUnit();
-					}
 				}
+				SelectedUnits.Clear();
+				// Set up and run mouse ray to find what we're now selecting
 				var mouseDirection = RTSCam.CamView.ScreenPixelToRay( mouseScreenPos );
 				var mouseRay = Scene.Trace.Ray( mouseDirection, 5000f );
 				var tr = mouseRay.HitTriggers().Run();
 
+				// Get unit under ray
 				var hitUnitComponents = tr.GameObject.Components.GetAll().OfType<Unit>();
 
+				// Select unit if one is hit
 				if ( hitUnitComponents.Any() )
 				{
 					var selectedUnit = ((Unit)(hitUnitComponents.First()));
+					// Make sure the unit is ours
 					if ( selectedUnit.team == team)
 					{
-						Log.Info( "Team " + team + " " + selectedUnit.GameObject.Name + " Selected from team " + selectedUnit.team );
+						//Log.Info( "Team " + team + " " + selectedUnit.GameObject.Name + " Selected from team " + selectedUnit.team );
+						// Select Unit
 						SelectedUnits.Add( selectedUnit );
 						selectedUnit.SelectUnit();
 					}
@@ -130,32 +141,33 @@ class PlayerUnitControl : Component
 		}
 
 		// Command Controls
-		if( Input.Down( "Command" ) && SelectedUnits.Count > 0)
+		// Command Button was just pressed
+		if( Input.Pressed( "Command" ) && SelectedUnits.Count > 0)
 		{
+			// Init command vars
 			UnitModelUtils.CommandType commandType = UnitModelUtils.CommandType.None;
 			Unit commandTarget = null;
 			Vector3 moveTarget = new Vector3();
+			// Draw mouse ray
 			var mouseScreenPos = Mouse.Position;
 			var mouseDirection = RTSCam.CamView.ScreenPixelToRay( mouseScreenPos );
 			var mouseRay = Scene.Trace.Ray( mouseDirection, 5000f );
 			var tr = mouseRay.HitTriggers().Run();
-
+			// Get hit components
 			var hitUnitComponents = tr.GameObject.Components.GetAll().OfType<Unit>();
 			var hitWorldObjects = tr.GameObject.Components.GetAll().OfType<MapCollider>();
-
-			if ( hitUnitComponents.Any() )
+			
+			// Set Up Attack Command if we hit an enemy unit
+			// TODO Probably make sure that if we hit friendly units instead that it goes to a move, actually just test this code
+			if ( hitUnitComponents.Any() && ((Unit)(hitUnitComponents.First())).team != team )
 			{
 				commandType = UnitModelUtils.CommandType.Attack;
-				if (((Unit)(hitUnitComponents.First())).team != team)
-				{
-					Log.Info( "Team " + team + " " + ((Unit)(hitUnitComponents.First())).GameObject.Name + " Selected to be attacked!" );
-					commandTarget = (Unit)(hitUnitComponents.First());
-				}
+				Log.Info( "Team " + team + " " + ((Unit)(hitUnitComponents.First())).GameObject.Name + " Selected to be attacked!" );
+				commandTarget = (Unit)(hitUnitComponents.First());
 			}
+			// Otherwise Set Up Move Command
 			else
 			{
-				//Log.Info( "Should be a move command" );
-				//Move Command
 				if ( hitWorldObjects.Any())
 				{
 					commandType = UnitModelUtils.CommandType.Move;
@@ -163,7 +175,7 @@ class PlayerUnitControl : Component
 					moveTarget = tr.EndPosition;
 				}
 			}
-			/////COMMAND CODE
+			// Issue Command
 			foreach ( var unit in SelectedUnits )
 			{
 				if ( unit != null )
@@ -171,13 +183,13 @@ class PlayerUnitControl : Component
 					switch(commandType)
 					{
 						case UnitModelUtils.CommandType.Move:
-							unit.TargetLocation = moveTarget;
+							unit.homeTargetLocation = moveTarget;
 							break;
 						case UnitModelUtils.CommandType.Attack:
-							unit.TargetUnit = commandTarget;
+							unit.targetUnit = commandTarget;
 							break;
 					}
-					unit.CommandGiven = commandType;
+					unit.commandGiven = commandType;
 				}
 			}
 		}
@@ -185,8 +197,6 @@ class PlayerUnitControl : Component
 
 	private void drawSelectionRect()
 	{
-		//selectionPanel.Enabled = true;
-		//selectionPanel
 		selectionRect = new Rect(
 			Math.Min(startSelectPos.x, endRectPos.x),
 			Math.Min( startSelectPos.y, endRectPos.y),
