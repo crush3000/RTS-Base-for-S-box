@@ -57,7 +57,7 @@ class Unit : Component
 			// Attack Command
 			if(commandGiven == UnitModelUtils.CommandType.Attack)
 			{
-				if(targetUnit != null )
+				if(targetUnit.Enabled == true )
 				{
 					move( targetUnit.Transform.Position, false );
 				}
@@ -78,6 +78,7 @@ class Unit : Component
 		// Move To closeby enemy
 		else if( tempTargetUnit != null)
 		{
+			//Log.Info( tempTargetUnit.GameObject.Name);
 			if( tempTargetUnit.Transform.Position.Distance( homeTargetLocation ) < maxChaseDistanceFromHome )
 			{
 				move( tempTargetUnit.Transform.Position, false);
