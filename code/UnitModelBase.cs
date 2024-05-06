@@ -33,24 +33,24 @@ public abstract class UnitModelBase : Component
 			switch ( newState )
 			{
 				case UnitModelUtils.OutlineState.Mine:
-					outline.InsideObscuredColor = new Color( UnitModelUtils.mineColor );
-					outline.ObscuredColor = new Color( UnitModelUtils.mineColor );
+					outline.InsideObscuredColor = new Color( UnitModelUtils.COLOR_MINE );
+					outline.ObscuredColor = new Color( UnitModelUtils.COLOR_MINE );
 					break;
 				case UnitModelUtils.OutlineState.Ally:
-					outline.InsideObscuredColor = new Color( UnitModelUtils.allyColor );
-					outline.ObscuredColor = new Color( UnitModelUtils.allyColor );
+					outline.InsideObscuredColor = new Color( UnitModelUtils.COLOR_ALLY );
+					outline.ObscuredColor = new Color( UnitModelUtils.COLOR_ALLY );
 					break;
 				case UnitModelUtils.OutlineState.Neutral:
-					outline.InsideObscuredColor = new Color( UnitModelUtils.neutralColor );
-					outline.ObscuredColor = new Color( UnitModelUtils.neutralColor );
+					outline.InsideObscuredColor = new Color( UnitModelUtils.COLOR_NEUTRAL );
+					outline.ObscuredColor = new Color( UnitModelUtils.COLOR_NEUTRAL );
 					break;
 				case UnitModelUtils.OutlineState.Hostile:
-					outline.InsideObscuredColor = new Color( UnitModelUtils.hostileColor );
-					outline.ObscuredColor = new Color( UnitModelUtils.hostileColor );
+					outline.InsideObscuredColor = new Color( UnitModelUtils.COLOR_HOSTILE );
+					outline.ObscuredColor = new Color( UnitModelUtils.COLOR_HOSTILE );
 					break;
 				case UnitModelUtils.OutlineState.Selected:
-					outline.InsideObscuredColor = new Color( UnitModelUtils.selectedColor );
-					outline.ObscuredColor = new Color( UnitModelUtils.selectedColor );
+					outline.InsideObscuredColor = new Color( UnitModelUtils.COLOR_SELECTED );
+					outline.ObscuredColor = new Color( UnitModelUtils.COLOR_SELECTED );
 					break;
 			}
 		}

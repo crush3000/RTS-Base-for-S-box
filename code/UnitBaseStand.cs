@@ -4,31 +4,31 @@ using System;
 
 public class UnitBaseStand : Component
 {
-	[Property] public ModelRenderer baseStandModel { get; set; }
+	[Property] public ModelRenderer BaseStandModel { get; set; }
 
-	[Property] public UnitModelUtils.OutlineState selectionOutlineState = UnitModelUtils.OutlineState.Mine;
+	[Property] public UnitModelUtils.OutlineState SelectionOutlineState = UnitModelUtils.OutlineState.Mine;
 
 	public void setOutlineState(UnitModelUtils.OutlineState newOState )
 	{
-		selectionOutlineState = newOState;
+		SelectionOutlineState = newOState;
 
-		if ( baseStandModel != null) {
-			switch( selectionOutlineState )
+		if ( BaseStandModel != null) {
+			switch( SelectionOutlineState )
 			{
 				case UnitModelUtils.OutlineState.Mine:
-					baseStandModel.Tint = new Color(UnitModelUtils.mineColor);
+					BaseStandModel.Tint = new Color(UnitModelUtils.COLOR_MINE);
 					break;
 				case UnitModelUtils.OutlineState.Ally:
-					baseStandModel.Tint = new Color(UnitModelUtils.allyColor); 
+					BaseStandModel.Tint = new Color(UnitModelUtils.COLOR_ALLY); 
 					break;
 				case UnitModelUtils.OutlineState.Neutral: 
-					baseStandModel.Tint = new Color(UnitModelUtils.neutralColor);
+					BaseStandModel.Tint = new Color(UnitModelUtils.COLOR_NEUTRAL);
 					break;
 				case UnitModelUtils.OutlineState.Hostile:
-					baseStandModel.Tint = new Color( UnitModelUtils.hostileColor);
+					BaseStandModel.Tint = new Color( UnitModelUtils.COLOR_HOSTILE);
 					break;
 				case UnitModelUtils.OutlineState.Selected:
-					baseStandModel.Tint = new Color( UnitModelUtils.selectedColor);
+					BaseStandModel.Tint = new Color( UnitModelUtils.COLOR_SELECTED);
 					break;
 			}
 		}
@@ -41,8 +41,8 @@ public class UnitBaseStand : Component
 
 	protected override void OnDestroy()
 	{
-		baseStandModel.Enabled = false;
-		baseStandModel.Destroy();
+		BaseStandModel.Enabled = false;
+		BaseStandModel.Destroy();
 		base.OnDestroy();
 	}
 }

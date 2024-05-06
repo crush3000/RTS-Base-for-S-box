@@ -4,7 +4,7 @@ class RTSPlayer : Component
 {
 
 	[Property] public PlayerUnitControl UnitControl;
-	[Property] public int team;
+	[Property] public int Team;
 
 	protected override void OnStart()
 	{
