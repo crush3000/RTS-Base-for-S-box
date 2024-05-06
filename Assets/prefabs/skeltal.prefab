@@ -170,8 +170,8 @@
               {
                 "__type": "UnitBaseStand",
                 "__guid": "a32a48a2-427e-4cf7-9e3b-9dccf82d2bd8",
-                "selectionOutlineState": "Mine",
-                "baseStandModel": {
+                "SelectionOutlineState": "Mine",
+                "BaseStandModel": {
                   "_type": "component",
                   "component_id": "d72e8c2c-4906-44db-b37e-985fb6c6a53c",
                   "go": "346ea0ca-af0a-47f1-94c4-7c8434f94491",

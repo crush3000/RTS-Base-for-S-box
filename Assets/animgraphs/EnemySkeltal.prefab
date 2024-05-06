@@ -161,8 +161,8 @@
               {
                 "__type": "UnitBaseStand",
                 "__guid": "aebbfc34-c6dd-480c-a716-2dcaacae452a",
-                "selectionOutlineState": "Hostile",
-                "baseStandModel": {
+                "SelectionOutlineState": "Mine",
+                "BaseStandModel": {
                   "_type": "component",
                   "component_id": "a367853f-5e1b-4c3d-b5fe-306c3bd8f66b",
                   "go": "21f61158-117c-4fe2-a2fb-d09227f164e1",
