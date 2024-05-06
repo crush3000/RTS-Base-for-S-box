@@ -22,6 +22,12 @@
         },
         "RangedAttackDamage": 0,
         "RangedAttackSpeed": 0,
+        "SelectionHitbox": {
+          "_type": "component",
+          "component_id": "bf7475b6-3042-473a-8ae9-78406d8c9d82",
+          "go": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
+          "component_type": "BoxCollider"
+        },
         "team": 1,
         "TriggerListener": {
           "_type": "component",
@@ -82,6 +88,14 @@
       {
         "__type": "UnitTriggerListener",
         "__guid": "edb9b623-4979-4ee6-b715-330fff102d0c"
+      },
+      {
+        "__type": "Sandbox.BoxCollider",
+        "__guid": "bf7475b6-3042-473a-8ae9-78406d8c9d82",
+        "Center": "0,0,100",
+        "IsTrigger": false,
+        "Scale": "110,110,200",
+        "Static": false
       }
     ],
     "Children": [

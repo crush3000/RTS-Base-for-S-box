@@ -118,7 +118,7 @@ class PlayerUnitControl : Component
 				// Set up and run mouse ray to find what we're now selecting
 				var mouseDirection = RTSCam.CamView.ScreenPixelToRay( mouseScreenPos );
 				var mouseRay = Scene.Trace.Ray( mouseDirection, 5000f );
-				var tr = mouseRay.HitTriggers().Run();
+				var tr = mouseRay.Run();
 
 				// Get unit under ray
 				var hitUnitComponents = tr.GameObject.Components.GetAll().OfType<Unit>();
@@ -126,7 +126,7 @@ class PlayerUnitControl : Component
 				// Select unit if one is hit
 				if ( hitUnitComponents.Any() )
 				{
-					var selectedUnit = ((Unit)(hitUnitComponents.First()));
+					var selectedUnit = hitUnitComponents.First();
 					// Make sure the unit is ours
 					if ( selectedUnit.team == team)
 					{
@@ -152,18 +152,19 @@ class PlayerUnitControl : Component
 			var mouseScreenPos = Mouse.Position;
 			var mouseDirection = RTSCam.CamView.ScreenPixelToRay( mouseScreenPos );
 			var mouseRay = Scene.Trace.Ray( mouseDirection, 5000f );
-			var tr = mouseRay.HitTriggers().Run();
+			var tr = mouseRay.Run();
 			// Get hit components
-			var hitUnitComponents = tr.GameObject.Components.GetAll().OfType<Unit>();
+			var hitUnits = tr.GameObject.Components.GetAll().OfType<Unit>();
+			Log.Info(tr.GameObject.Name);
 			var hitWorldObjects = tr.GameObject.Components.GetAll().OfType<MapCollider>();
 			
 			// Set Up Attack Command if we hit an enemy unit
 			// TODO Probably make sure that if we hit friendly units instead that it goes to a move, actually just test this code
-			if ( hitUnitComponents.Any() && ((Unit)(hitUnitComponents.First())).team != team )
+			if ( hitUnits.Any() && hitUnits.First().team != team )
 			{
 				commandType = UnitModelUtils.CommandType.Attack;
-				Log.Info( "Team " + team + " " + ((Unit)(hitUnitComponents.First())).GameObject.Name + " Selected to be attacked!" );
-				commandTarget = (Unit)(hitUnitComponents.First());
+				Log.Info( "Team " + team + " " + ((Unit)(hitUnits.First())).GameObject.Name + " Selected to be attacked!" );
+				commandTarget = (Unit)(hitUnits.First());
 			}
 			// Otherwise Set Up Move Command
 			else
@@ -171,7 +172,6 @@ class PlayerUnitControl : Component
 				if ( hitWorldObjects.Any())
 				{
 					commandType = UnitModelUtils.CommandType.Move;
-					tr = Scene.Trace.Ray( mouseDirection, 5000f ).Run();
 					moveTarget = tr.EndPosition;
 				}
 			}

@@ -8,6 +8,7 @@ class Unit : Component
 	[Property] public Collider UnitMeleeCollider { get; set; }
 	[Property] public Collider UnitAutoMeleeCollider { get; set; }
 	[Property] public Collider UnitRangedAttackCollider { get; set; }
+	[Property] public Collider SelectionHitbox { get; set; }
 
 	[Property] public int team { get; set; }
 	[Property] public Vector3 UnitSize { get; set; }
@@ -175,6 +176,8 @@ class Unit : Component
 		UnitMeleeCollider.Destroy();
 		UnitAutoMeleeCollider.Enabled = false;
 		UnitAutoMeleeCollider.Destroy();
+		SelectionHitbox.Enabled = false;
+		SelectionHitbox.Destroy();
 		if(UnitRangedAttackCollider != null )
 		{
 			UnitRangedAttackCollider.Enabled = false;
@@ -215,7 +218,7 @@ class Unit : Component
 			if(isNewMoveCommand || Time.Now - lastMoveOrderTime >= MOVE_ORDER_FREQUENCY )
 			{
 				lastMoveOrderTime = Time.Now;
-				Log.Info( "Move Command Sent: " + UnitNavAgent.TargetPosition );
+				//Log.Info( "Move Command Sent: " + UnitNavAgent.TargetPosition );
 				UnitNavAgent.MoveTo( location );
 			}
 		}

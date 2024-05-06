@@ -70,7 +70,7 @@
     {
       "__guid": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
       "Name": "EnemyUnit",
-      "Position": "733.5142,1253.781,40.34199",
+      "Position": "894.9849,1127.778,40.34199",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
       "Enabled": true,
@@ -224,7 +224,7 @@
   },
   "Title": "rts_scene",
   "Description": "",
-  "LastSaved": "2024-05-05T18:34:16.3701629-04:00",
+  "LastSaved": "2024-05-05T20:26:28.769937-04:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": []
