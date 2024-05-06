@@ -36,6 +36,7 @@
       "__guid": "9fe8a9d1-d2b6-40dd-98ff-f7f8984aab67",
       "Name": "Map",
       "Position": "0,0,100",
+      "Tags": "map_geom",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
@@ -224,7 +225,7 @@
   },
   "Title": "rts_scene",
   "Description": "",
-  "LastSaved": "2024-05-05T20:26:28.769937-04:00",
+  "LastSaved": "2024-05-05T21:08:17.4524644-04:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": []

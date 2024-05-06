@@ -14,7 +14,6 @@ class PlayerUnitControl : Component
 	[Property] int team { get; set; }
 	List<Unit> SelectedUnits { get; set; }
 
-	private bool isSelecting = false;
 	private Rect selectionRect = new Rect();
 	private Vector2 startSelectPos {  get; set; }
 	private float startSelectTime { get; set; }
@@ -24,7 +23,6 @@ class PlayerUnitControl : Component
 	{
 		base.OnStart();
 		SelectedUnits = new List<Unit>();
-		//team = 99;
 	}
 
 	protected override void OnUpdate()
@@ -34,6 +32,7 @@ class PlayerUnitControl : Component
 		if ( Input.Pressed( "Select" ) )
 		{
 			startSelectTime = Time.Now;
+			startSelectPos = Mouse.Position;
 			//TODO Make some kind of debug interface for logging what's clicked on
 			//var mouseDirection = RTSCam.CamView.ScreenPixelToRay( Mouse.Position );
 			//var mouseRay = Scene.Trace.Ray( mouseDirection, 5000f );
@@ -47,18 +46,13 @@ class PlayerUnitControl : Component
 			//}
 			//if ( hitObjectComponents.Any() )
 			//{
-				//Log.Info( "Hit " + hitObjectComponents.First().GetType().ToString() + "!" );
+			//Log.Info( "Hit " + hitObjectComponents.First().GetType().ToString() + "!" );
 			//}
 		}
 
 		// Select is held down
 		else if ( Input.Down( "Select" ) )
 		{
-			if ( !isSelecting ) 
-			{
-				isSelecting = true;
-				startSelectPos = Mouse.Position;
-			}
 			if(Time.Now - startSelectTime > CLICK_TIME)
 			{
 				endRectPos = Mouse.Position;
@@ -70,10 +64,9 @@ class PlayerUnitControl : Component
 		else if(Input.Released("Select"))
 		{
 			// For a drag just make sure we give them some time to actually click
-			if( Time.Now - startSelectTime > CLICK_TIME )
+			if ( Time.Now - startSelectTime > CLICK_TIME )
 			{
 				//Log.Info( "Release" );
-				isSelecting = false;
 				endRectPos = Mouse.Position;
 				// Get ALL units. This is possibly a bad idea for speed
 				var units = Scene.GetAllComponents<Unit>();
