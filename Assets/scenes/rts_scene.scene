@@ -12,10 +12,10 @@
         {
           "__type": "RTSPlayer",
           "__guid": "e4f86cb1-f9a1-4e97-8a8a-c9df9b67f540",
-          "team": 0,
+          "Team": 0,
           "UnitControl": {
             "_type": "component",
-            "component_id": "362a35e4-b418-4afb-8e19-d49651f42839",
+            "component_id": "a0a1b5b7-e25a-43b8-9d6d-290a2b36e5c6",
             "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
             "component_type": "PlayerUnitControl"
           }
@@ -128,7 +128,6 @@
       "Name": "Skeltal1",
       "Position": "607.9017,1004.787,35.47852",
       "Rotation": "-0.000007480383,0.000005097823,1,0.00001529347",
-      "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
       "Enabled": true,
       "NetworkMode": 2,
@@ -200,6 +199,21 @@
           "ImposeCorpseTimeout": false
         }
       ]
+    },
+    {
+      "__guid": "c7a17bca-5a92-4484-9126-4bd9cc2556d9",
+      "Name": "RTSGameOptions",
+      "Position": "728.2209,1060.234,5.679298",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "RTSGameOptionsComponent",
+          "__guid": "b7a2bf13-569e-4740-9910-49ee3979e9fd",
+          "GlobalUnitScale": 0.1
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -225,7 +239,7 @@
   },
   "Title": "rts_scene",
   "Description": "",
-  "LastSaved": "2024-05-05T21:08:17.4524644-04:00",
+  "LastSaved": "2024-05-06T22:01:03.0668893-04:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": []

@@ -246,7 +246,6 @@ class Unit : Component
 
 	private void setRelativeUnitSizeHelper(Vector3 unitSize)
 	{
-
-		//TODO
+		Transform.LocalScale = Vector3.One * Scene.GetAllObjects( true ).Where( go => go.Name == "RTSGameOptions" ).First().Components.GetAll<RTSGameOptionsComponent>().First().getFloatValue(RTSGameOptionsComponent.GLOBAL_UNIT_SCALE);
 	}
 }
