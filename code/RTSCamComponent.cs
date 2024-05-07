@@ -50,9 +50,9 @@ public sealed class RTSCamComponent : Component
 		// Cam Height must mandatorily stay above the floor by some amount
 		if(currentCamHeight < 100) currentCamHeight = 100;
 		// If we fly above a gigantic pitt or off the map, don't launch us to hell
-		if(float.Abs( tr.EndPosition.z - Transform.Position.z) >  4000.0)
+		if (float.Abs( tr.EndPosition.z - Transform.Position.z) >  4000.0)
 		{
-			movement.z = Transform.Position.z;
+			movement.z = 0;
 		}
 		else
 		{
