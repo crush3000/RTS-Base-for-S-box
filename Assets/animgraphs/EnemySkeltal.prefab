@@ -1,6 +1,7 @@
 {
   "RootObject": {
     "__guid": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
+    "Flags": 0,
     "Name": "enemyskeltal",
     "Tags": "unit",
     "Enabled": true,
@@ -54,7 +55,7 @@
           "go": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
           "component_type": "NavMeshAgent"
         },
-        "UnitSize": "0.1,0.1,0.1",
+        "UnitSize": "219,219,219",
         "UnitSpeed": 60
       },
       {
@@ -101,6 +102,7 @@
     "Children": [
       {
         "__guid": "30d479cd-5b1b-4bf3-920b-e15a743d4094",
+        "Flags": 0,
         "Name": "BasicUnitModel",
         "Enabled": true,
         "NetworkMode": 2,
@@ -152,6 +154,7 @@
         "Children": [
           {
             "__guid": "21f61158-117c-4fe2-a2fb-d09227f164e1",
+            "Flags": 0,
             "Name": "BasicUnitBaseStand",
             "Scale": "2,2,0.01",
             "Enabled": true,

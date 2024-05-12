@@ -2,32 +2,37 @@
 using System;
 public sealed class RTSGameOptions
 {
-	private static RTSGameOptions instance = null;
-	private static readonly object mut = new object();
+	//private static RTSGameOptions instance = null;
+	//private static readonly object mut = new object();
 	private Dictionary<string, object> optionDict = new Dictionary<string, object>();
 
-	RTSGameOptions()
+	private RTSGameOptions()
 	{
 	}
 
-	public static RTSGameOptions Instance
+	public static RTSGameOptions Instance 
 	{
 		get
 		{
-			lock ( mut )
-			{
-				if ( instance == null )
-				{
-					instance = new RTSGameOptions();
-				}
-				return instance;
-			}
+			return RTSGameOptionsInstance.instance;
 		}
+	}
+
+	private class RTSGameOptionsInstance
+	{
+		// Explicit static constructor to tell C# compiler
+		// not to mark type as beforefieldinit
+		static RTSGameOptionsInstance()
+		{
+		}
+
+		internal static readonly RTSGameOptions instance = new RTSGameOptions();
 	}
 
 	public void addOption( string key, object value )
 	{
-		optionDict.Add( key, value );
+		//optionDict.Add( key, value );
+		optionDict[key] = value;
 	}
 
 	public void removeOption( string key )
@@ -38,5 +43,10 @@ public sealed class RTSGameOptions
 	public object getOption( string key )
 	{
 		return optionDict[ key ];
+	}
+
+	public void destroyList()
+	{
+		optionDict.Clear();
 	}
 }

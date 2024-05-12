@@ -1,8 +1,25 @@
 {
-  "__guid": "ffc78fc6-a8ef-42ea-8292-784983d0f225",
+  "__guid": "9dca4209-b22b-42d9-8056-f5f340db3854",
   "GameObjects": [
     {
+      "__guid": "c7a17bca-5a92-4484-9126-4bd9cc2556d9",
+      "Flags": 0,
+      "Name": "RTSGameOptions",
+      "Position": "728.2209,1060.234,5.679298",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "RTSGameOptionsComponent",
+          "__guid": "b7a2bf13-569e-4740-9910-49ee3979e9fd",
+          "GlobalUnitScale": 0.1
+        }
+      ]
+    },
+    {
       "__guid": "88fe0df8-db2f-4954-9a8e-ff064164a8ea",
+      "Flags": 0,
       "Name": "Player1",
       "Position": "453.1334,961.2402,50.9276",
       "Enabled": true,
@@ -15,7 +32,7 @@
           "Team": 0,
           "UnitControl": {
             "_type": "component",
-            "component_id": "a0a1b5b7-e25a-43b8-9d6d-290a2b36e5c6",
+            "component_id": "485f32e2-0bae-4056-9818-89bd63b41b08",
             "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
             "component_type": "PlayerUnitControl"
           }
@@ -24,6 +41,7 @@
     },
     {
       "__guid": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
+      "Flags": 0,
       "Name": "Player1_Controller",
       "Position": "215.7641,152.0348,514.7264",
       "Rotation": "-0.08282786,0.1999641,0.3736123,0.9019799",
@@ -34,6 +52,7 @@
     },
     {
       "__guid": "9fe8a9d1-d2b6-40dd-98ff-f7f8984aab67",
+      "Flags": 0,
       "Name": "Map",
       "Position": "0,0,100",
       "Tags": "map_geom",
@@ -52,6 +71,7 @@
     },
     {
       "__guid": "0341ba11-a8d6-482e-8cbf-cf21beffa91d",
+      "Flags": 0,
       "Name": "ScreenPanel",
       "Position": "694.0824,200.8844,335.0042",
       "Enabled": true,
@@ -61,6 +81,7 @@
     },
     {
       "__guid": "6ea9d562-e823-455a-a53b-5a1785e27804",
+      "Flags": 0,
       "Name": "BasicUnit",
       "Position": "495.874,665.5659,39.82777",
       "Tags": "unit",
@@ -70,6 +91,7 @@
     },
     {
       "__guid": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
+      "Flags": 0,
       "Name": "EnemyUnit",
       "Position": "894.9849,1127.778,40.34199",
       "Scale": "0.1,0.1,0.1",
@@ -81,6 +103,7 @@
     },
     {
       "__guid": "d01bd5a2-b429-4618-b245-05d103f0f1f5",
+      "Flags": 0,
       "Name": "EnemyUnit (4)",
       "Position": "716.1846,1253.781,40.34199",
       "Scale": "0.1,0.1,0.1",
@@ -92,6 +115,7 @@
     },
     {
       "__guid": "a7967e98-be1b-41b8-97b5-45c8af68ac61",
+      "Flags": 0,
       "Name": "EnemyUnit (3)",
       "Position": "733.5142,1274.828,40.34199",
       "Scale": "0.1,0.1,0.1",
@@ -103,6 +127,7 @@
     },
     {
       "__guid": "3d8f25b5-cd17-4fc4-bb18-2ce2b318d591",
+      "Flags": 0,
       "Name": "EnemyUnit (2)",
       "Position": "753.8583,1253.781,40.34199",
       "Scale": "0.1,0.1,0.1",
@@ -114,6 +139,7 @@
     },
     {
       "__guid": "ccaff9b4-e31e-47e7-877c-b3f64331125e",
+      "Flags": 0,
       "Name": "EnemyUnit (1)",
       "Position": "733.5142,1231.888,40.34199",
       "Scale": "0.1,0.1,0.1",
@@ -125,9 +151,11 @@
     },
     {
       "__guid": "1ad99cde-ebec-480b-ba4d-58ef33985c9e",
+      "Flags": 0,
       "Name": "Skeltal1",
       "Position": "607.9017,1004.787,35.47852",
       "Rotation": "-0.000007480383,0.000005097823,1,0.00001529347",
+      "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
       "Enabled": true,
       "NetworkMode": 2,
@@ -136,6 +164,7 @@
     },
     {
       "__guid": "1e43ced9-0c63-4095-9675-05bb161cd2c6",
+      "Flags": 0,
       "Name": "Skeltal1 (4)",
       "Position": "715.1464,1004.782,41.37007",
       "Rotation": "-0.000007480383,0.000005097823,1,0.00001529347",
@@ -148,6 +177,7 @@
     },
     {
       "__guid": "a39d7a83-b5db-412d-b680-469a35dc2d6a",
+      "Flags": 0,
       "Name": "Skeltal1 (3)",
       "Position": "689.8447,1023.656,41.36951",
       "Rotation": "-0.000007480383,0.000005097823,1,0.00001529347",
@@ -160,6 +190,7 @@
     },
     {
       "__guid": "9b1923f3-cc80-4361-8dc1-9be84f8c9c31",
+      "Flags": 0,
       "Name": "Skeltal1 (2)",
       "Position": "689.8434,981.8479,41.36993",
       "Rotation": "-0.000007480383,0.000005097823,1,0.00001529347",
@@ -172,6 +203,7 @@
     },
     {
       "__guid": "a6caed93-f18c-4817-8215-47fa00c917a0",
+      "Flags": 0,
       "Name": "Skeltal1 (1)",
       "Position": "665.3873,1004.783,41.36932",
       "Rotation": "-0.000007480383,0.000005097823,1,0.00001529347",
@@ -184,6 +216,7 @@
     },
     {
       "__guid": "97748558-2745-4a3f-a23d-2465b98b2c3b",
+      "Flags": 0,
       "Name": "CorpsePile",
       "Position": "627.7982,1385.857,5.38932",
       "Enabled": true,
@@ -197,21 +230,6 @@
           "CorpseTimeoutTime": 0,
           "ImposeCorpseLimit": true,
           "ImposeCorpseTimeout": false
-        }
-      ]
-    },
-    {
-      "__guid": "c7a17bca-5a92-4484-9126-4bd9cc2556d9",
-      "Name": "RTSGameOptions",
-      "Position": "728.2209,1060.234,5.679298",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "RTSGameOptionsComponent",
-          "__guid": "b7a2bf13-569e-4740-9910-49ee3979e9fd",
-          "GlobalUnitScale": 0.1
         }
       ]
     }
@@ -239,7 +257,7 @@
   },
   "Title": "rts_scene",
   "Description": "",
-  "LastSaved": "2024-05-06T22:01:03.0668893-04:00",
+  "LastSaved": "2024-05-12T18:23:29.1345934-04:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": []

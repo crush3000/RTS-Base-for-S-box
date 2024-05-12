@@ -23,6 +23,11 @@ public sealed class RTSGameOptionsComponent : Component
 		Log.Info(getFloatValue( GLOBAL_UNIT_SCALE ));
 	}
 
+	protected override void OnDestroy() 
+	{
+		gameOptions.destroyList();
+	}
+
 	public void setValue(string key, object value)
 	{
 		gameOptions.addOption(key, value);
