@@ -5,10 +5,10 @@ class Unit : Component
 {
 	[Property] public UnitModelBase PhysicalModel { get; set; }
 	[Property] public NavMeshAgent UnitNavAgent { get; set; }
-	[Property] public Collider UnitMeleeCollider { get; set; }
-	[Property] public Collider UnitAutoMeleeCollider { get; set; }
+	[Property] public CapsuleCollider UnitMeleeCollider { get; set; }
+	[Property] public SphereCollider UnitAutoMeleeCollider { get; set; }
 	[Property] public Collider UnitRangedAttackCollider { get; set; }
-	[Property] public Collider SelectionHitbox { get; set; }
+	[Property] public BoxCollider SelectionHitbox { get; set; }
 
 	[Property] public int team { get; set; }
 	[Property] public Vector3 UnitSize { get; set; }
@@ -18,6 +18,7 @@ class Unit : Component
 	[Property] public int MeleeAttackDamage { get; set; }
 	[Property] public float MeleeAttackSpeed { get; set; }
 	[Property] public bool HasRangedAttack { get; set; }
+	[Property] public float RangedAttackRange { get; set; }
 	[Property] public int RangedAttackDamage { get; set; }
 	[Property] public float RangedAttackSpeed { get; set; }
 	//[Property] public UnitType ThisUnitType { get; set; }
@@ -39,6 +40,10 @@ class Unit : Component
 
 	private float lastMoveOrderTime = Time.Now;
 	private const float MOVE_ORDER_FREQUENCY = .1f;
+	private const float CHASE_DIST_MULTIPLIER = 30f;
+	private const float AUTO_MELEE_RAD_MULTIPLIER = 30f;
+	private const float NAV_AGENT_RAD_MULTIPLIER = .5f;
+	private const float CLICK_HITBOX_RADIUS_MULTIPLIER = .5f;
 
 	protected override void OnStart()
 	{
@@ -247,10 +252,18 @@ class Unit : Component
 	private void setRelativeUnitSizeHelper(Vector3 unitSize)
 	{
 		// The scale is going to be calculated from the ratio of the default model size and the unit's given size modified by a global scaling constant
-		Vector3 defaultModelSize = PhysicalModel.model.Bounds.Size;
+		Vector3 defaultModelSize = PhysicalModel.model.Model.Bounds.Size;
+		
 		Vector3 globalScaleModifier = Vector3.One * Scene.GetAllObjects( true ).Where( go => go.Name == "RTSGameOptions" ).First().Components.GetAll<RTSGameOptionsComponent>().First().getFloatValue( RTSGameOptionsComponent.GLOBAL_UNIT_SCALE );
+		Vector3 targetModelSize = new Vector3((unitSize.x * globalScaleModifier.x), (unitSize.y * globalScaleModifier.y), (unitSize.z * globalScaleModifier.z));
+		float targetxyMin = float.Min( targetModelSize.x, targetModelSize.y );
+		float targetxyMax = float.Max( targetModelSize.x, targetModelSize.y );
+		float defaultxyMin = float.Min( defaultModelSize.x, defaultModelSize.y );
+		float defaultxyMax = float.Max( defaultModelSize.x, defaultModelSize.y );
 		Log.Info("defaultModelSize: " +  defaultModelSize);
+		
 		Log.Info("scaleModifier: " +  globalScaleModifier);
+		Log.Info("Target Model Size: " + targetModelSize );
 		Log.Info("unitSize: " +  unitSize);
 		Log.Info( "Calculated Scale: " + new Vector3(
 			((unitSize.x * globalScaleModifier.x) / defaultModelSize.x),
@@ -258,10 +271,40 @@ class Unit : Component
 			((unitSize.z * globalScaleModifier.z) / defaultModelSize.z)
 			));
 		Transform.LocalScale = new Vector3(
-			((unitSize.x * globalScaleModifier.x) / defaultModelSize.x),
-			((unitSize.y * globalScaleModifier.y) / defaultModelSize.y),
-			((unitSize.z * globalScaleModifier.z) / defaultModelSize.z)
+			(targetModelSize.x / defaultModelSize.x),
+			(targetModelSize.y / defaultModelSize.y),
+			(targetModelSize.z / defaultModelSize.z)
 			);
-		//Transform.LocalScale = Vector3.One * Scene.GetAllObjects( true ).Where( go => go.Name == "RTSGameOptions" ).First().Components.GetAll<RTSGameOptionsComponent>().First().getFloatValue(RTSGameOptionsComponent.GLOBAL_UNIT_SCALE);
+
+		// Auto calculate unit's nav agent size
+		UnitNavAgent.Height = targetModelSize.z;
+		UnitNavAgent.Radius = targetxyMin * NAV_AGENT_RAD_MULTIPLIER;
+		Log.Info( "NavAgent Height: " + UnitNavAgent.Height );
+		Log.Info( "NavAgent Radius: " + UnitNavAgent.Radius );
+
+		// Auto calculate unit's melee collider size
+		UnitMeleeCollider.Radius = defaultxyMax;
+		UnitMeleeCollider.Start = Vector3.Zero;
+		UnitMeleeCollider.End = new Vector3(0, 0, defaultModelSize.z);
+		Log.Info( "Melee Collider Height: " + UnitMeleeCollider.End );
+		Log.Info( "Melee Collider Radius: " + UnitMeleeCollider.Radius );
+
+		// Auto calculate unit's auto melee collider size
+		UnitAutoMeleeCollider.Center = Vector3.Zero;
+		UnitAutoMeleeCollider.Radius = AUTO_MELEE_RAD_MULTIPLIER * targetxyMax;
+		Log.Info( "Auto Melee Collider Radius: " + UnitAutoMeleeCollider.Radius);
+
+		// Auto calculate unit's ranged attack range collider size
+
+
+		// Auto calculate unit's Selection Collider scaling and relative position
+		SelectionHitbox.Center = new Vector3( 0, 0, defaultModelSize.z / 2 );
+		SelectionHitbox.Scale = new Vector3( defaultxyMin * CLICK_HITBOX_RADIUS_MULTIPLIER, defaultxyMin * CLICK_HITBOX_RADIUS_MULTIPLIER, defaultModelSize.z );
+		Log.Info( "Selection Hitbox Center: " + SelectionHitbox.Center );
+		Log.Info( "Selection Hitbox Size: " + SelectionHitbox.Scale );
+
+		// Auto calculate unit's chase distance
+		maxChaseDistanceFromHome = CHASE_DIST_MULTIPLIER * targetxyMax;
+		Log.Info( "Max Chase Distance: " + maxChaseDistanceFromHome );
 	}
 }

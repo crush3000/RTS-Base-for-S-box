@@ -22,6 +22,7 @@
           "component_type": "UnitModel"
         },
         "RangedAttackDamage": 0,
+        "RangedAttackRange": 0,
         "RangedAttackSpeed": 0,
         "SelectionHitbox": {
           "_type": "component",
@@ -55,7 +56,7 @@
           "go": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
           "component_type": "NavMeshAgent"
         },
-        "UnitSize": "219,219,219",
+        "UnitSize": "133.7544,195.3692,180.2918",
         "UnitSpeed": 60
       },
       {
