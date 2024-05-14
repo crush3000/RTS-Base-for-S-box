@@ -288,10 +288,10 @@ class Unit : Component
 		//Log.Info("defaultModelSize: " +  defaultModelSize);
 		//Log.Info("Target Model Size: " + targetModelSize );
 		//Log.Info( "Calculated Scale: " + new Vector3(
-			((unitSize.x * globalScaleModifier.x) / defaultModelSize.x),
-			((unitSize.y * globalScaleModifier.y) / defaultModelSize.y),
-			((unitSize.z * globalScaleModifier.z) / defaultModelSize.z)
-			));
+			//((unitSize.x * globalScaleModifier.x) / defaultModelSize.x),
+			//((unitSize.y * globalScaleModifier.y) / defaultModelSize.y),
+			//((unitSize.z * globalScaleModifier.z) / defaultModelSize.z)
+			//));
 		Transform.LocalScale = new Vector3(
 			(targetModelSize.x / defaultModelSize.x),
 			(targetModelSize.y / defaultModelSize.y),
