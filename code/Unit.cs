@@ -57,13 +57,12 @@ class Unit : Component
 
 	// This will be a factor of the unit size I imagine
 	private float maxChaseDistanceFromHome = 600f;
-
 	private int currentHealthPoints = 100;
-	private const string UNIT_TAG = "unit";
-
 	private float lastMeleeTime = Time.Now;
-
 	private float lastMoveOrderTime = Time.Now;
+
+	// Unit Constants
+	private const string UNIT_TAG = "unit";
 	private const float MOVE_ORDER_FREQUENCY = .1f;
 	private const float CHASE_DIST_MULTIPLIER = 30f;
 	private const float AUTO_MELEE_RAD_MULTIPLIER = 30f;
@@ -286,12 +285,9 @@ class Unit : Component
 		float targetxyMax = float.Max( targetModelSize.x, targetModelSize.y );
 		float defaultxyMin = float.Min( defaultModelSize.x, defaultModelSize.y );
 		float defaultxyMax = float.Max( defaultModelSize.x, defaultModelSize.y );
-		Log.Info("defaultModelSize: " +  defaultModelSize);
-		
-		Log.Info("scaleModifier: " +  globalScaleModifier);
-		Log.Info("Target Model Size: " + targetModelSize );
-		Log.Info("unitSize: " +  unitSize);
-		Log.Info( "Calculated Scale: " + new Vector3(
+		//Log.Info("defaultModelSize: " +  defaultModelSize);
+		//Log.Info("Target Model Size: " + targetModelSize );
+		//Log.Info( "Calculated Scale: " + new Vector3(
 			((unitSize.x * globalScaleModifier.x) / defaultModelSize.x),
 			((unitSize.y * globalScaleModifier.y) / defaultModelSize.y),
 			((unitSize.z * globalScaleModifier.z) / defaultModelSize.z)
@@ -305,20 +301,15 @@ class Unit : Component
 		// Auto calculate unit's nav agent size
 		UnitNavAgent.Height = targetModelSize.z;
 		UnitNavAgent.Radius = targetxyMin * NAV_AGENT_RAD_MULTIPLIER;
-		Log.Info( "NavAgent Height: " + UnitNavAgent.Height );
-		Log.Info( "NavAgent Radius: " + UnitNavAgent.Radius );
 
 		// Auto calculate unit's melee collider size
 		UnitMeleeCollider.Radius = defaultxyMax;
 		UnitMeleeCollider.Start = Vector3.Zero;
 		UnitMeleeCollider.End = new Vector3(0, 0, defaultModelSize.z);
-		Log.Info( "Melee Collider Height: " + UnitMeleeCollider.End );
-		Log.Info( "Melee Collider Radius: " + UnitMeleeCollider.Radius );
 
 		// Auto calculate unit's auto melee collider size
 		UnitAutoMeleeCollider.Center = Vector3.Zero;
 		UnitAutoMeleeCollider.Radius = AUTO_MELEE_RAD_MULTIPLIER * targetxyMax;
-		Log.Info( "Auto Melee Collider Radius: " + UnitAutoMeleeCollider.Radius);
 
 		// Auto calculate unit's ranged attack range collider size
 
@@ -326,11 +317,8 @@ class Unit : Component
 		// Auto calculate unit's Selection Collider scaling and relative position
 		SelectionHitbox.Center = new Vector3( 0, 0, defaultModelSize.z / 2 );
 		SelectionHitbox.Scale = new Vector3( defaultxyMin * CLICK_HITBOX_RADIUS_MULTIPLIER, defaultxyMin * CLICK_HITBOX_RADIUS_MULTIPLIER, defaultModelSize.z );
-		Log.Info( "Selection Hitbox Center: " + SelectionHitbox.Center );
-		Log.Info( "Selection Hitbox Size: " + SelectionHitbox.Scale );
 
 		// Auto calculate unit's chase distance
 		maxChaseDistanceFromHome = CHASE_DIST_MULTIPLIER * targetxyMax;
-		Log.Info( "Max Chase Distance: " + maxChaseDistanceFromHome );
 	}
 }
