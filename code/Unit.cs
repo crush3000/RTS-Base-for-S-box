@@ -3,27 +3,52 @@ using System;
 
 class Unit : Component
 {
-	[Property] public UnitModelBase PhysicalModel { get; set; }
-	[Property] public NavMeshAgent UnitNavAgent { get; set; }
-	[Property] public CapsuleCollider UnitMeleeCollider { get; set; }
-	[Property] public SphereCollider UnitAutoMeleeCollider { get; set; }
-	[Property] public Collider UnitRangedAttackCollider { get; set; }
-	[Property] public BoxCollider SelectionHitbox { get; set; }
-
+	[Group( "Gameplay" )]
 	[Property] public int team { get; set; }
+	[Group( "Gameplay" )]
 	[Property] public Vector3 UnitSize { get; set; }
+	[Group( "Gameplay" )]
 	[Property] public float UnitSpeed { get; set; }
+	[Group( "Gameplay" )]
 	[Property] public int UnitMaxHealth { get; set; }
+	[Group( "Gameplay" )]
 	[Property] public bool HasMeleeAttack { get; set; }
+	[Group( "Gameplay" )]
 	[Property] public int MeleeAttackDamage { get; set; }
+	[Group( "Gameplay" )]
 	[Property] public float MeleeAttackSpeed { get; set; }
+	[Group( "Gameplay" )]
 	[Property] public bool HasRangedAttack { get; set; }
+	[Group( "Gameplay" )]
 	[Property] public float RangedAttackRange { get; set; }
+	[Group( "Gameplay" )]
 	[Property] public int RangedAttackDamage { get; set; }
+	[Group( "Gameplay" )]
 	[Property] public float RangedAttackSpeed { get; set; }
-	//[Property] public UnitType ThisUnitType { get; set; }
-	[Property] public UnitTriggerListener TriggerListener { get; set; }
 
+	[Group( "Visuals" )]
+	[Property] public Model UnitModelFile { get; set; }
+	[Group( "Visuals" )]
+	[Property] public AnimationGraph UnitAnimGraph { get; set; }
+	[Group( "Visuals" )]
+	[Property] public Material UnitModelMaterial { get; set; }
+	[Group( "Visuals" )]
+	[Property] public UnitModelBase PhysicalModelRenderer { get; set; }
+
+	[Group( "Triggers And Collision" )]
+	[Property] public UnitTriggerListener TriggerListener { get; set; }
+	[Group( "Triggers And Collision" )]
+	[Property] public CapsuleCollider UnitMeleeCollider { get; set; }
+	[Group( "Triggers And Collision" )]
+	[Property] public SphereCollider UnitAutoMeleeCollider { get; set; }
+	[Group( "Triggers And Collision" )]
+	[Property] public Collider UnitRangedAttackCollider { get; set; }
+	[Group( "Triggers And Collision" )]
+	[Property] public BoxCollider SelectionHitbox { get; set; }
+	[Group( "Triggers And Collision" )]
+	[Property] public NavMeshAgent UnitNavAgent { get; set; }
+
+	// Class Vars
 	bool selected { get; set; }
 	public UnitModelUtils.CommandType commandGiven { get; set; }
 	public Vector3 homeTargetLocation { get; set; }
@@ -52,6 +77,7 @@ class Unit : Component
 		homeTargetLocation = Transform.Position;
 		currentHealthPoints = UnitMaxHealth;
 		setRelativeUnitSizeHelper(UnitSize);
+		PhysicalModelRenderer.setModel( UnitModelFile, UnitAnimGraph, UnitModelMaterial );
 		Tags.Add( UNIT_TAG );
 	}
 
@@ -157,15 +183,15 @@ class Unit : Component
 		}
 
 		// Handle Animations
-		if (PhysicalModel != null && UnitNavAgent != null) 
+		if (PhysicalModelRenderer != null && UnitNavAgent != null) 
 		{
 			if ( !UnitNavAgent.Velocity.IsNearZeroLength )
 			{
-				PhysicalModel.animateMovement(UnitNavAgent.Velocity, UnitNavAgent.WishVelocity);
+				PhysicalModelRenderer.animateMovement(UnitNavAgent.Velocity, UnitNavAgent.WishVelocity);
 			}
 			else
 			{
-				PhysicalModel.stopMovementAnimate();
+				PhysicalModelRenderer.stopMovementAnimate();
 			}
 		}
 	}
@@ -173,8 +199,8 @@ class Unit : Component
 	// Cleanup
 	protected override void OnDestroy()
 	{
-		PhysicalModel.Enabled = false;
-		PhysicalModel.Destroy();
+		PhysicalModelRenderer.Enabled = false;
+		PhysicalModelRenderer.Destroy();
 		UnitNavAgent.Enabled = false;
 		UnitNavAgent.Destroy();
 		UnitMeleeCollider.Enabled = false;
@@ -196,19 +222,19 @@ class Unit : Component
 	public void selectUnit()
 	{
 		selected = true;
-		PhysicalModel.setOutlineState( UnitModelUtils.OutlineState.Selected );
+		PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Selected );
 	}
 
 	public void deSelectUnit()
 	{
 		selected = false;
-		PhysicalModel.setOutlineState( UnitModelUtils.OutlineState.Mine );
+		PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Mine );
 	}
 
 	public void takeDamage(int damage)
 	{
 		//Log.Info( this.GameObject.Name + " takes " + damage + " damage!");
-		PhysicalModel.animateDamageTaken();
+		PhysicalModelRenderer.animateDamageTaken();
 		currentHealthPoints -= damage;
 		if( currentHealthPoints < 0 )
 		{
@@ -238,13 +264,13 @@ class Unit : Component
 	private void die()
 	{
 		//Log.Info( this.GameObject.Name + " dies!" );
-		PhysicalModel.animateDeath();
+		PhysicalModelRenderer.animateDeath();
 		Destroy();
 	}
 
 	private void directMeleeAttack(Unit targetUnit)
 	{
-		PhysicalModel.animateMeleeAttack();
+		PhysicalModelRenderer.animateMeleeAttack();
 		targetUnit.takeDamage( MeleeAttackDamage );
 		lastMeleeTime = Time.Now;
 	}
@@ -252,7 +278,7 @@ class Unit : Component
 	private void setRelativeUnitSizeHelper(Vector3 unitSize)
 	{
 		// The scale is going to be calculated from the ratio of the default model size and the unit's given size modified by a global scaling constant
-		Vector3 defaultModelSize = PhysicalModel.model.Model.Bounds.Size;
+		Vector3 defaultModelSize = UnitModelFile.Bounds.Size;
 		
 		Vector3 globalScaleModifier = Vector3.One * Scene.GetAllObjects( true ).Where( go => go.Name == "RTSGameOptions" ).First().Components.GetAll<RTSGameOptionsComponent>().First().getFloatValue( RTSGameOptionsComponent.GLOBAL_UNIT_SCALE );
 		Vector3 targetModelSize = new Vector3((unitSize.x * globalScaleModifier.x), (unitSize.y * globalScaleModifier.y), (unitSize.z * globalScaleModifier.z));

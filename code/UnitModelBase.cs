@@ -56,6 +56,8 @@ public abstract class UnitModelBase : Component
 		}
 	}
 
+	public abstract void setModel( Model newModel, AnimationGraph newAnimGraph, Material newMaterial );
+
 	public abstract void animateMovement( Vector3 velocity, Vector3 wishVelocity );
 
 	public abstract void stopMovementAnimate();

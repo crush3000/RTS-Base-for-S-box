@@ -6,6 +6,13 @@ class UnitModel : UnitModelBase
 
 	[Property] public SkinnedModelRenderer model {  get; set; }
 
+	public override void setModel( Model newModel, AnimationGraph newAnimGraph, Material newMaterial )
+	{
+		model.Model = newModel;
+		model.AnimationGraph = newAnimGraph;
+		model.MaterialOverride = newMaterial;
+	}
+
 	public override void animateMovement(Vector3 velocity, Vector3 wishVelocity)
 	{
 		model.SceneModel.SetAnimParameter( "isMoving", true );

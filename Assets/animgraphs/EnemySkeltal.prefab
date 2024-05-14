@@ -15,7 +15,7 @@
         "HasRangedAttack": false,
         "MeleeAttackDamage": 20,
         "MeleeAttackSpeed": 1.5,
-        "PhysicalModel": {
+        "PhysicalModelRenderer": {
           "_type": "component",
           "component_id": "ade42ab9-eb04-44ea-a252-8ac0bc0ca736",
           "go": "30d479cd-5b1b-4bf3-920b-e15a743d4094",
@@ -37,6 +37,7 @@
           "go": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
           "component_type": "UnitTriggerListener"
         },
+        "UnitAnimGraph": "animgraphs/sk_light_infantry_a.vanmgrph",
         "UnitAutoMeleeCollider": {
           "_type": "component",
           "component_id": "ff3a35cf-d4fc-4589-979c-ebab9821c354",
@@ -50,6 +51,8 @@
           "go": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
           "component_type": "CapsuleCollider"
         },
+        "UnitModelFile": "models/prebuilt_characters/sk_light_infantry_a.vmdl",
+        "UnitModelMaterial": "materials/t_undead_standard.vmat",
         "UnitNavAgent": {
           "_type": "component",
           "component_id": "37eabd0e-82fc-497f-b041-c89bf6415d3b",
@@ -144,10 +147,8 @@
           {
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "0f252950-a22b-4100-8bda-e37b4b56020b",
-            "AnimationGraph": "animgraphs/sk_light_infantry_a.vanmgrph",
             "BodyGroups": 18446744073709551615,
             "CreateBoneObjects": false,
-            "Model": "models/prebuilt_characters/sk_light_infantry_a.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1"
           }

@@ -6,6 +6,12 @@ class UnitModelBasic : UnitModelBase
 
 	[Property] public ModelRenderer model { get; set; }
 
+	public override void setModel( Model newModel, AnimationGraph newAnimGraph, Material newMaterial )
+	{
+		model.Model = newModel;
+		model.MaterialOverride = newMaterial;
+	}
+
 	public override void animateMovement( Vector3 velocity, Vector3 wishVelocity )
 	{
 		//Log.Info( "Animate Basic Start" );
