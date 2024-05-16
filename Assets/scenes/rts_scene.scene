@@ -85,6 +85,7 @@
       "Name": "BasicUnit",
       "Position": "495.874,665.5659,39.82777",
       "Tags": "unit",
+      "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "__Prefab": "prefabs/basicunit.prefab"
@@ -257,7 +258,7 @@
   },
   "Title": "rts_scene",
   "Description": "",
-  "LastSaved": "2024-05-15T19:35:27.3607485-04:00",
+  "LastSaved": "2024-05-15T19:53:35.3977026-04:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": []

@@ -1,33 +1,64 @@
 {
   "RootObject": {
     "__guid": "6ea9d562-e823-455a-a53b-5a1785e27804",
+    "Flags": 0,
     "Name": "basicunit",
     "Tags": "unit",
     "Enabled": true,
     "NetworkMode": 2,
+    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Unit",
         "__guid": "368ee895-041c-4448-b94f-e5d327b6e163",
-        "PhysicalModel": {
+        "HasMeleeAttack": true,
+        "HasRangedAttack": false,
+        "MeleeAttackDamage": 30,
+        "MeleeAttackSpeed": 0.1,
+        "PhysicalModelRenderer": {
           "_type": "component",
           "component_id": "3fd0d79a-21c4-49c1-970b-b033fe8fe0a2",
           "go": "6106bfe8-521d-40a2-aef3-b0b38571c58d",
           "component_type": "UnitModelBasic"
         },
+        "RangedAttackDamage": 0,
+        "RangedAttackRange": 0,
+        "RangedAttackSpeed": 0,
+        "SelectionHitbox": {
+          "_type": "component",
+          "component_id": "6e0c24ef-9c31-4a86-8d03-04b3686056ca",
+          "go": "6ea9d562-e823-455a-a53b-5a1785e27804",
+          "component_type": "BoxCollider"
+        },
         "team": 0,
-        "UnitCollider": {
+        "TriggerListener": {
+          "_type": "component",
+          "component_id": "8d14bb7d-b2e7-4cab-bdab-0099c37db0fc",
+          "go": "6ea9d562-e823-455a-a53b-5a1785e27804",
+          "component_type": "UnitTriggerListener"
+        },
+        "UnitAutoMeleeCollider": {
+          "_type": "component",
+          "component_id": "98dc47b1-428a-4f02-912d-fe629ab18813",
+          "go": "6ea9d562-e823-455a-a53b-5a1785e27804",
+          "component_type": "SphereCollider"
+        },
+        "UnitMaxHealth": 500,
+        "UnitMeleeCollider": {
           "_type": "component",
           "component_id": "7c1cbfb8-03c4-456d-8666-657adda9d6b0",
           "go": "6ea9d562-e823-455a-a53b-5a1785e27804",
           "component_type": "CapsuleCollider"
         },
+        "UnitModelFile": "models/sbox_props/watermelon/watermelon.vmdl",
         "UnitNavAgent": {
           "_type": "component",
           "component_id": "7acdadca-79cc-4cac-ac70-859644bb6ea6",
           "go": "6ea9d562-e823-455a-a53b-5a1785e27804",
           "component_type": "NavMeshAgent"
-        }
+        },
+        "UnitSize": "100,100,100",
+        "UnitSpeed": 80
       },
       {
         "__type": "Sandbox.NavMeshAgent",
@@ -48,15 +79,37 @@
         "Radius": 6,
         "Start": "0,0,0.4523106",
         "Static": false
+      },
+      {
+        "__type": "Sandbox.SphereCollider",
+        "__guid": "98dc47b1-428a-4f02-912d-fe629ab18813",
+        "Center": "0,0,0",
+        "IsTrigger": false,
+        "Radius": 10,
+        "Static": false
+      },
+      {
+        "__type": "Sandbox.BoxCollider",
+        "__guid": "6e0c24ef-9c31-4a86-8d03-04b3686056ca",
+        "Center": "0,0,0",
+        "IsTrigger": false,
+        "Scale": "50,50,50",
+        "Static": false
+      },
+      {
+        "__type": "UnitTriggerListener",
+        "__guid": "8d14bb7d-b2e7-4cab-bdab-0099c37db0fc"
       }
     ],
     "Children": [
       {
         "__guid": "6106bfe8-521d-40a2-aef3-b0b38571c58d",
+        "Flags": 0,
         "Name": "BasicUnitModel",
         "Scale": "0.5,0.5,0.5",
         "Enabled": true,
         "NetworkMode": 2,
+        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "UnitModelBasic",
@@ -96,16 +149,18 @@
         "Children": [
           {
             "__guid": "5550ea39-f1c1-48a6-89b3-65bfc3bd18e7",
+            "Flags": 0,
             "Name": "BasicUnitBaseStand",
             "Scale": "0.4,0.4,0.01",
             "Enabled": true,
             "NetworkMode": 2,
+            "NetworkInterpolation": true,
             "Components": [
               {
                 "__type": "UnitBaseStand",
                 "__guid": "21e971d4-8eda-4476-a63e-9036304c24b0",
-                "selectionOutlineState": "Mine",
-                "baseStandModel": {
+                "SelectionOutlineState": "Mine",
+                "BaseStandModel": {
                   "_type": "component",
                   "component_id": "57264620-e680-44b2-81d5-fe1977c892f9",
                   "go": "5550ea39-f1c1-48a6-89b3-65bfc3bd18e7",
