@@ -32,7 +32,7 @@
           "Team": 0,
           "UnitControl": {
             "_type": "component",
-            "component_id": "43c4772f-db3a-4f6c-afc5-f3a713e0ee67",
+            "component_id": "6e1c74b9-3f6c-4dc6-b7c2-bb82d3dcaaee",
             "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
             "component_type": "PlayerUnitControl"
           }
@@ -78,17 +78,6 @@
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "__Prefab": "prefabs/selectionscreen.prefab"
-    },
-    {
-      "__guid": "6ea9d562-e823-455a-a53b-5a1785e27804",
-      "Flags": 0,
-      "Name": "BasicUnit",
-      "Position": "495.874,665.5659,39.82777",
-      "Tags": "unit",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/basicunit.prefab"
     },
     {
       "__guid": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
@@ -258,7 +247,7 @@
   },
   "Title": "rts_scene",
   "Description": "",
-  "LastSaved": "2024-05-15T19:53:35.3977026-04:00",
+  "LastSaved": "2024-05-16T19:39:11.7537055-04:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": []

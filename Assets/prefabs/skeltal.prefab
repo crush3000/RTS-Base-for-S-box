@@ -486,33 +486,6 @@
             "NetworkInterpolation": true
           }
         ]
-      },
-      {
-        "__guid": "8b66bb14-6783-40dc-af06-5fe7f20a189f",
-        "Flags": 0,
-        "Name": "AutoMeleeColliderContainer",
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
-        "Components": [
-          {
-            "__type": "AutoMeleeColliderContainer",
-            "__guid": "5ce44d11-4c47-4c17-8177-cf2d3eb2a5eb",
-            "UnitAutoMeleeCollider": {
-              "_type": "component",
-              "component_id": "ef7c6525-142e-496f-8952-38d670aae09c",
-              "go": "8b66bb14-6783-40dc-af06-5fe7f20a189f",
-              "component_type": "SphereCollider"
-            }
-          },
-          {
-            "__type": "Sandbox.SphereCollider",
-            "__guid": "ef7c6525-142e-496f-8952-38d670aae09c",
-            "Center": "0,0,0",
-            "IsTrigger": true,
-            "Radius": 600,
-            "Static": false
-          }
-        ]
       }
     ]
   },
