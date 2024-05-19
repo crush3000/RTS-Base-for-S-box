@@ -127,9 +127,9 @@
             "selectionOutlineState": "Hostile",
             "baseStand": {
               "_type": "component",
-              "component_id": "aebbfc34-c6dd-480c-a716-2dcaacae452a",
+              "component_id": "09ad9c78-4966-4a89-b188-c5bf66fbb5de",
               "go": "21f61158-117c-4fe2-a2fb-d09227f164e1",
-              "component_type": "UnitBaseStand"
+              "component_type": "DecalBaseStand"
             },
             "model": {
               "_type": "component",
@@ -158,29 +158,42 @@
             "__guid": "21f61158-117c-4fe2-a2fb-d09227f164e1",
             "Flags": 0,
             "Name": "BasicUnitBaseStand",
-            "Scale": "2,2,0.01",
+            "Position": "0,0,50",
+            "Rotation": "0,0.7071068,0,0.7071068",
             "Enabled": true,
             "NetworkMode": 2,
             "NetworkInterpolation": true,
             "Components": [
               {
-                "__type": "UnitBaseStand",
-                "__guid": "aebbfc34-c6dd-480c-a716-2dcaacae452a",
-                "SelectionOutlineState": "Mine",
-                "BaseStandModel": {
-                  "_type": "component",
-                  "component_id": "a367853f-5e1b-4c3d-b5fe-306c3bd8f66b",
-                  "go": "21f61158-117c-4fe2-a2fb-d09227f164e1",
-                  "component_type": "ModelRenderer"
-                }
-              },
-              {
                 "__type": "Sandbox.ModelRenderer",
                 "__guid": "a367853f-5e1b-4c3d-b5fe-306c3bd8f66b",
+                "__enabled": false,
                 "BodyGroups": 18446744073709551615,
                 "Model": "models/vidya/cylinder_white_64.vmdl",
                 "RenderType": "On",
                 "Tint": "1,0,0,0.50196"
+              },
+              {
+                "__type": "DecalBaseStand",
+                "__guid": "09ad9c78-4966-4a89-b188-c5bf66fbb5de",
+                "SelectionOutlineState": "Neutral",
+                "BaseStandModel": {
+                  "_type": "component",
+                  "component_id": "e58a5744-d9f5-4dd3-81f9-e64eecdedc1d",
+                  "go": "21f61158-117c-4fe2-a2fb-d09227f164e1",
+                  "component_type": "DecalRenderer"
+                }
+              },
+              {
+                "__type": "Sandbox.DecalRenderer",
+                "__guid": "e58a5744-d9f5-4dd3-81f9-e64eecdedc1d",
+                "CutoffAngle": 0,
+                "CutoffAngleSoftness": 5,
+                "Material": "materials/circle.vmat",
+                "Mod2XBlending": false,
+                "Size": "128,128,256",
+                "TintColor": "1,0,0,0.50196",
+                "TriPlanar": false
               }
             ]
           }

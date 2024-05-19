@@ -118,9 +118,9 @@
             "selectionOutlineState": "Mine",
             "baseStand": {
               "_type": "component",
-              "component_id": "a32a48a2-427e-4cf7-9e3b-9dccf82d2bd8",
+              "component_id": "0e45791b-eba5-41ed-bfad-17052e26f0b5",
               "go": "346ea0ca-af0a-47f1-94c4-7c8434f94491",
-              "component_type": "UnitBaseStand"
+              "component_type": "DecalBaseStand"
             },
             "model": {
               "_type": "component",
@@ -158,7 +158,8 @@
             "__guid": "346ea0ca-af0a-47f1-94c4-7c8434f94491",
             "Flags": 0,
             "Name": "UnitBaseStand",
-            "Scale": "2,2,0.01",
+            "Position": "0,0,50",
+            "Rotation": "0,0.7071068,0,0.7071068",
             "Enabled": true,
             "NetworkMode": 2,
             "NetworkInterpolation": true,
@@ -166,21 +167,33 @@
               {
                 "__type": "Sandbox.ModelRenderer",
                 "__guid": "d72e8c2c-4906-44db-b37e-985fb6c6a53c",
+                "__enabled": false,
                 "BodyGroups": 18446744073709551615,
                 "Model": "models/vidya/cylinder_white_64.vmdl",
                 "RenderType": "On",
                 "Tint": "0,1,0,0.50196"
               },
               {
-                "__type": "UnitBaseStand",
-                "__guid": "a32a48a2-427e-4cf7-9e3b-9dccf82d2bd8",
+                "__type": "DecalBaseStand",
+                "__guid": "0e45791b-eba5-41ed-bfad-17052e26f0b5",
                 "SelectionOutlineState": "Mine",
                 "BaseStandModel": {
                   "_type": "component",
-                  "component_id": "d72e8c2c-4906-44db-b37e-985fb6c6a53c",
+                  "component_id": "15bc2db8-00c5-42b7-a61c-b4d4911b2e10",
                   "go": "346ea0ca-af0a-47f1-94c4-7c8434f94491",
-                  "component_type": "ModelRenderer"
+                  "component_type": "DecalRenderer"
                 }
+              },
+              {
+                "__type": "Sandbox.DecalRenderer",
+                "__guid": "15bc2db8-00c5-42b7-a61c-b4d4911b2e10",
+                "CutoffAngle": 0,
+                "CutoffAngleSoftness": 5,
+                "Material": "materials/circle.vmat",
+                "Mod2XBlending": false,
+                "Size": "128,128,256",
+                "TintColor": "0,1,0,0.50196",
+                "TriPlanar": false
               }
             ]
           },
