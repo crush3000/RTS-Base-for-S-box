@@ -2,13 +2,13 @@
 using Sandbox.Citizen;
 using System;
 
-public class UnitBaseStand : Component
+public class CylinderBaseStand : UnitBaseStandBase
 {
 	[Property] public ModelRenderer BaseStandModel { get; set; }
 
 	[Property] public UnitModelUtils.OutlineState SelectionOutlineState = UnitModelUtils.OutlineState.Mine;
 
-	public void setOutlineState(UnitModelUtils.OutlineState newOState )
+	public override void setOutlineState(UnitModelUtils.OutlineState newOState )
 	{
 		SelectionOutlineState = newOState;
 

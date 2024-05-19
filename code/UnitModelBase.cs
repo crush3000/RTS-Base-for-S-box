@@ -8,7 +8,7 @@ public abstract class UnitModelBase : Component
 
 	[Property] public HighlightOutline outline { get; set; }
 
-	[Property] public UnitBaseStand baseStand { get; set; }
+	[Property] public UnitBaseStandBase baseStand { get; set; }
 
 	[Property] public UnitModelUtils.OutlineState selectionOutlineState = UnitModelUtils.OutlineState.Mine;
 
