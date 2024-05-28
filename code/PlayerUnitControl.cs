@@ -11,6 +11,7 @@ class PlayerUnitControl : Component
 
 	[Property]	RTSCamComponent RTSCam {  get; set; }
 	[Property] SelectionPanel selectionPanel { get; set; }
+	[Property] CommandIndicator commandIndicator { get; set; }
 	[Property] int team { get; set; }
 	List<Unit> SelectedUnits { get; set; }
 
