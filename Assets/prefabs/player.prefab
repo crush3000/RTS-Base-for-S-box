@@ -1,6 +1,7 @@
 {
   "RootObject": {
     "__guid": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
+    "Flags": 0,
     "Name": "player",
     "Enabled": true,
     "NetworkMode": 2,
@@ -39,6 +40,7 @@
     "Children": [
       {
         "__guid": "7edcc219-da7e-40b9-bdf5-98101fabcf61",
+        "Flags": 0,
         "Name": "RTS_Camera",
         "Enabled": true,
         "NetworkMode": 2,
@@ -69,6 +71,7 @@
       },
       {
         "__guid": "41917b06-dd47-4f85-9f87-91f6da018323",
+        "Flags": 0,
         "Name": "Selection_Panel",
         "Enabled": true,
         "NetworkMode": 2,
@@ -94,6 +97,6 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__version": 1,
-  "__references": []
+  "__references": [],
+  "__version": 1
 }

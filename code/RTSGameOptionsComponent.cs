@@ -13,14 +13,11 @@ public sealed class RTSGameOptionsComponent : Component
 	protected override void OnStart()
 	{
 		//base.OnStart();
-		Log.Info( "Herro?" );
 		// Build Game Options Singleton
 		gameOptions = RTSGameOptions.Instance;
 
 		// Populate Preselected Options
 		setValue( GLOBAL_UNIT_SCALE, GlobalUnitScale );
-
-		Log.Info(getFloatValue( GLOBAL_UNIT_SCALE ));
 	}
 
 	protected override void OnDestroy() 

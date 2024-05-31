@@ -5,13 +5,12 @@ using Sandbox.Utility.Svg;
 using System;
 using System.Reflection.Metadata;
 using System.Threading;
-class PlayerUnitControl : Component
+public class PlayerUnitControl : Component
 {
 	const float CLICK_TIME = 0.1f;
 
 	[Property]	RTSCamComponent RTSCam {  get; set; }
 	[Property] SelectionPanel selectionPanel { get; set; }
-	[Property] CommandIndicator commandIndicator { get; set; }
 	[Property] int team { get; set; }
 	List<Unit> SelectedUnits { get; set; }
 
@@ -178,9 +177,11 @@ class PlayerUnitControl : Component
 					{
 						case UnitModelUtils.CommandType.Move:
 							unit.homeTargetLocation = moveTarget;
+							RTSGame.Instance.GameCommandIndicator.PlayMoveIndicatorHere(moveTarget);
 							break;
 						case UnitModelUtils.CommandType.Attack:
 							unit.targetUnit = commandTarget;
+							RTSGame.Instance.GameCommandIndicator.PlayAttackIndicatorHere( commandTarget.GameObject );
 							break;
 					}
 					unit.commandGiven = commandType;
