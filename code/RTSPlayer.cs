@@ -1,6 +1,6 @@
 ﻿using System;
 
-class RTSPlayer : Component
+public class RTSPlayer : Component
 {
 
 	[Property] public PlayerUnitControl UnitControl;

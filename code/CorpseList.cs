@@ -1,6 +1,6 @@
 ﻿using System;
 
-class CorpseList : Component
+public class CorpseList : Component
 {
 	[Property] public bool ImposeCorpseLimit { get; set; }
 	[Property] public int CorpseLimit { get; set; }
