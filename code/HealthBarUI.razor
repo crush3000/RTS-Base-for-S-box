@@ -1,0 +1,43 @@
+﻿@using Sandbox;
+@using Sandbox.UI;
+@inherits PanelComponent
+@attribute [StyleSheet]
+
+@code
+{
+	public bool showPanel = true;
+
+	public int healthPercentage = 100;
+
+	public string barColor = "grey";
+
+	public void setBarColor(string newBarColor)
+	{
+		barColor = newBarColor;
+	}
+
+	public string getBarColor()
+	{
+		return barColor;
+	}
+
+	public void setHealth(int newHealthPercentage)
+	{
+		healthPercentage = newHealthPercentage;
+	}
+
+	public int getHealth()
+	{
+		return healthPercentage;
+	}
+
+	public void setShowPanel(bool setShow)
+	{
+		showPanel = setShow;
+	}
+
+}
+
+<root>
+	<div class="fill" style="width: @(getHealth())%; background-color: @(getBarColor());"></div>
+</root>

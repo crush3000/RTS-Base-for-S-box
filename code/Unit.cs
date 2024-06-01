@@ -34,6 +34,8 @@ class Unit : Component
 	[Property] public Material UnitModelMaterial { get; set; }
 	[Group( "Visuals" )]
 	[Property] public UnitModelBase PhysicalModelRenderer { get; set; }
+	[Group( "Visuals" )]
+	[Property] public HealthBar UnitHealthBar { get; set; }
 
 	[Group( "Triggers And Collision" )]
 	[Property] public UnitTriggerListener TriggerListener { get; set; }
@@ -77,6 +79,8 @@ class Unit : Component
 		currentHealthPoints = UnitMaxHealth;
 		setRelativeUnitSizeHelper(UnitSize);
 		PhysicalModelRenderer.setModel( UnitModelFile, UnitAnimGraph, UnitModelMaterial );
+		UnitHealthBar.Enabled = false;
+		UnitHealthBar.setBarColor( "green" );
 		Tags.Add( UNIT_TAG );
 	}
 
@@ -222,12 +226,14 @@ class Unit : Component
 	{
 		selected = true;
 		PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Selected );
+		UnitHealthBar.Enabled = true;
 	}
 
 	public void deSelectUnit()
 	{
 		selected = false;
 		PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Mine );
+		UnitHealthBar.Enabled = false;
 	}
 
 	public void takeDamage(int damage)
@@ -235,6 +241,7 @@ class Unit : Component
 		//Log.Info( this.GameObject.Name + " takes " + damage + " damage!");
 		PhysicalModelRenderer.animateDamageTaken();
 		currentHealthPoints -= damage;
+		UnitHealthBar.setHealth( currentHealthPoints, UnitMaxHealth);
 		if( currentHealthPoints < 0 )
 		{
 			die();

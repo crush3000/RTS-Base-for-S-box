@@ -1,5 +1,5 @@
 {
-  "__guid": "9dca4209-b22b-42d9-8056-f5f340db3854",
+  "__guid": "c7ef2b09-6fa2-4a31-93ff-263683768707",
   "GameObjects": [
     {
       "__guid": "c7a17bca-5a92-4484-9126-4bd9cc2556d9",
@@ -32,7 +32,7 @@
           "Team": 0,
           "UnitControl": {
             "_type": "component",
-            "component_id": "efceae2d-dbf6-4f15-b76d-62960d6f4ed2",
+            "component_id": "692d8d25-d02e-4c89-81b3-4366f05f3429",
             "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
             "component_type": "PlayerUnitControl"
           }
@@ -227,7 +227,7 @@
       "__guid": "bd6a2183-28b9-46a7-a9c0-611032506953",
       "Flags": 0,
       "Name": "CommandIndicator",
-      "Position": "568.1535,946.6251,41.04226",
+      "Position": "568.1535,-554.3341,41.04226",
       "Tags": "particles",
       "Enabled": true,
       "NetworkMode": 2,
@@ -235,7 +235,7 @@
       "Components": [
         {
           "__type": "ParticleCommandIndicator",
-          "__guid": "69163b36-e0e5-4e08-95e8-41c53fe15cc6",
+          "__guid": "ab6af58b-e4ec-470a-8852-4629c2cd06cc",
           "attackCommandEmitter": {
             "_type": "component",
             "component_id": "d2b81214-7e35-49c0-868c-261a34153b24",
@@ -278,10 +278,10 @@
       "Components": [
         {
           "__type": "RTSGameComponent",
-          "__guid": "69caa992-d211-4cd6-8e43-408688666d4f",
+          "__guid": "2f389129-71d5-42c0-8453-52232d0d3ed5",
           "GameCommandIndicator": {
             "_type": "component",
-            "component_id": "69163b36-e0e5-4e08-95e8-41c53fe15cc6",
+            "component_id": "ab6af58b-e4ec-470a-8852-4629c2cd06cc",
             "go": "bd6a2183-28b9-46a7-a9c0-611032506953",
             "component_type": "ParticleCommandIndicator"
           },
@@ -305,7 +305,7 @@
           },
           "ThisScreen": {
             "_type": "component",
-            "component_id": "1a4e6859-34d0-4b75-8143-81ee04e6aefb",
+            "component_id": "79522f77-70da-4144-b5a1-1b5d49766b14",
             "go": "0341ba11-a8d6-482e-8cbf-cf21beffa91d",
             "component_type": "ScreenPanel"
           }
@@ -336,7 +336,7 @@
   },
   "Title": "rts_scene",
   "Description": "",
-  "LastSaved": "2024-05-30T20:04:09.9293603-04:00",
+  "LastSaved": "2024-05-31T22:00:01.7161003-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
