@@ -80,7 +80,14 @@ class Unit : Component
 		setRelativeUnitSizeHelper(UnitSize);
 		PhysicalModelRenderer.setModel( UnitModelFile, UnitAnimGraph, UnitModelMaterial );
 		UnitHealthBar.Enabled = false;
-		UnitHealthBar.setBarColor( "green" );
+		if ( team != RTSGame.Instance.ThisPlayer.Team)
+		{
+			UnitHealthBar.setBarColor( "red" );
+		}
+		else
+		{
+			UnitHealthBar.setBarColor( "green" );
+		}
 		Tags.Add( UNIT_TAG );
 	}
 
@@ -212,6 +219,8 @@ class Unit : Component
 		UnitAutoMeleeCollider.Destroy();
 		SelectionHitbox.Enabled = false;
 		SelectionHitbox.Destroy();
+		UnitHealthBar.Enabled = false;
+		UnitHealthBar.Destroy();
 		if(UnitRangedAttackCollider != null )
 		{
 			UnitRangedAttackCollider.Enabled = false;

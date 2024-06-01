@@ -24,5 +24,12 @@ public class HealthBar : Component
 		healthBarUI.StateHasChanged();
 	}
 
-	//TODO ON DESTROY
+	protected override void OnDestroy()
+	{
+		UnitStatusWorldPanel.Enabled = false;
+		UnitStatusWorldPanel.Destroy();
+		healthBarUI.Enabled = false;
+		healthBarUI.Destroy();
+		base.OnDestroy();
+	}
 }
