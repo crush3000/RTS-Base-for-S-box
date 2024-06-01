@@ -44,6 +44,12 @@
           "go": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
           "component_type": "SphereCollider"
         },
+        "UnitHealthBar": {
+          "_type": "component",
+          "component_id": "54eff383-9121-4662-a593-2724a6eb6567",
+          "go": "ea78970f-c81d-494f-9240-d87909488d16",
+          "component_type": "HealthBar"
+        },
         "UnitMaxHealth": 100,
         "UnitMeleeCollider": {
           "_type": "component",
@@ -150,7 +156,8 @@
             "BodyGroups": 18446744073709551615,
             "CreateBoneObjects": false,
             "RenderType": "On",
-            "Tint": "1,1,1,1"
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
           }
         ],
         "Children": [
@@ -198,6 +205,46 @@
             ]
           }
         ]
+      },
+      {
+        "__guid": "ea78970f-c81d-494f-9240-d87909488d16",
+        "Flags": 0,
+        "Name": "UnitHealthBar",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "HealthBar",
+            "__guid": "54eff383-9121-4662-a593-2724a6eb6567",
+            "healthBarUI": {
+              "_type": "component",
+              "component_id": "64cbe26a-cf73-47f6-85e6-c404338278a0",
+              "go": "ea78970f-c81d-494f-9240-d87909488d16",
+              "component_type": "HealthBarUI"
+            },
+            "UnitStatusWorldPanel": {
+              "_type": "component",
+              "component_id": "13d20829-c570-425c-82c4-652211a58d4c",
+              "go": "ea78970f-c81d-494f-9240-d87909488d16",
+              "component_type": "WorldPanel"
+            }
+          },
+          {
+            "__type": "Sandbox.WorldPanel",
+            "__guid": "13d20829-c570-425c-82c4-652211a58d4c",
+            "HorizontalAlign": "Center",
+            "InteractionRange": 0,
+            "LookAtCamera": true,
+            "PanelSize": "5000,200",
+            "RenderScale": 1,
+            "VerticalAlign": "Center"
+          },
+          {
+            "__type": "HealthBarUI",
+            "__guid": "64cbe26a-cf73-47f6-85e6-c404338278a0"
+          }
+        ]
       }
     ]
   },
@@ -205,8 +252,8 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__version": 1,
   "__references": [
     "vidya.model-cylinder64"
-  ]
+  ],
+  "__version": 1
 }

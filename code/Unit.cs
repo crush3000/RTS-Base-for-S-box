@@ -34,6 +34,8 @@ class Unit : Component
 	[Property] public Material UnitModelMaterial { get; set; }
 	[Group( "Visuals" )]
 	[Property] public UnitModelBase PhysicalModelRenderer { get; set; }
+	[Group( "Visuals" )]
+	[Property] public HealthBar UnitHealthBar { get; set; }
 
 	[Group( "Triggers And Collision" )]
 	[Property] public UnitTriggerListener TriggerListener { get; set; }
@@ -77,6 +79,16 @@ class Unit : Component
 		currentHealthPoints = UnitMaxHealth;
 		setRelativeUnitSizeHelper(UnitSize);
 		PhysicalModelRenderer.setModel( UnitModelFile, UnitAnimGraph, UnitModelMaterial );
+		if ( team != RTSGame.Instance.ThisPlayer.Team)
+		{
+			UnitHealthBar.setBarColor( "red" );
+			UnitHealthBar.setShowHealthBar( true );
+		}
+		else
+		{
+			UnitHealthBar.setBarColor( "#40ff40" );
+			UnitHealthBar.setShowHealthBar( false );
+		}
 		Tags.Add( UNIT_TAG );
 	}
 
@@ -208,6 +220,8 @@ class Unit : Component
 		UnitAutoMeleeCollider.Destroy();
 		SelectionHitbox.Enabled = false;
 		SelectionHitbox.Destroy();
+		UnitHealthBar.Enabled = false;
+		UnitHealthBar.Destroy();
 		if(UnitRangedAttackCollider != null )
 		{
 			UnitRangedAttackCollider.Enabled = false;
@@ -222,12 +236,14 @@ class Unit : Component
 	{
 		selected = true;
 		PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Selected );
+		UnitHealthBar.setShowHealthBar(true);
 	}
 
 	public void deSelectUnit()
 	{
 		selected = false;
 		PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Mine );
+		UnitHealthBar.setShowHealthBar(false);
 	}
 
 	public void takeDamage(int damage)
@@ -235,7 +251,8 @@ class Unit : Component
 		//Log.Info( this.GameObject.Name + " takes " + damage + " damage!");
 		PhysicalModelRenderer.animateDamageTaken();
 		currentHealthPoints -= damage;
-		if( currentHealthPoints < 0 )
+		UnitHealthBar.setHealth( currentHealthPoints, UnitMaxHealth);
+		if( currentHealthPoints <= 0 )
 		{
 			die();
 		}
