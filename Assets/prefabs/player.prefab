@@ -10,7 +10,8 @@
       {
         "__type": "RTSCamComponent",
         "__guid": "c2d6d821-9684-4d1c-8316-ba4108fc12f2",
-        "CamMoveSpeed": 2,
+        "CamMoveSpeed": 20,
+        "CamRotateSpeed": 400,
         "CamView": {
           "_type": "component",
           "component_id": "696eeed9-e514-4404-af04-459dd4e1e78d",
