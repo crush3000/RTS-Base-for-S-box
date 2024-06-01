@@ -79,14 +79,15 @@ class Unit : Component
 		currentHealthPoints = UnitMaxHealth;
 		setRelativeUnitSizeHelper(UnitSize);
 		PhysicalModelRenderer.setModel( UnitModelFile, UnitAnimGraph, UnitModelMaterial );
-		UnitHealthBar.Enabled = false;
 		if ( team != RTSGame.Instance.ThisPlayer.Team)
 		{
 			UnitHealthBar.setBarColor( "red" );
+			UnitHealthBar.setShowHealthBar( true );
 		}
 		else
 		{
-			UnitHealthBar.setBarColor( "green" );
+			UnitHealthBar.setBarColor( "#40ff40" );
+			UnitHealthBar.setShowHealthBar( false );
 		}
 		Tags.Add( UNIT_TAG );
 	}
@@ -235,14 +236,14 @@ class Unit : Component
 	{
 		selected = true;
 		PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Selected );
-		UnitHealthBar.Enabled = true;
+		UnitHealthBar.setShowHealthBar(true);
 	}
 
 	public void deSelectUnit()
 	{
 		selected = false;
 		PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Mine );
-		UnitHealthBar.Enabled = false;
+		UnitHealthBar.setShowHealthBar(false);
 	}
 
 	public void takeDamage(int damage)
@@ -251,7 +252,7 @@ class Unit : Component
 		PhysicalModelRenderer.animateDamageTaken();
 		currentHealthPoints -= damage;
 		UnitHealthBar.setHealth( currentHealthPoints, UnitMaxHealth);
-		if( currentHealthPoints < 0 )
+		if( currentHealthPoints <= 0 )
 		{
 			die();
 		}

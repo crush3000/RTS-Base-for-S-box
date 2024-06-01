@@ -14,7 +14,7 @@ public class HealthBar : Component
 
 	public void setShowHealthBar(bool showBar)
 	{
-		UnitStatusWorldPanel.Enabled = showBar;
+		healthBarUI.Enabled = showBar;
 		healthBarUI.StateHasChanged();
 	}
 

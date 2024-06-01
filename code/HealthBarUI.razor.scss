@@ -2,11 +2,13 @@ HealthbarUI {
     background-color: black;
     height: 100%;
     width: 100%;
+    border: 5px black;
 }
 
 .fill {
     height: 100%;
     width: 100%;
     background-color: red;
+    border: 5px black;
 }
 
