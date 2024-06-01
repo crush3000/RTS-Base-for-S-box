@@ -4,6 +4,7 @@ public sealed class RTSCamComponent : Component
 	[Property] public CameraComponent CamView { get; set; }
 	[Property] public float CamMoveSpeed {  get; set; }
 	[Property] public float CamZoomSpeed { get; set; }
+	[Property] public float CamRotateSpeed { get; set; }
 
 	float currentCamHeight = 100.0F;
 
@@ -64,18 +65,18 @@ public sealed class RTSCamComponent : Component
 		camYaw = Transform.Rotation.Yaw();
 		camPitch = Transform.Rotation.Pitch();
 
-		// Get current position
+		// Add to current position
 		var rot = GameObject.Transform.Rotation;
 		var pos = GameObject.Transform.Position + movement;
 
 		//Handle Horizontal Rotation
 		if ( Input.Down( "Rotate Left" ) )
 		{
-			camYaw += Time.Delta * 90.0f;
+			camYaw += Time.Delta * CamRotateSpeed;
 		}
 		if ( Input.Down( "Rotate Right" ) )
 		{
-			camYaw -= Time.Delta * 90.0f;
+			camYaw -= Time.Delta * CamRotateSpeed;
 		}
 
 		//Log.Info( "Rotation After Horizontal Rotate" + rot.Angles() );
@@ -83,11 +84,11 @@ public sealed class RTSCamComponent : Component
 		// Handle Pitch Rotation
 		if ( Input.Down( "Pitch Up" ) )
 		{
-			camPitch += Time.Delta * 90.0f;
+			camPitch += Time.Delta * CamRotateSpeed;
 		}
 		if ( Input.Down( "Pitch Down" ) )
 		{
-			camPitch -= Time.Delta * 90.0f;
+			camPitch -= Time.Delta * CamRotateSpeed;
 		}
 		camPitch = camPitch.Clamp( 0, 89.9f );
 		
@@ -96,6 +97,6 @@ public sealed class RTSCamComponent : Component
 
 		// Set Transform
 		// TODO FIGURE OUT HOW TO LERP
-		Transform.Local = new Transform( pos, rot, 1 );
+		Transform.LerpTo( new Transform( pos, rot, 1 ), 0.1f );
 	}
 }
