@@ -1,5 +1,5 @@
 {
-  "__guid": "c7ef2b09-6fa2-4a31-93ff-263683768707",
+  "__guid": "2b659ed9-4003-4219-ab79-3a939e439443",
   "GameObjects": [
     {
       "__guid": "c7a17bca-5a92-4484-9126-4bd9cc2556d9",
@@ -18,6 +18,51 @@
       ]
     },
     {
+      "__guid": "1ffcb780-02dc-4c0a-be50-34783d40126e",
+      "Flags": 0,
+      "Name": "Game",
+      "Position": "282.3805,932.6121,409.9373",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "RTSGameComponent",
+          "__guid": "2f389129-71d5-42c0-8453-52232d0d3ed5",
+          "GameCommandIndicator": {
+            "_type": "component",
+            "component_id": "ab6af58b-e4ec-470a-8852-4629c2cd06cc",
+            "go": "bd6a2183-28b9-46a7-a9c0-611032506953",
+            "component_type": "ParticleCommandIndicator"
+          },
+          "GameCorpseList": {
+            "_type": "component",
+            "component_id": "66f05ea5-1d3d-4a27-a7e9-9040700259dc",
+            "go": "97748558-2745-4a3f-a23d-2465b98b2c3b",
+            "component_type": "CorpseList"
+          },
+          "Options": {
+            "_type": "component",
+            "component_id": "b7a2bf13-569e-4740-9910-49ee3979e9fd",
+            "go": "c7a17bca-5a92-4484-9126-4bd9cc2556d9",
+            "component_type": "RTSGameOptionsComponent"
+          },
+          "ThisPlayer": {
+            "_type": "component",
+            "component_id": "e4f86cb1-f9a1-4e97-8a8a-c9df9b67f540",
+            "go": "88fe0df8-db2f-4954-9a8e-ff064164a8ea",
+            "component_type": "RTSPlayer"
+          },
+          "ThisScreen": {
+            "_type": "component",
+            "component_id": "d089b2ab-e9fb-4667-aba6-a552a524417d",
+            "go": "0341ba11-a8d6-482e-8cbf-cf21beffa91d",
+            "component_type": "ScreenPanel"
+          }
+        }
+      ]
+    },
+    {
       "__guid": "88fe0df8-db2f-4954-9a8e-ff064164a8ea",
       "Flags": 0,
       "Name": "Player1",
@@ -32,7 +77,7 @@
           "Team": 0,
           "UnitControl": {
             "_type": "component",
-            "component_id": "692d8d25-d02e-4c89-81b3-4366f05f3429",
+            "component_id": "c1014181-a3b5-4340-b978-44e0ed208c33",
             "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
             "component_type": "PlayerUnitControl"
           }
@@ -266,51 +311,6 @@
           "PlaybackSpeed": 1
         }
       ]
-    },
-    {
-      "__guid": "1ffcb780-02dc-4c0a-be50-34783d40126e",
-      "Flags": 0,
-      "Name": "Game",
-      "Position": "282.3805,932.6121,409.9373",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "RTSGameComponent",
-          "__guid": "2f389129-71d5-42c0-8453-52232d0d3ed5",
-          "GameCommandIndicator": {
-            "_type": "component",
-            "component_id": "ab6af58b-e4ec-470a-8852-4629c2cd06cc",
-            "go": "bd6a2183-28b9-46a7-a9c0-611032506953",
-            "component_type": "ParticleCommandIndicator"
-          },
-          "GameCorpseList": {
-            "_type": "component",
-            "component_id": "66f05ea5-1d3d-4a27-a7e9-9040700259dc",
-            "go": "97748558-2745-4a3f-a23d-2465b98b2c3b",
-            "component_type": "CorpseList"
-          },
-          "Options": {
-            "_type": "component",
-            "component_id": "b7a2bf13-569e-4740-9910-49ee3979e9fd",
-            "go": "c7a17bca-5a92-4484-9126-4bd9cc2556d9",
-            "component_type": "RTSGameOptionsComponent"
-          },
-          "ThisPlayer": {
-            "_type": "component",
-            "component_id": "e4f86cb1-f9a1-4e97-8a8a-c9df9b67f540",
-            "go": "88fe0df8-db2f-4954-9a8e-ff064164a8ea",
-            "component_type": "RTSPlayer"
-          },
-          "ThisScreen": {
-            "_type": "component",
-            "component_id": "79522f77-70da-4144-b5a1-1b5d49766b14",
-            "go": "0341ba11-a8d6-482e-8cbf-cf21beffa91d",
-            "component_type": "ScreenPanel"
-          }
-        }
-      ]
     }
   ],
   "SceneProperties": {
@@ -336,7 +336,7 @@
   },
   "Title": "rts_scene",
   "Description": "",
-  "LastSaved": "2024-05-31T22:21:34.8955761-04:00",
+  "LastSaved": "2024-06-01T19:59:04.8914866-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
