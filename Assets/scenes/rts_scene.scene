@@ -55,7 +55,7 @@
           },
           "ThisScreen": {
             "_type": "component",
-            "component_id": "d089b2ab-e9fb-4667-aba6-a552a524417d",
+            "component_id": "6710f2d3-0b9e-4f0d-b91a-3de83d099e0e",
             "go": "0341ba11-a8d6-482e-8cbf-cf21beffa91d",
             "component_type": "ScreenPanel"
           }
@@ -77,9 +77,13 @@
           "Team": 0,
           "UnitControl": {
             "_type": "component",
-            "component_id": "c1014181-a3b5-4340-b978-44e0ed208c33",
+            "component_id": "81761e9d-63b6-4ec5-a359-46583ad04942",
             "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
             "component_type": "PlayerUnitControl"
+          },
+          "skeltalPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/skeltal.prefab"
           }
         }
       ]
@@ -336,7 +340,7 @@
   },
   "Title": "rts_scene",
   "Description": "",
-  "LastSaved": "2024-06-01T19:59:04.8914866-04:00",
+  "LastSaved": "2024-06-03T20:42:03.7690413-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
