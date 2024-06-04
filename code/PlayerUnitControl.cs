@@ -188,6 +188,19 @@ public class PlayerUnitControl : Component
 				}
 			}
 		}
+
+		if(Input.Pressed("spawn_skeltal"))
+		{
+			// Set up and run mouse ray to find what we're now selecting
+			var mouseScreenPos = Mouse.Position;
+			var mouseDirection = RTSCam.CamView.ScreenPixelToRay( mouseScreenPos );
+			var mouseRay = Scene.Trace.Ray( mouseDirection, 5000f );
+			var tr = mouseRay.Run();
+
+			//Call Unit Factory Here.
+			Log.Info( "Spawning Skeltal!" );
+			RTSGame.Instance.ThisPlayer.myUnitFactory.spawnUnit(RTSGame.Instance.ThisPlayer.skeltalPrefab, tr.EndPosition);
+		}
 	}
 
 	private void drawSelectionRect()

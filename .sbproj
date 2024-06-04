@@ -55,6 +55,7 @@
         {
           "Name": "Rotate Left",
           "KeyboardCode": "Q",
+          "GamepadCode": "None",
           "GroupName": "Movement"
         },
         {
@@ -206,6 +207,12 @@
           "KeyboardCode": "enter",
           "GamepadCode": "None",
           "GroupName": "Other"
+        },
+        {
+          "Name": "spawn_skeltal",
+          "KeyboardCode": "MOUSE3",
+          "GamepadCode": "None",
+          "GroupName": "Actions"
         }
       ],
       "__guid": "1195d4ab-6850-4341-beb4-37dc0db83b19"
