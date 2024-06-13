@@ -25,6 +25,7 @@ public class UnitModelUtils
 		Ally,
 		Neutral,
 		Hostile,
-		Selected
+		Selected,
+		None
 	}
 }

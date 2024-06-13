@@ -1,16 +1,10 @@
 ﻿using Sandbox;
 using System;
 
-class Unit : Component
+class Unit : SkinnedRTSObject
 {
 	[Group( "Gameplay" )]
-	[Property] public int team { get; set; }
-	[Group( "Gameplay" )]
-	[Property] public Vector3 UnitSize { get; set; }
-	[Group( "Gameplay" )]
 	[Property] public float UnitSpeed { get; set; }
-	[Group( "Gameplay" )]
-	[Property] public int UnitMaxHealth { get; set; }
 	[Group( "Gameplay" )]
 	[Property] public bool HasMeleeAttack { get; set; }
 	[Group( "Gameplay" )]
@@ -26,17 +20,6 @@ class Unit : Component
 	[Group( "Gameplay" )]
 	[Property] public float RangedAttackSpeed { get; set; }
 
-	[Group( "Visuals" )]
-	[Property] public Model UnitModelFile { get; set; }
-	[Group( "Visuals" )]
-	[Property] public AnimationGraph UnitAnimGraph { get; set; }
-	[Group( "Visuals" )]
-	[Property] public Material UnitModelMaterial { get; set; }
-	[Group( "Visuals" )]
-	[Property] public UnitModelBase PhysicalModelRenderer { get; set; }
-	[Group( "Visuals" )]
-	[Property] public HealthBar UnitHealthBar { get; set; }
-
 	[Group( "Triggers And Collision" )]
 	[Property] public UnitTriggerListener TriggerListener { get; set; }
 	[Group( "Triggers And Collision" )]
@@ -45,8 +28,6 @@ class Unit : Component
 	[Property] public SphereCollider UnitAutoMeleeCollider { get; set; }
 	[Group( "Triggers And Collision" )]
 	[Property] public Collider UnitRangedAttackCollider { get; set; }
-	[Group( "Triggers And Collision" )]
-	[Property] public BoxCollider SelectionHitbox { get; set; }
 	[Group( "Triggers And Collision" )]
 	[Property] public NavMeshAgent UnitNavAgent { get; set; }
 
@@ -73,23 +54,11 @@ class Unit : Component
 
 	protected override void OnStart()
 	{
+		Log.Info( "Unit Object OnStart" );
 		base.OnStart();
+
 		commandGiven = UnitModelUtils.CommandType.None;
 		homeTargetLocation = Transform.Position;
-		currentHealthPoints = UnitMaxHealth;
-		setRelativeUnitSizeHelper(UnitSize);
-		PhysicalModelRenderer.setModel( UnitModelFile, UnitAnimGraph, UnitModelMaterial );
-		if ( team != RTSGame.Instance.ThisPlayer.Team)
-		{
-			UnitHealthBar.setBarColor( "red" );
-			UnitHealthBar.setShowHealthBar( true );
-		}
-		else
-		{
-			UnitHealthBar.setBarColor( "#40ff40" );
-			UnitHealthBar.setShowHealthBar( false );
-		}
-		Tags.Add( UNIT_TAG );
 	}
 
 	protected override void OnUpdate()
@@ -210,52 +179,27 @@ class Unit : Component
 	// Cleanup
 	protected override void OnDestroy()
 	{
-		PhysicalModelRenderer.Enabled = false;
-		PhysicalModelRenderer.Destroy();
+		Log.Info( "Unit Object OnDestroy" );
 		UnitNavAgent.Enabled = false;
 		UnitNavAgent.Destroy();
 		UnitMeleeCollider.Enabled = false;
 		UnitMeleeCollider.Destroy();
 		UnitAutoMeleeCollider.Enabled = false;
 		UnitAutoMeleeCollider.Destroy();
-		SelectionHitbox.Enabled = false;
-		SelectionHitbox.Destroy();
-		UnitHealthBar.Enabled = false;
-		UnitHealthBar.Destroy();
 		if(UnitRangedAttackCollider != null )
 		{
 			UnitRangedAttackCollider.Enabled = false;
 			UnitRangedAttackCollider.Destroy();
 		}
-		this.Enabled = false;
 		base.OnDestroy();
 
 	}
 
-	public void selectUnit()
-	{
-		selected = true;
-		PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Selected );
-		UnitHealthBar.setShowHealthBar(true);
-	}
-
-	public void deSelectUnit()
+	public override void deSelect()
 	{
 		selected = false;
 		PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Mine );
-		UnitHealthBar.setShowHealthBar(false);
-	}
-
-	public void takeDamage(int damage)
-	{
-		//Log.Info( this.GameObject.Name + " takes " + damage + " damage!");
-		PhysicalModelRenderer.animateDamageTaken();
-		currentHealthPoints -= damage;
-		UnitHealthBar.setHealth( currentHealthPoints, UnitMaxHealth);
-		if( currentHealthPoints <= 0 )
-		{
-			die();
-		}
+		this.ThisHealthBar.setShowHealthBar(false);
 	}
 
 	public void move(Vector3 location, bool isNewMoveCommand)
@@ -277,38 +221,35 @@ class Unit : Component
 		UnitNavAgent.Stop();
 	}
 
-	private void die()
-	{
-		//Log.Info( this.GameObject.Name + " dies!" );
-		PhysicalModelRenderer.animateDeath();
-		Destroy();
-	}
-
 	private void directMeleeAttack(Unit targetUnit)
 	{
-		PhysicalModelRenderer.animateMeleeAttack();
+		this.PhysicalModelRenderer.animateMeleeAttack();
 		targetUnit.takeDamage( MeleeAttackDamage );
 		lastMeleeTime = Time.Now;
 	}
 
-	private void setRelativeUnitSizeHelper(Vector3 unitSize)
+	public override void setRelativeSizeHelper(Vector3 unitSize)
 	{
+		Log.Info( "Unit Object SizeFunc" );
 		// The scale is going to be calculated from the ratio of the default model size and the unit's given size modified by a global scaling constant
-		Vector3 defaultModelSize = UnitModelFile.Bounds.Size;
-		
-		Vector3 globalScaleModifier = Vector3.One * Scene.GetAllObjects( true ).Where( go => go.Name == "RTSGameOptions" ).First().Components.GetAll<RTSGameOptionsComponent>().First().getFloatValue( RTSGameOptionsComponent.GLOBAL_UNIT_SCALE );
+		Vector3 defaultModelSize = ModelFile.Bounds.Size;
+
+		//Vector3 globalScaleModifier = Vector3.One * Scene.GetAllObjects( true ).Where( go => go.Name == "RTSGameOptions" ).First().Components.GetAll<RTSGameOptionsComponent>().First().getFloatValue( RTSGameOptionsComponent.GLOBAL_UNIT_SCALE );
+		Log.Info( ModelFile.Bounds.Size );
+
+		Vector3 globalScaleModifier = Vector3.One * RTSGame.Instance.GameOptions.getFloatValue( RTSGameOptionsComponent.GLOBAL_UNIT_SCALE );
 		Vector3 targetModelSize = new Vector3((unitSize.x * globalScaleModifier.x), (unitSize.y * globalScaleModifier.y), (unitSize.z * globalScaleModifier.z));
 		float targetxyMin = float.Min( targetModelSize.x, targetModelSize.y );
 		float targetxyMax = float.Max( targetModelSize.x, targetModelSize.y );
 		float defaultxyMin = float.Min( defaultModelSize.x, defaultModelSize.y );
 		float defaultxyMax = float.Max( defaultModelSize.x, defaultModelSize.y );
-		//Log.Info("defaultModelSize: " +  defaultModelSize);
-		//Log.Info("Target Model Size: " + targetModelSize );
-		//Log.Info( "Calculated Scale: " + new Vector3(
-			//((unitSize.x * globalScaleModifier.x) / defaultModelSize.x),
-			//((unitSize.y * globalScaleModifier.y) / defaultModelSize.y),
-			//((unitSize.z * globalScaleModifier.z) / defaultModelSize.z)
-			//));
+		Log.Info("defaultModelSize: " +  defaultModelSize);
+		Log.Info("Target Model Size: " + targetModelSize );
+		Log.Info( "Calculated Scale: " + new Vector3(
+			((unitSize.x * globalScaleModifier.x) / defaultModelSize.x),
+			((unitSize.y * globalScaleModifier.y) / defaultModelSize.y),
+			((unitSize.z * globalScaleModifier.z) / defaultModelSize.z)
+			));
 		Transform.LocalScale = new Vector3(
 			(targetModelSize.x / defaultModelSize.x),
 			(targetModelSize.y / defaultModelSize.y),

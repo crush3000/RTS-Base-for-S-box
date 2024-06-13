@@ -11,10 +11,14 @@
       {
         "__type": "Unit",
         "__guid": "995580de-2d22-4bca-a225-42c663e3b303",
+        "AnimGraph": "animgraphs/sk_light_infantry_a.vanmgrph",
         "HasMeleeAttack": true,
         "HasRangedAttack": false,
+        "MaxHealth": 100,
         "MeleeAttackDamage": 20,
         "MeleeAttackSpeed": 1.5,
+        "ModelFile": "models/prebuilt_characters/sk_light_infantry_a.vmdl",
+        "ModelMaterial": "materials/t_undead_standard.vmat",
         "PhysicalModelRenderer": {
           "_type": "component",
           "component_id": "ade42ab9-eb04-44ea-a252-8ac0bc0ca736",
@@ -30,42 +34,38 @@
           "go": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
           "component_type": "BoxCollider"
         },
+        "Size": "133.754,195.369,180.292",
         "team": 1,
+        "ThisHealthBar": {
+          "_type": "component",
+          "component_id": "54eff383-9121-4662-a593-2724a6eb6567",
+          "go": "ea78970f-c81d-494f-9240-d87909488d16",
+          "component_type": "HealthBar"
+        },
         "TriggerListener": {
           "_type": "component",
           "component_id": "edb9b623-4979-4ee6-b715-330fff102d0c",
           "go": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
           "component_type": "UnitTriggerListener"
         },
-        "UnitAnimGraph": "animgraphs/sk_light_infantry_a.vanmgrph",
         "UnitAutoMeleeCollider": {
           "_type": "component",
           "component_id": "ff3a35cf-d4fc-4589-979c-ebab9821c354",
           "go": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
           "component_type": "SphereCollider"
         },
-        "UnitHealthBar": {
-          "_type": "component",
-          "component_id": "54eff383-9121-4662-a593-2724a6eb6567",
-          "go": "ea78970f-c81d-494f-9240-d87909488d16",
-          "component_type": "HealthBar"
-        },
-        "UnitMaxHealth": 100,
         "UnitMeleeCollider": {
           "_type": "component",
           "component_id": "c9950371-221e-42f6-b00e-41e8308ccbb9",
           "go": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
           "component_type": "CapsuleCollider"
         },
-        "UnitModelFile": "models/prebuilt_characters/sk_light_infantry_a.vmdl",
-        "UnitModelMaterial": "materials/t_undead_standard.vmat",
         "UnitNavAgent": {
           "_type": "component",
           "component_id": "37eabd0e-82fc-497f-b041-c89bf6415d3b",
           "go": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
           "component_type": "NavMeshAgent"
         },
-        "UnitSize": "133.7544,195.3692,180.2918",
         "UnitSpeed": 60
       },
       {
@@ -246,7 +246,8 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

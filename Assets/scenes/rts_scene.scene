@@ -1,5 +1,5 @@
 {
-  "__guid": "2b659ed9-4003-4219-ab79-3a939e439443",
+  "__guid": "c188f5c6-7c9c-43ce-b2a0-3abb3ff41bc6",
   "GameObjects": [
     {
       "__guid": "c7a17bca-5a92-4484-9126-4bd9cc2556d9",
@@ -55,7 +55,7 @@
           },
           "ThisScreen": {
             "_type": "component",
-            "component_id": "6710f2d3-0b9e-4f0d-b91a-3de83d099e0e",
+            "component_id": "b3e25d7a-f174-42af-9bff-c898d258ea0b",
             "go": "0341ba11-a8d6-482e-8cbf-cf21beffa91d",
             "component_type": "ScreenPanel"
           }
@@ -77,7 +77,7 @@
           "Team": 0,
           "UnitControl": {
             "_type": "component",
-            "component_id": "81761e9d-63b6-4ec5-a359-46583ad04942",
+            "component_id": "852c0f7a-ddd0-4255-b7b5-91cc8fed392b",
             "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
             "component_type": "PlayerUnitControl"
           },
@@ -97,7 +97,8 @@
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
-      "__Prefab": "prefabs/player.prefab"
+      "__Prefab": "prefabs/player.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "9fe8a9d1-d2b6-40dd-98ff-f7f8984aab67",
@@ -126,7 +127,8 @@
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
-      "__Prefab": "prefabs/selectionscreen.prefab"
+      "__Prefab": "prefabs/selectionscreen.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
@@ -138,7 +140,8 @@
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
-      "__Prefab": "animgraphs/enemyskeltal.prefab"
+      "__Prefab": "animgraphs/enemyskeltal.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "d01bd5a2-b429-4618-b245-05d103f0f1f5",
@@ -150,7 +153,8 @@
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
-      "__Prefab": "animgraphs/enemyskeltal.prefab"
+      "__Prefab": "animgraphs/enemyskeltal.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "a7967e98-be1b-41b8-97b5-45c8af68ac61",
@@ -162,7 +166,8 @@
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
-      "__Prefab": "animgraphs/enemyskeltal.prefab"
+      "__Prefab": "animgraphs/enemyskeltal.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "3d8f25b5-cd17-4fc4-bb18-2ce2b318d591",
@@ -174,7 +179,8 @@
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
-      "__Prefab": "animgraphs/enemyskeltal.prefab"
+      "__Prefab": "animgraphs/enemyskeltal.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "ccaff9b4-e31e-47e7-877c-b3f64331125e",
@@ -186,7 +192,8 @@
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
-      "__Prefab": "animgraphs/enemyskeltal.prefab"
+      "__Prefab": "animgraphs/enemyskeltal.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "1ad99cde-ebec-480b-ba4d-58ef33985c9e",
@@ -199,7 +206,8 @@
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
-      "__Prefab": "prefabs/skeltal.prefab"
+      "__Prefab": "prefabs/skeltal.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "1e43ced9-0c63-4095-9675-05bb161cd2c6",
@@ -212,7 +220,8 @@
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
-      "__Prefab": "prefabs/skeltal.prefab"
+      "__Prefab": "prefabs/skeltal.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "a39d7a83-b5db-412d-b680-469a35dc2d6a",
@@ -225,7 +234,8 @@
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
-      "__Prefab": "prefabs/skeltal.prefab"
+      "__Prefab": "prefabs/skeltal.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "9b1923f3-cc80-4361-8dc1-9be84f8c9c31",
@@ -238,7 +248,8 @@
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
-      "__Prefab": "prefabs/skeltal.prefab"
+      "__Prefab": "prefabs/skeltal.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "a6caed93-f18c-4817-8215-47fa00c917a0",
@@ -251,7 +262,8 @@
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
-      "__Prefab": "prefabs/skeltal.prefab"
+      "__Prefab": "prefabs/skeltal.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "97748558-2745-4a3f-a23d-2465b98b2c3b",
@@ -315,6 +327,15 @@
           "PlaybackSpeed": 1
         }
       ]
+    },
+    {
+      "__guid": "285f6d1e-4ecc-4ac6-9977-529bdfd47eeb",
+      "Flags": 0,
+      "Name": "SkeltalHouse",
+      "Position": "476.6099,1268.737,55.94473",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true
     }
   ],
   "SceneProperties": {
@@ -340,7 +361,7 @@
   },
   "Title": "rts_scene",
   "Description": "",
-  "LastSaved": "2024-06-03T20:42:03.7690413-04:00",
+  "LastSaved": "2024-06-13T18:01:07.5930266-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
