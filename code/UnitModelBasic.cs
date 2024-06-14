@@ -9,6 +9,7 @@ class UnitModelBasic : UnitModelBase
 	public override void setModel( Model newModel, AnimationGraph newAnimGraph, Material newMaterial )
 	{
 		model.Model = newModel;
+		//model.AnimationGraph = newAnimGraph;
 		model.MaterialOverride = newMaterial;
 	}
 
@@ -34,7 +35,6 @@ class UnitModelBasic : UnitModelBase
 
 	public override void animateDeath()
 	{
-		addToCorpsePile();
 		//
 	}
 

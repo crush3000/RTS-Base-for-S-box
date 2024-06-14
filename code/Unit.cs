@@ -55,7 +55,12 @@ class Unit : SkinnedRTSObject
 	protected override void OnStart()
 	{
 		Log.Info( "Unit Object OnStart" );
+		objectTypeTag = UNIT_TAG;
 		base.OnStart();
+		foreach ( var tag in Tags )
+		{
+			Log.Info( tag );
+		}
 
 		commandGiven = UnitModelUtils.CommandType.None;
 		homeTargetLocation = Transform.Position;
@@ -200,6 +205,13 @@ class Unit : SkinnedRTSObject
 		selected = false;
 		PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Mine );
 		this.ThisHealthBar.setShowHealthBar(false);
+	}
+
+	public override void die()
+	{
+		//Log.Info( this.GameObject.Name + " dies!" );
+		PhysicalModelRenderer.animateDeath();
+		Destroy();
 	}
 
 	public void move(Vector3 location, bool isNewMoveCommand)

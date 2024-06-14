@@ -23,13 +23,18 @@ class Building: SkinnedRTSObject
 	private int currentHealthPoints = 100;
 
 	// Unit Constants
-	private const string TAG = "building";
+	private const string BUILDING_TAG = "building";
 	private const float CLICK_HITBOX_RADIUS_MULTIPLIER = .5f;
 
 	protected override void OnStart()
 	{
 		Log.Info( "Building Object OnStart" );
+		objectTypeTag = BUILDING_TAG;
 		base.OnStart();
+		foreach ( var tag in Tags )
+		{
+			Log.Info( tag );
+		}
 	}
 
 	protected override void OnUpdate()
@@ -98,6 +103,14 @@ class Building: SkinnedRTSObject
 		float targetxyMax = float.Max( targetModelSize.x, targetModelSize.y );
 		float defaultxyMin = float.Min( defaultModelSize.x, defaultModelSize.y );
 		float defaultxyMax = float.Max( defaultModelSize.x, defaultModelSize.y );
+
+		Log.Info( "defaultModelSize: " + defaultModelSize );
+		Log.Info( "Target Model Size: " + targetModelSize );
+		Log.Info( "Calculated Scale: " + new Vector3(
+			((unitSize.x * globalScaleModifier.x) / defaultModelSize.x),
+			((unitSize.y * globalScaleModifier.y) / defaultModelSize.y),
+			((unitSize.z * globalScaleModifier.z) / defaultModelSize.z)
+			) );
 
 		Transform.LocalScale = new Vector3(
 			(targetModelSize.x / defaultModelSize.x),

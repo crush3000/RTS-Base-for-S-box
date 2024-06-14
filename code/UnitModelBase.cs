@@ -16,13 +16,9 @@ public abstract class UnitModelBase : Component
 
 	protected bool attackSet = false;
 
-	protected void addToCorpsePile()
+	public void addToCorpsePile()
 	{
-		var corpseListObjects = Scene.GetAllComponents<CorpseList>();
-		if ( corpseListObjects.Any() )
-		{
-			corpseListObjects.First().addCorpse( model, Time.Now );
-		}
+		RTSGame.Instance.GameCorpseList.addCorpse( model, Time.Now );
 	}
 
 	public virtual void setOutlineState( UnitModelUtils.OutlineState newState )

@@ -335,7 +335,178 @@
       "Position": "476.6099,1268.737,55.94473",
       "Enabled": true,
       "NetworkMode": 2,
-      "NetworkInterpolation": true
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Building",
+          "__guid": "dba19110-d9d4-48ef-bd91-e6a906ec9cea",
+          "HasRangedAttack": false,
+          "MaxHealth": 1000,
+          "ModelFile": "models/buildings/temple.vmdl",
+          "ModelMaterial": "materials/temple.vmat",
+          "PhysicalModelRenderer": {
+            "_type": "component",
+            "component_id": "7c1ca1bd-099d-49f3-9571-5bd73908f158",
+            "go": "fb61ed76-912a-4f99-a5ad-07f3e681a147",
+            "component_type": "UnitModelBasic"
+          },
+          "RangedAttackDamage": 0,
+          "RangedAttackRange": 0,
+          "RangedAttackSpeed": 0,
+          "SelectionHitbox": {
+            "_type": "component",
+            "component_id": "62351aa0-efe8-4952-af52-46e09c1ab0ea",
+            "go": "285f6d1e-4ecc-4ac6-9977-529bdfd47eeb",
+            "component_type": "BoxCollider"
+          },
+          "Size": "653.5387,654.9819,776.3831",
+          "team": 0,
+          "ThisHealthBar": {
+            "_type": "component",
+            "component_id": "fd63de4e-ded7-48d2-a8e6-0311b33f196b",
+            "go": "fee006c6-b506-42fb-9b1d-38e74b66ce25",
+            "component_type": "HealthBar"
+          }
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "62351aa0-efe8-4952-af52-46e09c1ab0ea",
+          "Center": "0,0,0",
+          "IsTrigger": false,
+          "Scale": "50,50,50",
+          "Static": false
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "fb61ed76-912a-4f99-a5ad-07f3e681a147",
+          "Flags": 0,
+          "Name": "BuildingModel",
+          "Position": "0,0,0",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "UnitModelBasic",
+              "__guid": "7c1ca1bd-099d-49f3-9571-5bd73908f158",
+              "selectionOutlineState": "Mine",
+              "baseStand": {
+                "_type": "component",
+                "component_id": "ec579b4f-7bf8-405c-b040-34007513c0ad",
+                "go": "efd3e519-9d3f-4e82-9b3a-7af26acd23c2",
+                "component_type": "DecalBaseStand"
+              },
+              "model": {
+                "_type": "component",
+                "component_id": "f37a0487-c480-48d7-956f-8df0cf50fa71",
+                "go": "fb61ed76-912a-4f99-a5ad-07f3e681a147",
+                "component_type": "SkinnedModelRenderer"
+              },
+              "outline": {
+                "_type": "component",
+                "component_id": "03ebb9bd-400c-42c6-b279-a1df1d95afe0",
+                "go": "fb61ed76-912a-4f99-a5ad-07f3e681a147",
+                "component_type": "HighlightOutline"
+              }
+            },
+            {
+              "__type": "Sandbox.HighlightOutline",
+              "__guid": "03ebb9bd-400c-42c6-b279-a1df1d95afe0",
+              "Color": "1,1,1,0",
+              "InsideColor": "0,0,0,0",
+              "InsideObscuredColor": "0,0,0,0",
+              "ObscuredColor": "0,0,0,0",
+              "Width": 0.25
+            },
+            {
+              "__type": "Sandbox.SkinnedModelRenderer",
+              "__guid": "f37a0487-c480-48d7-956f-8df0cf50fa71",
+              "BodyGroups": 18446744073709551615,
+              "CreateBoneObjects": false,
+              "RenderType": "On",
+              "Tint": "1,1,1,1",
+              "UseAnimGraph": true
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "fee006c6-b506-42fb-9b1d-38e74b66ce25",
+              "Flags": 0,
+              "Name": "BuildingHealthBar",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "HealthBar",
+                  "__guid": "fd63de4e-ded7-48d2-a8e6-0311b33f196b",
+                  "healthBarUI": {
+                    "_type": "component",
+                    "component_id": "283d275b-9e2a-424e-80f0-5674feaefb02",
+                    "go": "fee006c6-b506-42fb-9b1d-38e74b66ce25",
+                    "component_type": "HealthBarUI"
+                  },
+                  "UnitStatusWorldPanel": {
+                    "_type": "component",
+                    "component_id": "f551760d-4e31-4606-abac-011b261c401e",
+                    "go": "fee006c6-b506-42fb-9b1d-38e74b66ce25",
+                    "component_type": "WorldPanel"
+                  }
+                },
+                {
+                  "__type": "Sandbox.WorldPanel",
+                  "__guid": "f551760d-4e31-4606-abac-011b261c401e",
+                  "HorizontalAlign": "Center",
+                  "InteractionRange": 0,
+                  "LookAtCamera": true,
+                  "PanelSize": "5000,200",
+                  "RenderScale": 1,
+                  "VerticalAlign": "Center"
+                },
+                {
+                  "__type": "HealthBarUI",
+                  "__guid": "283d275b-9e2a-424e-80f0-5674feaefb02"
+                }
+              ]
+            },
+            {
+              "__guid": "efd3e519-9d3f-4e82-9b3a-7af26acd23c2",
+              "Flags": 0,
+              "Name": "BuildingBaseStand",
+              "Position": "-476.6099,-1268.737,-5.944729",
+              "Rotation": "0,0.7071068,0,0.7071068",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkInterpolation": true,
+              "Components": [
+                {
+                  "__type": "DecalBaseStand",
+                  "__guid": "ec579b4f-7bf8-405c-b040-34007513c0ad",
+                  "SelectionOutlineState": "Mine",
+                  "BaseStandModel": {
+                    "_type": "component",
+                    "component_id": "d17af929-be7c-4ddf-b630-717ecba57f20",
+                    "go": "efd3e519-9d3f-4e82-9b3a-7af26acd23c2",
+                    "component_type": "DecalRenderer"
+                  }
+                },
+                {
+                  "__type": "Sandbox.DecalRenderer",
+                  "__guid": "d17af929-be7c-4ddf-b630-717ecba57f20",
+                  "CutoffAngle": 0,
+                  "CutoffAngleSoftness": 5,
+                  "Material": "materials/circle.vmat",
+                  "Mod2XBlending": false,
+                  "Size": "128,128,256",
+                  "TintColor": "0,1,0,0.50196",
+                  "TriPlanar": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -361,7 +532,7 @@
   },
   "Title": "rts_scene",
   "Description": "",
-  "LastSaved": "2024-06-13T18:01:07.5930266-04:00",
+  "LastSaved": "2024-06-13T20:12:20.306888-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

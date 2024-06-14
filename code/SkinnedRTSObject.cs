@@ -28,9 +28,9 @@ class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 	bool selected { get; set; }
 
 	private int currentHealthPoints = 100;
+	protected string objectTypeTag = "";
 
 	// Constants
-	private const string TAG = "";
 	private const float CLICK_HITBOX_RADIUS_MULTIPLIER = .5f;
 
 	protected override void OnStart()
@@ -50,7 +50,7 @@ class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 			ThisHealthBar.setBarColor( "#40ff40" );
 			ThisHealthBar.setShowHealthBar( false );
 		}
-		Tags.Add( TAG );
+		Tags.Add( objectTypeTag );
 	}
 
 	// Cleanup
