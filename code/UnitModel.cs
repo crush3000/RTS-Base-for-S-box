@@ -38,12 +38,6 @@ class UnitModel : UnitModelBase
 		model.SceneModel.SetAnimParameter( "onDeath", true );
 		addToCorpsePile();
 	}
-	
-	public override void setModelSize( Vector3 size )
-	{
-		//TODO
-
-	}
 
 	protected override void OnStart()
 	{

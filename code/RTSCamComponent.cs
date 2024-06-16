@@ -96,7 +96,6 @@ public sealed class RTSCamComponent : Component
 		rot = Rotation.From( camPitch, camYaw, 0 );
 
 		// Set Transform
-		// TODO FIGURE OUT HOW TO LERP
 		Transform.LerpTo( new Transform( pos, rot, 1 ), 0.1f );
 	}
 }

@@ -16,13 +16,9 @@ public abstract class UnitModelBase : Component
 
 	protected bool attackSet = false;
 
-	protected void addToCorpsePile()
+	public void addToCorpsePile()
 	{
-		var corpseListObjects = Scene.GetAllComponents<CorpseList>();
-		if ( corpseListObjects.Any() )
-		{
-			corpseListObjects.First().addCorpse( model, Time.Now );
-		}
+		RTSGame.Instance.GameCorpseList.addCorpse( model, Time.Now );
 	}
 
 	public virtual void setOutlineState( UnitModelUtils.OutlineState newState )
@@ -33,24 +29,32 @@ public abstract class UnitModelBase : Component
 			switch ( newState )
 			{
 				case UnitModelUtils.OutlineState.Mine:
+					outline.Enabled = true;
 					outline.InsideObscuredColor = new Color( UnitModelUtils.COLOR_MINE );
 					outline.ObscuredColor = new Color( UnitModelUtils.COLOR_MINE );
 					break;
 				case UnitModelUtils.OutlineState.Ally:
+					outline.Enabled = true;
 					outline.InsideObscuredColor = new Color( UnitModelUtils.COLOR_ALLY );
 					outline.ObscuredColor = new Color( UnitModelUtils.COLOR_ALLY );
 					break;
 				case UnitModelUtils.OutlineState.Neutral:
+					outline.Enabled = true;
 					outline.InsideObscuredColor = new Color( UnitModelUtils.COLOR_NEUTRAL );
 					outline.ObscuredColor = new Color( UnitModelUtils.COLOR_NEUTRAL );
 					break;
 				case UnitModelUtils.OutlineState.Hostile:
+					outline.Enabled = true;
 					outline.InsideObscuredColor = new Color( UnitModelUtils.COLOR_HOSTILE );
 					outline.ObscuredColor = new Color( UnitModelUtils.COLOR_HOSTILE );
 					break;
 				case UnitModelUtils.OutlineState.Selected:
+					outline.Enabled = true;
 					outline.InsideObscuredColor = new Color( UnitModelUtils.COLOR_SELECTED );
 					outline.ObscuredColor = new Color( UnitModelUtils.COLOR_SELECTED );
+					break;
+				case UnitModelUtils.OutlineState.None:
+					outline.Enabled = false;
 					break;
 			}
 		}
@@ -66,8 +70,11 @@ public abstract class UnitModelBase : Component
 
 	public abstract void animateDamageTaken();
 
-	public abstract void animateDeath(); 
-	public abstract void setModelSize(Vector3 size);
+	public abstract void animateDeath();
+	public virtual void setModelSize( Vector3 size ) 
+	{
+		baseStand.setSize( size );
+	}
 
 	protected override void OnUpdate()
 	{
@@ -79,6 +86,8 @@ public abstract class UnitModelBase : Component
 		outline.Destroy();
 		baseStand.Enabled = false;
 		baseStand.Destroy();
+		//model.Enabled = false;
+		//model.Destroy();
 		base.OnDestroy();
 	}
 }

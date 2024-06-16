@@ -12,7 +12,7 @@ public class PlayerUnitControl : Component
 	[Property]	RTSCamComponent RTSCam {  get; set; }
 	[Property] SelectionPanel selectionPanel { get; set; }
 	[Property] int team { get; set; }
-	List<Unit> SelectedUnits { get; set; }
+	List<SkinnedRTSObject> SelectedObjects { get; set; }
 
 	private Rect selectionRect = new Rect();
 	private Vector2 startSelectPos {  get; set; }
@@ -22,7 +22,7 @@ public class PlayerUnitControl : Component
 	protected override void OnStart()
 	{
 		base.OnStart();
-		SelectedUnits = new List<Unit>();
+		SelectedObjects = new List<SkinnedRTSObject>();
 	}
 
 	protected override void OnUpdate()
@@ -84,14 +84,14 @@ public class PlayerUnitControl : Component
 							{
 								//Log.Info( "Team " + team + " " + unit.GameObject.Name + " Selected from team " + unit.team );
 								//Select Unit
-								SelectedUnits.Add( unit );
-								unit.selectUnit();
+								SelectedObjects.Add( unit );
+								unit.select();
 							}
 							// Deselect and units that are not selected
 							else
 							{
-								SelectedUnits.Remove( unit );
-								unit.deSelectUnit();
+								SelectedObjects.Remove( unit );
+								unit.deSelect();
 							}
 						}
 					}
@@ -103,11 +103,11 @@ public class PlayerUnitControl : Component
 			{
 				var mouseScreenPos = Mouse.Position;
 				// Delesect all currently selected
-				foreach ( Unit unit in SelectedUnits )
+				foreach ( SkinnedRTSObject obj in SelectedObjects )
 				{
-						unit.deSelectUnit();
+					obj.deSelect();
 				}
-				SelectedUnits.Clear();
+				SelectedObjects.Clear();
 				// Set up and run mouse ray to find what we're now selecting
 				var mouseDirection = RTSCam.CamView.ScreenPixelToRay( mouseScreenPos );
 				var mouseRay = Scene.Trace.Ray( mouseDirection, 5000f );
@@ -115,6 +115,7 @@ public class PlayerUnitControl : Component
 
 				// Get unit under ray
 				var hitUnitComponents = tr.GameObject.Components.GetAll().OfType<Unit>();
+				var hitBuildingComponents = tr.GameObject.Components.GetAll().OfType<Building>();
 
 				// Select unit if one is hit
 				if ( hitUnitComponents.Any() )
@@ -125,21 +126,34 @@ public class PlayerUnitControl : Component
 					{
 						//Log.Info( "Team " + team + " " + selectedUnit.GameObject.Name + " Selected from team " + selectedUnit.team );
 						// Select Unit
-						SelectedUnits.Add( selectedUnit );
-						selectedUnit.selectUnit();
+						SelectedObjects.Add( selectedUnit );
+						selectedUnit.select();
+					}
+				}
+
+				// Select building if one is hit
+				if ( hitBuildingComponents.Any() )
+				{
+					var selectedBuilding = hitBuildingComponents.First();
+					// Make sure the unit is ours
+					if ( selectedBuilding.team == team )
+					{
+						//Log.Info( "Team " + team + " " + selectedUnit.GameObject.Name + " Selected from team " + selectedUnit.team );
+						// Select Building
+						SelectedObjects.Add( selectedBuilding );
+						selectedBuilding.select();
 					}
 				}
 			}
-
 		}
 
 		// Command Controls
 		// Command Button was just pressed
-		if( Input.Pressed( "Command" ) && SelectedUnits.Count > 0)
+		if( Input.Pressed( "Command" ) && SelectedObjects.Count > 0)
 		{
 			// Init command vars
 			UnitModelUtils.CommandType commandType = UnitModelUtils.CommandType.None;
-			Unit commandTarget = null;
+			SkinnedRTSObject commandTarget = null;
 			Vector3 moveTarget = new Vector3();
 			// Draw mouse ray
 			var mouseScreenPos = Mouse.Position;
@@ -147,17 +161,18 @@ public class PlayerUnitControl : Component
 			var mouseRay = Scene.Trace.Ray( mouseDirection, 5000f );
 			var tr = mouseRay.Run();
 			// Get hit components
-			var hitUnits = tr.GameObject.Components.GetAll().OfType<Unit>();
+			var hitRtsObjects = tr.GameObject.Components.GetAll().OfType<SkinnedRTSObject>();
 			Log.Info(tr.GameObject.Name);
 			var hitWorldObjects = tr.GameObject.Components.GetAll().OfType<MapCollider>();
 			
 			// Set Up Attack Command if we hit an enemy unit
 			// TODO Probably make sure that if we hit friendly units instead that it goes to a move, actually just test this code
-			if ( hitUnits.Any() && hitUnits.First().team != team )
+			// TODO Cleanup generic command code with tags
+			if ( hitRtsObjects.Any() && hitRtsObjects.First().team != team )
 			{
 				commandType = UnitModelUtils.CommandType.Attack;
-				Log.Info( "Team " + team + " " + ((Unit)(hitUnits.First())).GameObject.Name + " Selected to be attacked!" );
-				commandTarget = (Unit)(hitUnits.First());
+				Log.Info( "Team " + team + " " + ((SkinnedRTSObject)(hitRtsObjects.First())).GameObject.Name + " Selected to be attacked!" );
+				commandTarget = (SkinnedRTSObject)(hitRtsObjects.First());
 			}
 			// Otherwise Set Up Move Command
 			else
@@ -169,22 +184,22 @@ public class PlayerUnitControl : Component
 				}
 			}
 			// Issue Command
-			foreach ( var unit in SelectedUnits )
+			foreach ( var unit in SelectedObjects )
 			{
-				if ( unit != null )
+				if ( unit != null && unit.Tags.Has(Unit.UNIT_TAG))
 				{
 					switch(commandType)
 					{
 						case UnitModelUtils.CommandType.Move:
-							unit.homeTargetLocation = moveTarget;
+							((Unit)unit).homeTargetLocation = moveTarget;
 							RTSGame.Instance.GameCommandIndicator.PlayMoveIndicatorHere(moveTarget);
 							break;
 						case UnitModelUtils.CommandType.Attack:
-							unit.targetUnit = commandTarget;
+							((Unit)unit).targetObject = commandTarget;
 							RTSGame.Instance.GameCommandIndicator.PlayAttackIndicatorHere( commandTarget.GameObject );
 							break;
 					}
-					unit.commandGiven = commandType;
+					((Unit)unit).commandGiven = commandType;
 				}
 			}
 		}
@@ -198,8 +213,10 @@ public class PlayerUnitControl : Component
 			var tr = mouseRay.Run();
 
 			//Call Unit Factory Here.
-			Log.Info( "Spawning Skeltal!" );
-			RTSGame.Instance.ThisPlayer.myUnitFactory.spawnUnit(RTSGame.Instance.ThisPlayer.skeltalPrefab, tr.EndPosition);
+			//Log.Info( "Spawning Skeltal!" );
+			//RTSGame.Instance.ThisPlayer.myUnitFactory.spawnUnit(RTSGame.Instance.ThisPlayer.skeltalPrefab, tr.EndPosition);
+			Log.Info( "Spawning Skeltal House!" );
+			RTSGame.Instance.ThisPlayer.myUnitFactory.spawnUnit( RTSGame.Instance.ThisPlayer.skeltalHousePrefab, tr.EndPosition );
 		}
 	}
 
