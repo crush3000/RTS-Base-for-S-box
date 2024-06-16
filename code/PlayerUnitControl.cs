@@ -213,8 +213,10 @@ public class PlayerUnitControl : Component
 			var tr = mouseRay.Run();
 
 			//Call Unit Factory Here.
-			Log.Info( "Spawning Skeltal!" );
-			RTSGame.Instance.ThisPlayer.myUnitFactory.spawnUnit(RTSGame.Instance.ThisPlayer.skeltalPrefab, tr.EndPosition);
+			//Log.Info( "Spawning Skeltal!" );
+			//RTSGame.Instance.ThisPlayer.myUnitFactory.spawnUnit(RTSGame.Instance.ThisPlayer.skeltalPrefab, tr.EndPosition);
+			Log.Info( "Spawning Skeltal House!" );
+			RTSGame.Instance.ThisPlayer.myUnitFactory.spawnUnit( RTSGame.Instance.ThisPlayer.skeltalHousePrefab, tr.EndPosition );
 		}
 	}
 

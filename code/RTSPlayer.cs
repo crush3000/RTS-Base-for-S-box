@@ -6,6 +6,7 @@ public class RTSPlayer : Component
 	[Property] public PlayerUnitControl UnitControl;
 	[Property] public int Team;
 	[Property] public GameObject skeltalPrefab {  get; set; }
+	[Property] public GameObject skeltalHousePrefab { get; set; }
 
 	private List<GameObject> myUnits = new List<GameObject>();
 	public UnitFactory myUnitFactory = new UnitFactory();
