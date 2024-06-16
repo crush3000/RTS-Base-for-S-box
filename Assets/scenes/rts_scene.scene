@@ -360,7 +360,7 @@
             "component_type": "BoxCollider"
           },
           "Size": "653.5387,654.9819,776.3831",
-          "team": 1,
+          "team": 0,
           "ThisHealthBar": {
             "_type": "component",
             "component_id": "fd63de4e-ded7-48d2-a8e6-0311b33f196b",
@@ -533,7 +533,7 @@
   },
   "Title": "rts_scene",
   "Description": "",
-  "LastSaved": "2024-06-16T16:23:22.9480493-04:00",
+  "LastSaved": "2024-06-16T16:41:37.6473394-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

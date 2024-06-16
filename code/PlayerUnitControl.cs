@@ -167,6 +167,7 @@ public class PlayerUnitControl : Component
 			
 			// Set Up Attack Command if we hit an enemy unit
 			// TODO Probably make sure that if we hit friendly units instead that it goes to a move, actually just test this code
+			// TODO Cleanup generic command code with tags
 			if ( hitRtsObjects.Any() && hitRtsObjects.First().team != team )
 			{
 				commandType = UnitModelUtils.CommandType.Attack;
@@ -185,7 +186,7 @@ public class PlayerUnitControl : Component
 			// Issue Command
 			foreach ( var unit in SelectedObjects )
 			{
-				if ( unit != null )
+				if ( unit != null && unit.Tags.Has(Unit.UNIT_TAG))
 				{
 					switch(commandType)
 					{

@@ -44,7 +44,7 @@ class Unit : SkinnedRTSObject
 	private float lastMoveOrderTime = Time.Now;
 
 	// Unit Constants
-	private const string UNIT_TAG = "unit";
+	public const string UNIT_TAG = "unit";
 	private const float MOVE_ORDER_FREQUENCY = .1f;
 	private const float CHASE_DIST_MULTIPLIER = 30f;
 	private const float AUTO_MELEE_RAD_MULTIPLIER = 30f;
