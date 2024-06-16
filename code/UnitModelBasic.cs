@@ -38,12 +38,18 @@ class UnitModelBasic : UnitModelBase
 		//
 	}
 
-	public override void setModelSize( Vector3 size )
-	{
-		//
-	}
-
 	protected override void OnUpdate()
 	{
+	}
+
+	protected override void OnDestroy()
+	{
+		outline.Enabled = false;
+		outline.Destroy();
+		baseStand.Enabled = false;
+		baseStand.Destroy();
+		model.Enabled = false;
+		model.Destroy();
+		base.OnDestroy();
 	}
 }

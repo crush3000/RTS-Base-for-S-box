@@ -1,4 +1,6 @@
 ﻿
+using System.Drawing;
+
 class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 {
 	[Group( "Gameplay" )]
@@ -27,11 +29,11 @@ class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 	// Class Vars
 	bool selected { get; set; }
 
-	private int currentHealthPoints = 100;
+	protected int currentHealthPoints;
 	protected string objectTypeTag = "";
 
 	// Constants
-	private const float CLICK_HITBOX_RADIUS_MULTIPLIER = .5f;
+	private const float CLICK_HITBOX_RADIUS_MULTIPLIER = 1f;
 
 	protected override void OnStart()
 	{
@@ -44,11 +46,13 @@ class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 		{
 			ThisHealthBar.setBarColor( "red" );
 			ThisHealthBar.setShowHealthBar( true );
+			PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Hostile );	
 		}
 		else
 		{
 			ThisHealthBar.setBarColor( "#40ff40" );
 			ThisHealthBar.setShowHealthBar( false );
+			PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.None );
 		}
 		Tags.Add( objectTypeTag );
 	}
@@ -122,5 +126,9 @@ class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 		// Auto calculate object's Selection Collider scaling and relative position
 		SelectionHitbox.Center = new Vector3( 0, 0, defaultModelSize.z / 2 );
 		SelectionHitbox.Scale = new Vector3( defaultxyMin * CLICK_HITBOX_RADIUS_MULTIPLIER, defaultxyMin * CLICK_HITBOX_RADIUS_MULTIPLIER, defaultModelSize.z );
+
+		// Auto Calculate other visual element sizes
+		PhysicalModelRenderer.setModelSize( defaultModelSize );
+		ThisHealthBar.setSize( defaultModelSize );
 	}
 }

@@ -34,15 +34,13 @@ public class CylinderBaseStand : UnitBaseStandBase
 		}
 	}
 
+	public override void setSize( Vector3 newSize )
+	{
+		throw new NotImplementedException();
+	}
+
 	protected override void OnUpdate()
 	{
 
-	}
-
-	protected override void OnDestroy()
-	{
-		BaseStandModel.Enabled = false;
-		BaseStandModel.Destroy();
-		base.OnDestroy();
 	}
 }

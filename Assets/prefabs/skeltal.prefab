@@ -198,7 +198,7 @@
                 "CutoffAngleSoftness": 5,
                 "Material": "materials/circle.vmat",
                 "Mod2XBlending": false,
-                "Size": "128,128,256",
+                "Size": "1,1,1",
                 "TintColor": "0,1,0,0.50196",
                 "TriPlanar": false
               }

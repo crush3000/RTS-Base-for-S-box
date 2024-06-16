@@ -35,12 +35,11 @@ class Unit : SkinnedRTSObject
 	bool selected { get; set; }
 	public UnitModelUtils.CommandType commandGiven { get; set; }
 	public Vector3 homeTargetLocation { get; set; }
-	public Unit targetUnit { get; set; }
-	public Unit tempTargetUnit { get; set; }
+	public SkinnedRTSObject targetObject { get; set; }
+	public SkinnedRTSObject tempTargetObject { get; set; }
 
 	// This will be a factor of the unit size I imagine
 	private float maxChaseDistanceFromHome = 600f;
-	private int currentHealthPoints = 100;
 	private float lastMeleeTime = Time.Now;
 	private float lastMoveOrderTime = Time.Now;
 
@@ -57,7 +56,11 @@ class Unit : SkinnedRTSObject
 		Log.Info( "Unit Object OnStart" );
 		objectTypeTag = UNIT_TAG;
 		base.OnStart();
-		foreach ( var tag in Tags )
+		if ( team == RTSGame.Instance.ThisPlayer.Team )
+		{
+			PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Mine );
+		}
+			foreach ( var tag in Tags )
 		{
 			Log.Info( tag );
 		}
@@ -74,9 +77,9 @@ class Unit : SkinnedRTSObject
 			// Attack Command
 			if(commandGiven == UnitModelUtils.CommandType.Attack)
 			{
-				if(targetUnit.Enabled == true )
+				if(targetObject.Enabled == true )
 				{
-					move( targetUnit.Transform.Position, false );
+					move( targetObject.Transform.Position, false );
 				}
 				//Reset if unit is killed or deleted or something
 				else
@@ -93,12 +96,13 @@ class Unit : SkinnedRTSObject
 			}
 		}
 		// Move To closeby enemy
-		else if( tempTargetUnit != null)
+		else if( tempTargetObject != null)
 		{
 			//Log.Info( tempTargetUnit.GameObject.Name);
-			if( tempTargetUnit.Transform.Position.Distance( homeTargetLocation ) < maxChaseDistanceFromHome )
+			//There is a bug here, somehow sometimes it gets in here between seeing that the enemy unit has become null
+			if( tempTargetObject.Transform.Position.Distance( homeTargetLocation ) < maxChaseDistanceFromHome )
 			{
-				move( tempTargetUnit.Transform.Position, false);
+				move( tempTargetObject.Transform.Position, false);
 			}
 			else
 			{
@@ -117,21 +121,40 @@ class Unit : SkinnedRTSObject
 			// Get touching trigger colliders
 			var collidersInMeleeRange = UnitMeleeCollider.Touching;
 			// Select colliders belonging to Units
-			if ( collidersInMeleeRange.Where( col => col.Tags.Has( UNIT_TAG ) ).Any() )
+			if ( collidersInMeleeRange.Where( col => (col.Tags.Has( UNIT_TAG ) || col.Tags.Has( Building.BUILDING_TAG )) ).Any())
 			{
 				// Select only melee colliders
-				foreach ( var collision in collidersInMeleeRange.Where( col => col == (col.GameObject.Components.Get<Unit>()).UnitMeleeCollider ))
+				foreach ( var collision in collidersInMeleeRange.Where( col => (col.Tags.Has( UNIT_TAG ) || col.Tags.Has( Building.BUILDING_TAG )) ))
+					//col => col == (col.GameObject.Components.Get<Unit>()).UnitMeleeCollider ))
 				{
-					var unitCollidedWith = collision.GameObject.Components.GetAll().OfType<Unit>().First();
-					// If it is a unit of the opposite team
-					if ( unitCollidedWith.team != team) 
+					//Collider belongs to building
+					if ( collision.Tags.Has( Building.BUILDING_TAG ) )
 					{
-						if (Time.Now - lastMeleeTime > MeleeAttackSpeed )
+						var buildingCollidedWith = collision.GameObject.Components.GetAll().OfType<Building>().First();
+						if ( buildingCollidedWith.team != team )
 						{
-							//Log.Info( this.GameObject.Name + " attacks " + collisions.GameObject.Name + " for " + melee_attack_damage + " damage!" );
-							directMeleeAttack( unitCollidedWith);
+							if ( Time.Now - lastMeleeTime > MeleeAttackSpeed )
+							{
+								//Log.Info( this.GameObject.Name + " attacks " + collisions.GameObject.Name + " for " + melee_attack_damage + " damage!" );
+								directMeleeAttack( buildingCollidedWith );
+							}
 						}
 					}
+					//Collider belongs to unit
+					else if ( collision.Tags.Has( UNIT_TAG ) )
+					{
+							var unitCollidedWith = collision.GameObject.Components.GetAll().OfType<Unit>().First();
+							if (collision == unitCollidedWith.UnitMeleeCollider && unitCollidedWith.team != team )
+							{
+								if ( Time.Now - lastMeleeTime > MeleeAttackSpeed )
+								{
+									//Log.Info( this.GameObject.Name + " attacks " + collisions.GameObject.Name + " for " + melee_attack_damage + " damage!" );
+									directMeleeAttack( unitCollidedWith );
+								}
+							}
+					}
+					//var unitCollidedWith = collision.GameObject.Components.GetAll().OfType<Unit>().First();
+					// If it is a unit of the opposite team
 				}
 			}
 		}
@@ -139,23 +162,32 @@ class Unit : SkinnedRTSObject
 		if(UnitAutoMeleeCollider != null)
 		{
 			var validUnitFound = false;
-			if ( tempTargetUnit == null )
+			if ( tempTargetObject == null )
 			{
 				// Get touching trigger colliders
 				var collidersInAutoMeleeRange = UnitAutoMeleeCollider.Touching;
 				// Select colliders belonging to Units
-				if ( collidersInAutoMeleeRange.Where( col => col.Tags.Has( UNIT_TAG ) ).Any() )
+				if ( collidersInAutoMeleeRange.Where( col => col.Tags.Has( UNIT_TAG ) || col.Tags.Has( Building.BUILDING_TAG ) ).Any() )
 				{
 					// Select only melee colliders
-					foreach ( var collision in collidersInAutoMeleeRange.Where( col => col == (col.GameObject.Components.Get<Unit>()).UnitMeleeCollider ) )
+					foreach ( var collision in collidersInAutoMeleeRange)//.Where( col => (col == (col.GameObject.Components.Get<Unit>()).UnitMeleeCollider) || (col.Tags.Has(Building.BUILDING_TAG) && col == col.GameObject.Components.Get<Building>().SelectionHitbox) ) )
 					{
-						var unitCollidedWith = collision.GameObject.Components.GetAll().OfType<Unit>().First();
-						// If it is a unit of the opposite team
-						if ( unitCollidedWith.team != team )
+						//Collider belongs to building
+						if(collision.Tags.Has( Building.BUILDING_TAG ))
 						{
-							//Log.Info( this.GameObject.Name + " will attack " + collisions.GameObject.Name + "!" );
-							tempTargetUnit = unitCollidedWith;
-							validUnitFound = true;
+							//TODO
+						}
+						//Collider belongs to unit
+						else if( collision.Tags.Has( UNIT_TAG ) )
+						{
+							var unitCollidedWith = collision.GameObject.Components.GetAll().OfType<Unit>().First();
+							// If it is a unit of the opposite team
+							if ( unitCollidedWith.team != team )
+							{
+								//Log.Info( this.GameObject.Name + " will attack " + collisions.GameObject.Name + "!" );
+								tempTargetObject = unitCollidedWith;
+								validUnitFound = true;
+							}
 						}
 					}
 				}
@@ -163,7 +195,7 @@ class Unit : SkinnedRTSObject
 			// Reset automelee if nothing in range
 			if(validUnitFound != true) 
 			{
-				tempTargetUnit = null;
+				tempTargetObject = null;
 			}
 		}
 
@@ -204,7 +236,7 @@ class Unit : SkinnedRTSObject
 	{
 		selected = false;
 		PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Mine );
-		this.ThisHealthBar.setShowHealthBar(false);
+		ThisHealthBar.setShowHealthBar(false);
 	}
 
 	public override void die()
@@ -233,7 +265,7 @@ class Unit : SkinnedRTSObject
 		UnitNavAgent.Stop();
 	}
 
-	private void directMeleeAttack(Unit targetUnit)
+	private void directMeleeAttack(SkinnedRTSObject targetUnit)
 	{
 		this.PhysicalModelRenderer.animateMeleeAttack();
 		targetUnit.takeDamage( MeleeAttackDamage );
@@ -290,5 +322,9 @@ class Unit : SkinnedRTSObject
 
 		// Auto calculate unit's chase distance
 		maxChaseDistanceFromHome = CHASE_DIST_MULTIPLIER * targetxyMax;
+
+		// Auto Calculate other visual element sizes
+		PhysicalModelRenderer.setModelSize( defaultModelSize );
+		ThisHealthBar.setSize( defaultModelSize );
 	}
 }

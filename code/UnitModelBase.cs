@@ -70,8 +70,11 @@ public abstract class UnitModelBase : Component
 
 	public abstract void animateDamageTaken();
 
-	public abstract void animateDeath(); 
-	public abstract void setModelSize(Vector3 size);
+	public abstract void animateDeath();
+	public virtual void setModelSize( Vector3 size ) 
+	{
+		baseStand.setSize( size );
+	}
 
 	protected override void OnUpdate()
 	{
@@ -83,6 +86,8 @@ public abstract class UnitModelBase : Component
 		outline.Destroy();
 		baseStand.Enabled = false;
 		baseStand.Destroy();
+		//model.Enabled = false;
+		//model.Destroy();
 		base.OnDestroy();
 	}
 }

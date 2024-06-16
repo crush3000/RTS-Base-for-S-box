@@ -20,11 +20,9 @@ class Building: SkinnedRTSObject
 	//public UnitModelUtils.CommandType commandGiven { get; set; }
 	//public Unit targetUnit { get; set; }
 
-	private int currentHealthPoints = 100;
-
 	// Unit Constants
-	private const string BUILDING_TAG = "building";
-	private const float CLICK_HITBOX_RADIUS_MULTIPLIER = .5f;
+	public const string BUILDING_TAG = "building";
+	private const float CLICK_HITBOX_RADIUS_MULTIPLIER = 1f;
 
 	protected override void OnStart()
 	{
@@ -35,6 +33,7 @@ class Building: SkinnedRTSObject
 		{
 			Log.Info( tag );
 		}
+		PhysicalModelRenderer.outline.Enabled = false;
 	}
 
 	protected override void OnUpdate()
@@ -74,10 +73,10 @@ class Building: SkinnedRTSObject
 
 	public override void takeDamage( int damage )
 	{
-		//Log.Info( this.GameObject.Name + " takes " + damage + " damage!");
+		Log.Info( GameObject.Name + " takes " + damage + " damage!\n It now has " + currentHealthPoints + " health.");
 		//PhysicalModelRenderer.animateDamageTaken();
 		currentHealthPoints -= damage;
-		this.ThisHealthBar.setHealth( currentHealthPoints, MaxHealth );
+		ThisHealthBar.setHealth( currentHealthPoints, MaxHealth );
 		if ( currentHealthPoints <= 0 )
 		{
 			die();
@@ -124,5 +123,9 @@ class Building: SkinnedRTSObject
 		// Auto calculate unit's Selection Collider scaling and relative position
 		this.SelectionHitbox.Center = new Vector3( 0, 0, defaultModelSize.z / 2 );
 		this.SelectionHitbox.Scale = new Vector3( defaultxyMin * CLICK_HITBOX_RADIUS_MULTIPLIER, defaultxyMin * CLICK_HITBOX_RADIUS_MULTIPLIER, defaultModelSize.z );
+
+		// Auto Calculate other visual element sizes
+		PhysicalModelRenderer.setModelSize( defaultModelSize );
+		ThisHealthBar.setSize( defaultModelSize );
 	}
 }

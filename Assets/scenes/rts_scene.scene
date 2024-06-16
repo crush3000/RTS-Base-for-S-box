@@ -55,7 +55,7 @@
           },
           "ThisScreen": {
             "_type": "component",
-            "component_id": "b3e25d7a-f174-42af-9bff-c898d258ea0b",
+            "component_id": "5560158c-1b32-46d6-9a51-b3b9f0498633",
             "go": "0341ba11-a8d6-482e-8cbf-cf21beffa91d",
             "component_type": "ScreenPanel"
           }
@@ -77,7 +77,7 @@
           "Team": 0,
           "UnitControl": {
             "_type": "component",
-            "component_id": "852c0f7a-ddd0-4255-b7b5-91cc8fed392b",
+            "component_id": "1e7b5beb-14c7-4285-a55f-8082d1134d6c",
             "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
             "component_type": "PlayerUnitControl"
           },
@@ -360,7 +360,7 @@
             "component_type": "BoxCollider"
           },
           "Size": "653.5387,654.9819,776.3831",
-          "team": 0,
+          "team": 1,
           "ThisHealthBar": {
             "_type": "component",
             "component_id": "fd63de4e-ded7-48d2-a8e6-0311b33f196b",
@@ -431,50 +431,10 @@
           ],
           "Children": [
             {
-              "__guid": "fee006c6-b506-42fb-9b1d-38e74b66ce25",
-              "Flags": 0,
-              "Name": "BuildingHealthBar",
-              "Enabled": true,
-              "NetworkMode": 2,
-              "NetworkInterpolation": true,
-              "Components": [
-                {
-                  "__type": "HealthBar",
-                  "__guid": "fd63de4e-ded7-48d2-a8e6-0311b33f196b",
-                  "healthBarUI": {
-                    "_type": "component",
-                    "component_id": "283d275b-9e2a-424e-80f0-5674feaefb02",
-                    "go": "fee006c6-b506-42fb-9b1d-38e74b66ce25",
-                    "component_type": "HealthBarUI"
-                  },
-                  "UnitStatusWorldPanel": {
-                    "_type": "component",
-                    "component_id": "f551760d-4e31-4606-abac-011b261c401e",
-                    "go": "fee006c6-b506-42fb-9b1d-38e74b66ce25",
-                    "component_type": "WorldPanel"
-                  }
-                },
-                {
-                  "__type": "Sandbox.WorldPanel",
-                  "__guid": "f551760d-4e31-4606-abac-011b261c401e",
-                  "HorizontalAlign": "Center",
-                  "InteractionRange": 0,
-                  "LookAtCamera": true,
-                  "PanelSize": "5000,200",
-                  "RenderScale": 1,
-                  "VerticalAlign": "Center"
-                },
-                {
-                  "__type": "HealthBarUI",
-                  "__guid": "283d275b-9e2a-424e-80f0-5674feaefb02"
-                }
-              ]
-            },
-            {
               "__guid": "efd3e519-9d3f-4e82-9b3a-7af26acd23c2",
               "Flags": 0,
               "Name": "BuildingBaseStand",
-              "Position": "-476.6099,-1268.737,-5.944729",
+              "Position": "0,0,20",
               "Rotation": "0,0.7071068,0,0.7071068",
               "Enabled": true,
               "NetworkMode": 2,
@@ -498,11 +458,52 @@
                   "CutoffAngleSoftness": 5,
                   "Material": "materials/circle.vmat",
                   "Mod2XBlending": false,
-                  "Size": "128,128,256",
+                  "Size": "1,1,1",
                   "TintColor": "0,1,0,0.50196",
                   "TriPlanar": false
                 }
               ]
+            }
+          ]
+        },
+        {
+          "__guid": "fee006c6-b506-42fb-9b1d-38e74b66ce25",
+          "Flags": 0,
+          "Name": "BuildingHealthBar",
+          "Position": "0,0,150",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "HealthBar",
+              "__guid": "fd63de4e-ded7-48d2-a8e6-0311b33f196b",
+              "healthBarUI": {
+                "_type": "component",
+                "component_id": "283d275b-9e2a-424e-80f0-5674feaefb02",
+                "go": "fee006c6-b506-42fb-9b1d-38e74b66ce25",
+                "component_type": "HealthBarUI"
+              },
+              "UnitStatusWorldPanel": {
+                "_type": "component",
+                "component_id": "f551760d-4e31-4606-abac-011b261c401e",
+                "go": "fee006c6-b506-42fb-9b1d-38e74b66ce25",
+                "component_type": "WorldPanel"
+              }
+            },
+            {
+              "__type": "Sandbox.WorldPanel",
+              "__guid": "f551760d-4e31-4606-abac-011b261c401e",
+              "HorizontalAlign": "Center",
+              "InteractionRange": 0,
+              "LookAtCamera": true,
+              "PanelSize": "20000,2000",
+              "RenderScale": 1,
+              "VerticalAlign": "Center"
+            },
+            {
+              "__type": "HealthBarUI",
+              "__guid": "283d275b-9e2a-424e-80f0-5674feaefb02"
             }
           ]
         }
@@ -532,7 +533,7 @@
   },
   "Title": "rts_scene",
   "Description": "",
-  "LastSaved": "2024-06-13T20:12:20.306888-04:00",
+  "LastSaved": "2024-06-16T16:23:22.9480493-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
