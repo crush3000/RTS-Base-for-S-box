@@ -12,7 +12,7 @@ public class PlayerUnitControl : Component
 	[Property]	RTSCamComponent RTSCam {  get; set; }
 	[Property] SelectionPanel selectionPanel { get; set; }
 	[Property] int team { get; set; }
-	List<SkinnedRTSObject> SelectedObjects { get; set; }
+	public List<SkinnedRTSObject> SelectedObjects { get; set; }
 
 	private Rect selectionRect = new Rect();
 	private Vector2 startSelectPos {  get; set; }
@@ -64,8 +64,11 @@ public class PlayerUnitControl : Component
 		else if(Input.Released("Select"))
 		{
 			// For a drag just make sure we give them some time to actually click
+			// TODO: I think I can fix the jank here if I make multiselect ALSO depend on how large of a rectangle you actually draw
 			if ( Time.Now - startSelectTime > CLICK_TIME )
 			{
+				// TODO: Make the stance stuff less cheesy
+				RTSGame.Instance.GameHUD.setSelectionVars( false, false );
 				//Log.Info( "Release" );
 				endRectPos = Mouse.Position;
 				// Get ALL units. This is possibly a bad idea for speed
@@ -101,6 +104,8 @@ public class PlayerUnitControl : Component
 			// This is for a single click
 			else
 			{
+				//RTSGame.Instance.GameHUD.setSelectionVars( false, false );
+
 				var mouseScreenPos = Mouse.Position;
 				// Delesect all currently selected
 				foreach ( SkinnedRTSObject obj in SelectedObjects )
@@ -128,7 +133,12 @@ public class PlayerUnitControl : Component
 						// Select Unit
 						SelectedObjects.Add( selectedUnit );
 						selectedUnit.select();
+						RTSGame.Instance.GameHUD.setSelectionVars( true, selectedUnit.isInAttackMode );
 					}
+				}
+				else
+				{
+					RTSGame.Instance.GameHUD.setSelectionVars( false, false );
 				}
 
 				// Select building if one is hit
@@ -142,6 +152,7 @@ public class PlayerUnitControl : Component
 						// Select Building
 						SelectedObjects.Add( selectedBuilding );
 						selectedBuilding.select();
+						RTSGame.Instance.GameHUD.setSelectionVars( false, false );
 					}
 				}
 			}

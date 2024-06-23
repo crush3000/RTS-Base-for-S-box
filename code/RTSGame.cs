@@ -5,6 +5,7 @@
 	public ScreenPanel ThisScreen { get; set; }
 	public CorpseList GameCorpseList { get; set; }
 	public CommandIndicatorBase GameCommandIndicator { get; set; }
+	public RTSHud GameHUD { get; set; }
 
 	private RTSGame()
 	{
@@ -33,5 +34,6 @@
 		ThisScreen.Destroy();
 		GameCorpseList.Destroy();
 		GameCommandIndicator.Destroy();
+		GameHUD.Destroy();
 	}
 }

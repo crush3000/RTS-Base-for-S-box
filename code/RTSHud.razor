@@ -1,0 +1,126 @@
+@using Sandbox;
+@using Sandbox.UI;
+@using System.Linq;
+@inherits PanelComponent
+@attribute [StyleSheet]
+
+@code
+{
+	public const string ATTACK_STANCE_IMAGE = "materials/attack_stance.png";
+	public const string DEFEND_STANCE_IMAGE = "materials/defend_stance.png";
+	public const string BUTTON_DISABLED_STYLE = "flex";
+	public const string BUTTON_ENABLED_STYLE = "none";
+	public const string BUTTON_EVENTS_ENABLED_STYLE = "all";
+	public const string BUTTON_EVENTS_DISABLED_STYLE = "none";
+
+	public bool showPanel = true;
+
+	//private bool singleUnitSelected = true;
+
+	//private bool isAttackStance = true;
+	private string isEnabledStyleString;
+	private string isAttackStanceString;
+	private string buttonPointerEventsString;
+
+	//private string displayButton
+
+	//public List<DynamicButton> currentButtonList
+
+	/* public void setButtons(List<DynamicButton> newbuttonList)
+		* {
+		* }
+		*/
+	protected override void OnStart()
+	{
+		base.OnStart();
+		isEnabledStyleString = BUTTON_DISABLED_STYLE;
+		isAttackStanceString = ATTACK_STANCE_IMAGE;
+		buttonPointerEventsString = BUTTON_EVENTS_DISABLED_STYLE;
+	}
+
+	public void setSelectionVars(bool isSingleUnitSelected, bool isUnitInAttackStance)
+	{
+		if(isSingleUnitSelected)
+		{
+			isEnabledStyleString = BUTTON_ENABLED_STYLE;
+			buttonPointerEventsString = BUTTON_EVENTS_ENABLED_STYLE;
+			if (isUnitInAttackStance)
+			{
+				isAttackStanceString = ATTACK_STANCE_IMAGE;
+			}
+			else
+			{
+				isAttackStanceString = DEFEND_STANCE_IMAGE;
+			}
+		}
+		else
+		{
+			buttonPointerEventsString = BUTTON_EVENTS_DISABLED_STYLE;
+			isEnabledStyleString = BUTTON_DISABLED_STYLE;
+		}
+		this.StateHasChanged();
+		this.Panel.Style.Dirty();
+	}
+
+	public void stanceButtonClicked()
+	{
+		if (isAttackStanceString == ATTACK_STANCE_IMAGE)
+		{
+			isAttackStanceString = DEFEND_STANCE_IMAGE;
+			var selectedObjList = RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects;
+			foreach (Unit obj in selectedObjList)
+			{
+				obj.setIsInAttackMode(false);
+			}
+		}
+		else
+		{
+			isAttackStanceString = ATTACK_STANCE_IMAGE;
+			var selectedObjList = RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects;
+			foreach (Unit obj in selectedObjList)
+			{
+				obj.setIsInAttackMode(true);
+			}
+		}
+		this.StateHasChanged();
+		this.Panel.Style.Dirty();
+	}
+
+	public void setShowPanel(bool setShow)
+	{
+		showPanel = setShow;
+	}
+
+	private string getIsDisabledStyle()
+	{
+		return this.isEnabledStyleString;
+	}
+
+	private string getStanceBackgroundImage()
+	{
+		return this.isAttackStanceString;
+	}
+
+	private string getPointerEventsStyle()
+	{
+		return buttonPointerEventsString;
+	}
+}
+
+<root>
+	<div class="dynamicButtonSubPanel">
+		<button style="background-image: url(@(getStanceBackgroundImage())); pointer-events: @(getPointerEventsStyle());" @onclick="@( () => stanceButtonClicked())" class="dynamicButton">
+			<div class="buttonHintText">1</div>
+			<div style="display: @(getIsDisabledStyle());" class="buttonDisabledOverlay"></div>
+		</button>
+		<button class="dynamicButton"><div class="buttonHintText">2</div></button>
+		<button class="dynamicButton"><div class="buttonHintText">3</div></button>
+		<button class="dynamicButton"><div class="buttonHintText">4</div></button>
+		<button class="dynamicButton"><div class="buttonHintText">5</div></button>
+		<button class="dynamicButton"><div class="buttonHintText">6</div></button>
+		<button class="dynamicButton"><div class="buttonHintText">7</div></button>
+		<button class="dynamicButton"><div class="buttonHintText">8</div></button>
+		<button class="dynamicButton"><div class="buttonHintText">9</div></button>
+		<button class="dynamicButton"><div class="buttonHintText">10</div></button>
+	</button>
+</root>

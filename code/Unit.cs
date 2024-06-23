@@ -42,6 +42,7 @@ class Unit : SkinnedRTSObject
 	private float maxChaseDistanceFromHome = 600f;
 	private float lastMeleeTime = Time.Now;
 	private float lastMoveOrderTime = Time.Now;
+	public bool isInAttackMode = true;
 
 	// Unit Constants
 	public const string UNIT_TAG = "unit";
@@ -159,7 +160,7 @@ class Unit : SkinnedRTSObject
 			}
 		}
 		// Auto Melee
-		if(UnitAutoMeleeCollider != null)
+		if(UnitAutoMeleeCollider != null && isInAttackMode)
 		{
 			var validUnitFound = false;
 			if ( tempTargetObject == null )
@@ -210,6 +211,15 @@ class Unit : SkinnedRTSObject
 			{
 				PhysicalModelRenderer.stopMovementAnimate();
 			}
+		}
+	}
+
+	public void setIsInAttackMode(bool isNowInAttackMode)
+	{
+		isInAttackMode = isNowInAttackMode;
+		if ( !isNowInAttackMode )
+		{
+			tempTargetObject = null;
 		}
 	}
 

@@ -8,6 +8,7 @@ public sealed class RTSGameComponent : Component
 	[Property] ScreenPanel ThisScreen { get; set; }
 	[Property] CorpseList GameCorpseList { get; set; }
 	[Property] CommandIndicatorBase GameCommandIndicator { get; set; }
+	[Property] RTSHud GameHud { get; set; }
 
 
 	private RTSGame thisGame;
@@ -23,6 +24,7 @@ public sealed class RTSGameComponent : Component
 		thisGame.ThisScreen = ThisScreen;
 		thisGame.GameCorpseList = GameCorpseList;
 		thisGame.GameCommandIndicator = GameCommandIndicator;
+		thisGame.GameHUD = GameHud;
 	}
 
 	protected override void OnDestroy()

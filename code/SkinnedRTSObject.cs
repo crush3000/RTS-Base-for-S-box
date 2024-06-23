@@ -1,7 +1,7 @@
 ﻿
 using System.Drawing;
 
-class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
+public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 {
 	[Group( "Gameplay" )]
 	[Property] public int team { get; set; }
