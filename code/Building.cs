@@ -87,7 +87,8 @@ class Building: SkinnedRTSObject
 	{
 		//Log.Info( this.GameObject.Name + " dies!" );
 		this.PhysicalModelRenderer.animateDeath();
-		Destroy();
+		//Destroy();
+		GameObject.Destroy();
 	}
 
 	public override void setRelativeSizeHelper( Vector3 unitSize )

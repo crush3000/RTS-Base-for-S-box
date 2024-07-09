@@ -27,7 +27,7 @@
 		internal static readonly RTSGame instance = new RTSGame();
 	}
 
-	public void destroyRefs()
+	/*public void destroyRefs()
 	{
 		GameOptions.Destroy();
 		ThisPlayer.Destroy();
@@ -35,5 +35,5 @@
 		GameCorpseList.Destroy();
 		GameCommandIndicator.Destroy();
 		GameHUD.Destroy();
-	}
+	}*/
 }

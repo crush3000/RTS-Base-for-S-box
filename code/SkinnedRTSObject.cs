@@ -58,7 +58,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 	}
 
 	// Cleanup
-	protected override void OnDestroy()
+	/*protected override void OnDestroy()
 	{
 		Log.Info( "Base Object OnDestroy" );
 		PhysicalModelRenderer.Enabled = false;
@@ -69,7 +69,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 		ThisHealthBar.Destroy();
 		this.Enabled = false;
 		base.OnDestroy();
-	}
+	}*/
 
 	public virtual void select()
 	{

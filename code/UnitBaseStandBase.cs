@@ -12,10 +12,10 @@ public abstract class UnitBaseStandBase : Component
 
 	public abstract void setSize(Vector3 newSize);
 
-	protected override void OnDestroy()
+	/*protected override void OnDestroy()
 	{
 		BaseStandModel.Enabled = false;
 		BaseStandModel.Destroy();
 		base.OnDestroy();
-	}
+	}*/
 }

@@ -80,7 +80,7 @@ public abstract class UnitModelBase : Component
 	{
 	}
 
-	protected override void OnDestroy() 
+	/*protected override void OnDestroy() 
 	{
 		outline.Enabled = false;
 		outline.Destroy();
@@ -89,5 +89,5 @@ public abstract class UnitModelBase : Component
 		//model.Enabled = false;
 		//model.Destroy();
 		base.OnDestroy();
-	}
+	}*/
 }

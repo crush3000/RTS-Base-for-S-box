@@ -224,7 +224,7 @@ class Unit : SkinnedRTSObject
 	}
 
 	// Cleanup
-	protected override void OnDestroy()
+	/*protected override void OnDestroy()
 	{
 		Log.Info( "Unit Object OnDestroy" );
 		UnitNavAgent.Enabled = false;
@@ -240,7 +240,7 @@ class Unit : SkinnedRTSObject
 		}
 		base.OnDestroy();
 
-	}
+	}*/
 
 	public override void deSelect()
 	{
@@ -253,7 +253,8 @@ class Unit : SkinnedRTSObject
 	{
 		//Log.Info( this.GameObject.Name + " dies!" );
 		PhysicalModelRenderer.animateDeath();
-		Destroy();
+		GameObject.Destroy();
+		//Destroy();
 	}
 
 	public void move(Vector3 location, bool isNewMoveCommand)

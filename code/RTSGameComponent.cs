@@ -27,8 +27,8 @@ public sealed class RTSGameComponent : Component
 		thisGame.GameHUD = GameHud;
 	}
 
-	protected override void OnDestroy()
+	/*protected override void OnDestroy()
 	{
 		thisGame.destroyRefs();
-	}
+	}*/
 }
