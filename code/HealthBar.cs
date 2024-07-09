@@ -33,12 +33,12 @@ public class HealthBar : Component
 		UnitStatusWorldPanel.PanelSize = new Vector2( targetWidth, targetHeight );
 	}
 
-	protected override void OnDestroy()
+	/*protected override void OnDestroy()
 	{
 		UnitStatusWorldPanel.Enabled = false;
 		UnitStatusWorldPanel.Destroy();
 		healthBarUI.Enabled = false;
 		healthBarUI.Destroy();
 		base.OnDestroy();
-	}
+	}*/
 }
