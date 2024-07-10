@@ -64,24 +64,38 @@
 
 	public void stanceButtonClicked()
 	{
+		Log.Info("Inside Func");
 		if (isAttackStanceString == ATTACK_STANCE_IMAGE)
 		{
+			Log.Info("is Attacj Stance Currently");
 			isAttackStanceString = DEFEND_STANCE_IMAGE;
 			var selectedObjList = RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects;
+			var skjf = RTSGame.Instance.ThisPlayer.UnitControl;
+			Log.Info(skjf);
+			if(selectedObjList == null)
+			{
+				Log.Info("Somehow, it is null");
+			}
+			Log.Info(selectedObjList.Count);
+			Log.Info("Should have selected objs");
 			foreach (Unit obj in selectedObjList)
 			{
+				Log.Info("Set defed stance");
 				obj.setIsInAttackMode(false);
 			}
 		}
 		else
 		{
+			Log.Info("is Defend stance currently");
 			isAttackStanceString = ATTACK_STANCE_IMAGE;
 			var selectedObjList = RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects;
 			foreach (Unit obj in selectedObjList)
 			{
+				Log.Info("Set attak stance");
 				obj.setIsInAttackMode(true);
 			}
 		}
+		Log.Info("Done");
 		this.StateHasChanged();
 		this.Panel.Style.Dirty();
 	}
