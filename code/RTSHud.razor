@@ -64,38 +64,24 @@
 
 	public void stanceButtonClicked()
 	{
-		Log.Info("Inside Func");
 		if (isAttackStanceString == ATTACK_STANCE_IMAGE)
 		{
-			Log.Info("is Attacj Stance Currently");
 			isAttackStanceString = DEFEND_STANCE_IMAGE;
 			var selectedObjList = RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects;
-			var skjf = RTSGame.Instance.ThisPlayer.UnitControl;
-			Log.Info(skjf);
-			if(selectedObjList == null)
-			{
-				Log.Info("Somehow, it is null");
-			}
-			Log.Info(selectedObjList.Count);
-			Log.Info("Should have selected objs");
 			foreach (Unit obj in selectedObjList)
 			{
-				Log.Info("Set defed stance");
 				obj.setIsInAttackMode(false);
 			}
 		}
 		else
 		{
-			Log.Info("is Defend stance currently");
 			isAttackStanceString = ATTACK_STANCE_IMAGE;
 			var selectedObjList = RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects;
 			foreach (Unit obj in selectedObjList)
 			{
-				Log.Info("Set attak stance");
 				obj.setIsInAttackMode(true);
 			}
 		}
-		Log.Info("Done");
 		this.StateHasChanged();
 		this.Panel.Style.Dirty();
 	}
@@ -122,19 +108,23 @@
 }
 
 <root>
-	<div class="dynamicButtonSubPanel">
-		<button style="background-image: url(@(getStanceBackgroundImage())); pointer-events: @(getPointerEventsStyle());" @onclick="@( () => stanceButtonClicked())" class="dynamicButton">
-			<div class="buttonHintText">1</div>
-			<div style="display: @(getIsDisabledStyle());" class="buttonDisabledOverlay"></div>
-		</button>
-		<button class="dynamicButton"><div class="buttonHintText">2</div></button>
-		<button class="dynamicButton"><div class="buttonHintText">3</div></button>
-		<button class="dynamicButton"><div class="buttonHintText">4</div></button>
-		<button class="dynamicButton"><div class="buttonHintText">5</div></button>
-		<button class="dynamicButton"><div class="buttonHintText">6</div></button>
-		<button class="dynamicButton"><div class="buttonHintText">7</div></button>
-		<button class="dynamicButton"><div class="buttonHintText">8</div></button>
-		<button class="dynamicButton"><div class="buttonHintText">9</div></button>
-		<button class="dynamicButton"><div class="buttonHintText">10</div></button>
-	</button>
+	<div class="bottomPanel">
+		<div class="minimapSubPanel"></div>
+		<div class="statusSubPanel"></div>
+		<div class="dynamicButtonSubPanel">
+			<button style="background-image: url(@(getStanceBackgroundImage())); pointer-events: @(getPointerEventsStyle());" @onclick="@( () => stanceButtonClicked())" class="dynamicButton">
+				<div class="buttonHintText">1</div>
+				<div style="display: @(getIsDisabledStyle());" class="buttonDisabledOverlay"></div>
+			</button>
+			<button class="dynamicButton"><div class="buttonHintText">2</div></button>
+			<button class="dynamicButton"><div class="buttonHintText">3</div></button>
+			<button class="dynamicButton"><div class="buttonHintText">4</div></button>
+			<button class="dynamicButton"><div class="buttonHintText">5</div></button>
+			<button class="dynamicButton"><div class="buttonHintText">6</div></button>
+			<button class="dynamicButton"><div class="buttonHintText">7</div></button>
+			<button class="dynamicButton"><div class="buttonHintText">8</div></button>
+			<button class="dynamicButton"><div class="buttonHintText">9</div></button>
+			<button class="dynamicButton"><div class="buttonHintText">10</div></button>
+		</div>
+	</div>
 </root>

@@ -5,8 +5,33 @@ RTSHud {
     pointer-events: none;
 }
 
-.dynamicButtonSubPanel {
+.bottomPanel {
     height: 20%;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+}
+
+.minimapSubPanel {
+    height: 100%;
+    width: 20%;
+    left: 0;
+    bottom: 0;
+    background-color: black;
+    border: 5px grey;
+}
+
+.statusSubPanel {
+    height: 100%;
+    width: 60%;
+    bottom: 0;
+    background-color: black;
+    border: 5px grey;
+}
+
+.dynamicButtonSubPanel {
+    height: 100%;
     width: 20%;
     position: absolute;
     right: 0;
