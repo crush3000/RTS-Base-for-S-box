@@ -7,8 +7,6 @@
       "Name": "RTSGameOptions",
       "Position": "728.2209,1060.234,5.679298",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "RTSGameOptionsComponent",
@@ -23,8 +21,6 @@
       "Name": "Game",
       "Position": "282.3805,932.6121,409.9373",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "RTSGameComponent",
@@ -61,7 +57,7 @@
           },
           "ThisScreen": {
             "_type": "component",
-            "component_id": "9f6d5694-c2e9-400d-bfae-884a67ee8305",
+            "component_id": "b838f1ee-eec4-4409-982d-031f5755a553",
             "go": "0341ba11-a8d6-482e-8cbf-cf21beffa91d",
             "component_type": "ScreenPanel"
           }
@@ -74,8 +70,6 @@
       "Name": "Player1",
       "Position": "453.1334,961.2402,50.9276",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "RTSPlayer",
@@ -83,7 +77,7 @@
           "Team": 0,
           "UnitControl": {
             "_type": "component",
-            "component_id": "f900f224-7d9b-4b2a-98ed-6e5721121135",
+            "component_id": "75bf7be2-bcf3-4f37-ad72-32d88b17969b",
             "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
             "component_type": "PlayerUnitControl"
           },
@@ -105,8 +99,6 @@
       "Position": "215.7641,152.0348,514.7264",
       "Rotation": "-0.08282786,0.1999641,0.3736123,0.9019799",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "__Prefab": "prefabs/player.prefab",
       "__PrefabVariables": {}
     },
@@ -117,13 +109,13 @@
       "Position": "0,0,100",
       "Tags": "map_geom",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MapInstance",
           "__guid": "d05ad306-2733-45cd-b870-12dc8b12ec74",
+          "__version": 1,
           "MapName": "maps/rts_river.vmap",
+          "NoOrigin": true,
           "UseMapFromLaunch": true
         }
       ],
@@ -135,8 +127,6 @@
       "Name": "ScreenPanel",
       "Position": "694.0824,200.8844,335.0042",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "__Prefab": "prefabs/selectionscreen.prefab",
       "__PrefabVariables": {}
     },
@@ -148,8 +138,6 @@
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "__Prefab": "animgraphs/enemyskeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -161,8 +149,6 @@
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "__Prefab": "animgraphs/enemyskeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -174,8 +160,6 @@
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "__Prefab": "animgraphs/enemyskeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -187,8 +171,6 @@
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "__Prefab": "animgraphs/enemyskeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -200,8 +182,6 @@
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "__Prefab": "animgraphs/enemyskeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -214,8 +194,6 @@
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "__Prefab": "prefabs/skeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -228,8 +206,6 @@
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "__Prefab": "prefabs/skeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -242,8 +218,6 @@
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "__Prefab": "prefabs/skeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -256,8 +230,6 @@
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "__Prefab": "prefabs/skeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -270,8 +242,6 @@
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "__Prefab": "prefabs/skeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -281,8 +251,6 @@
       "Name": "CorpsePile",
       "Position": "627.7982,1385.857,5.38932",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "CorpseList",
@@ -301,8 +269,6 @@
       "Position": "568.1535,-554.3341,41.04226",
       "Tags": "particles",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "ParticleCommandIndicator",
@@ -344,8 +310,6 @@
       "Name": "SkeltalHouse",
       "Position": "476.6099,1268.737,55.94473",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Building",
@@ -394,8 +358,6 @@
           "Name": "BuildingModel",
           "Position": "0,0,0",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "UnitModelBasic",
@@ -447,8 +409,6 @@
               "Position": "0,0,20",
               "Rotation": "0,0.7071068,0,0.7071068",
               "Enabled": true,
-              "NetworkMode": 2,
-              "NetworkInterpolation": true,
               "Components": [
                 {
                   "__type": "DecalBaseStand",
@@ -482,8 +442,6 @@
           "Name": "BuildingHealthBar",
           "Position": "0,0,150",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "HealthBar",
@@ -525,8 +483,6 @@
       "Name": "HUDPanel",
       "Position": "300,0,0",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.ScreenPanel",
@@ -544,8 +500,6 @@
           "Name": "HUD",
           "Position": "0,0,0",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "RTSHud",
@@ -579,7 +533,6 @@
   },
   "Title": "rts_scene",
   "Description": "",
-  "LastSaved": "2024-06-23T16:30:52.9543218-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

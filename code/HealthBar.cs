@@ -33,6 +33,11 @@ public class HealthBar : Component
 		UnitStatusWorldPanel.PanelSize = new Vector2( targetWidth, targetHeight );
 	}
 
+	public void setEnabled(bool newEnabled)
+	{
+		healthBarUI.Enabled = newEnabled;
+		UnitStatusWorldPanel.Enabled = newEnabled;
+	}
 	/*protected override void OnDestroy()
 	{
 		UnitStatusWorldPanel.Enabled = false;

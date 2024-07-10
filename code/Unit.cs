@@ -238,8 +238,13 @@ class Unit : SkinnedRTSObject
 			UnitRangedAttackCollider.Enabled = false;
 			UnitRangedAttackCollider.Destroy();
 		}
-		base.OnDestroy();
+		SelectionHitbox.Enabled = false;
+		SelectionHitbox.Destroy();
+		ThisHealthBar.Enabled = false;
+		ThisHealthBar.Destroy();
 
+		//This will be fully destroyed later when the corpse dissapears
+		PhysicalModelRenderer.addToCorpsePile();
 	}*/
 
 	public override void deSelect()
@@ -253,8 +258,24 @@ class Unit : SkinnedRTSObject
 	{
 		//Log.Info( this.GameObject.Name + " dies!" );
 		PhysicalModelRenderer.animateDeath();
-		GameObject.Destroy();
+		//GameObject.Destroy();
 		//Destroy();
+		Log.Info( "Unit Die" );
+		UnitNavAgent.Enabled = false;
+		UnitMeleeCollider.Enabled = false;
+		UnitAutoMeleeCollider.Enabled = false;
+		if ( UnitRangedAttackCollider != null )
+		{
+			UnitRangedAttackCollider.Enabled = false;
+		}
+		SelectionHitbox.Enabled = false;
+		ThisHealthBar.Enabled = false;
+		ThisHealthBar.setEnabled( false );
+		PhysicalModelRenderer.baseStand.setEnabled( false );
+		Enabled = false;
+
+		//This will be fully destroyed later when the corpse dissapears
+		PhysicalModelRenderer.addToCorpsePile();
 	}
 
 	public void move(Vector3 location, bool isNewMoveCommand)

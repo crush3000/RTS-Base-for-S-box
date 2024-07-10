@@ -28,7 +28,7 @@ public class CorpseList : Component
 				//Log.Info( "Corpse Removed, corpse timeout!" );
 				corpsePile.Remove( corpse );
 				corpse.Item1.Enabled = false;
-				corpse.Item1.Destroy();
+				corpse.Item1.GameObject.Destroy();
 			}
 		}
 	}
