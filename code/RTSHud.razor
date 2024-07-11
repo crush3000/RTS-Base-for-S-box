@@ -1,6 +1,7 @@
 @using Sandbox;
 @using Sandbox.UI;
 @using System.Linq;
+@using System;
 @inherits PanelComponent
 @attribute [StyleSheet]
 
@@ -24,7 +25,7 @@
 
 	//private string displayButton
 
-	//public List<DynamicButton> currentButtonList
+	public List<DynamicButton> currentButtonList { get; set; }
 
 	/* public void setButtons(List<DynamicButton> newbuttonList)
 		* {
@@ -36,6 +37,23 @@
 		isEnabledStyleString = BUTTON_DISABLED_STYLE;
 		isAttackStanceString = ATTACK_STANCE_IMAGE;
 		buttonPointerEventsString = BUTTON_EVENTS_DISABLED_STYLE;
+		currentButtonList = new List<DynamicButton>();
+		//TEST CODE
+		for(int i=0;i<9;i++)
+		{
+			currentButtonList.Add(new DynamicButton('a' /*+ System.Convert.ToChar(i)*/, DEFEND_STANCE_IMAGE,printy ));
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			currentButtonList.ElementAt(i * 2).setEnabled(true);
+		}
+		//END TEST CODE
+	}
+
+	//BS TEST FUNCTION
+	public void printy()
+	{
+		Log.Info("Button Clicked!");
 	}
 
 	public void setSelectionVars(bool isSingleUnitSelected, bool isUnitInAttackStance)
@@ -112,19 +130,17 @@
 		<div class="minimapSubPanel"></div>
 		<div class="statusSubPanel"></div>
 		<div class="dynamicButtonSubPanel">
-			<button style="background-image: url(@(getStanceBackgroundImage())); pointer-events: @(getPointerEventsStyle());" @onclick="@( () => stanceButtonClicked())" class="dynamicButton">
+			<button style="background-image: url(@(getStanceBackgroundImage())); pointer-events: @(getPointerEventsStyle());" @onclick="@( () => stanceButtonClicked())" class="dynamicButtonSlot">
 				<div class="buttonHintText">1</div>
 				<div style="display: @(getIsDisabledStyle());" class="buttonDisabledOverlay"></div>
 			</button>
-			<button class="dynamicButton"><div class="buttonHintText">2</div></button>
-			<button class="dynamicButton"><div class="buttonHintText">3</div></button>
-			<button class="dynamicButton"><div class="buttonHintText">4</div></button>
-			<button class="dynamicButton"><div class="buttonHintText">5</div></button>
-			<button class="dynamicButton"><div class="buttonHintText">6</div></button>
-			<button class="dynamicButton"><div class="buttonHintText">7</div></button>
-			<button class="dynamicButton"><div class="buttonHintText">8</div></button>
-			<button class="dynamicButton"><div class="buttonHintText">9</div></button>
-			<button class="dynamicButton"><div class="buttonHintText">10</div></button>
+			@foreach (var button in currentButtonList)
+			{
+				<button style="background-image: url(@(button.backgroundImage)); pointer-events: @(button.getPointerEventsStyle());" @onclick="@( () => button.OnClick())" class="dynamicButtonSlot">
+					<div class="buttonHintText">@(button.hotkeyChar)</div>
+					<div style="display: @(button.getIsDisabledStyle());" class="buttonDisabledOverlay"></div>
+				</button>
+			}
 		</div>
 	</div>
 </root>

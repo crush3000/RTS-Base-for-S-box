@@ -45,12 +45,11 @@ RTSHud {
     justify-content: space-evenly;
 }
 
-.dynamicButton {
+.dynamicButtonSlot {
     width: 20%;
     text-align: left;
     pointer-events: all;
     background-color: black;
-    //background-image: url(materials/attack_stance.png);
     background-size: contain;
     border: 1px black;
 }
