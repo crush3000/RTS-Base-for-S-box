@@ -6,16 +6,18 @@ RTSHud {
 }
 
 .bottomPanel {
-    height: 20%;
+    height: 30%;
     width: 100%;
     bottom: 0;
     left: 0;
     position: absolute;
+    justify-content: center;
 }
 
 .minimapSubPanel {
     height: 100%;
     width: 20%;
+    position: absolute;
     left: 0;
     bottom: 0;
     background-color: black;
@@ -23,9 +25,10 @@ RTSHud {
 }
 
 .statusSubPanel {
-    height: 100%;
+    height: 60%;
     width: 60%;
     bottom: 0;
+    position: absolute;
     background-color: black;
     border: 5px grey;
 }
@@ -40,14 +43,14 @@ RTSHud {
     background-color: black;
     border: 5px grey;
     flex-wrap: wrap;
-    align-items: stretch;
-    align-content: stretch;
+    //align-items: stretch;
+    //align-content: stretch;
     justify-content: left
 }
 
 .dynamicButtonSlot {
     width: 20%;
-    aspect-ratio: 1;
+    height: 33.33%;
     text-align: left;
     pointer-events: all;
     background-color: black;
