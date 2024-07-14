@@ -1,16 +1,32 @@
 ﻿using System;
-//public class DynamicToggleButton : DynamicButton
-//{
-	//public string backgroundImage2 { get; set; }
+public class DynamicToggleButton : DynamicButton
+{
+	public string inactiveBackgroundImage { get; set; }
 
-	/*public DynamicToggleButton( char hotkey, string bg1, Action clickAction )
+	public bool buttonState { get; set; }
+
+	public DynamicToggleButton( char hotkey, string bg1, string bg2, Action clickAction ) : base(hotkey, bg1, clickAction)
 	{
-		
+		inactiveBackgroundImage = bg2;
 	}
 
-	public DynamicToggleButton(char hotkey, string bg1, string bg2, Action clickAction)
+	public void setButtonState(string desiredBG)
 	{
-		base.( hotkey, bg1, clickAction );
-	}*/
+		if(desiredBG != activeBackgroundImage && desiredBG != inactiveBackgroundImage)
+		{
+			Log.Error( desiredBG + " is not a valid state for this button!" );
+		}
+		else if(desiredBG == inactiveBackgroundImage) 
+		{
+			toggleButtonState();
+		}
+	}
 
-//}
+	public void toggleButtonState()
+	{
+		var tempBIContainer = activeBackgroundImage;
+		activeBackgroundImage = inactiveBackgroundImage;
+		inactiveBackgroundImage = tempBIContainer;
+	}
+
+}

@@ -16,12 +16,7 @@
 
 	public bool showPanel = true;
 
-	//private bool singleUnitSelected = true;
-
-	//private bool isAttackStance = true;
-	private string isEnabledStyleString;
-	private string isAttackStanceString;
-	private string buttonPointerEventsString;
+	private DynamicToggleButton unitStanceButton;
 
 	//private string displayButton
 
@@ -34,19 +29,18 @@
 	protected override void OnStart()
 	{
 		base.OnStart();
-		isEnabledStyleString = BUTTON_DISABLED_STYLE;
-		isAttackStanceString = ATTACK_STANCE_IMAGE;
-		buttonPointerEventsString = BUTTON_EVENTS_DISABLED_STYLE;
+		unitStanceButton = new DynamicToggleButton('z', ATTACK_STANCE_IMAGE, DEFEND_STANCE_IMAGE, stanceButtonClicked);
 		currentButtonList = new List<DynamicButton>();
 		//TEST CODE
+		currentButtonList.Add(unitStanceButton);
 		for(int i=0;i<9;i++)
 		{
-			currentButtonList.Add(new DynamicButton('a' /*+ System.Convert.ToChar(i)*/, DEFEND_STANCE_IMAGE,printy ));
+			currentButtonList.Add(new DynamicButton('a', DEFEND_STANCE_IMAGE,printy ));
 		}
-		for (int i = 0; i < 4; i++)
-		{
-			currentButtonList.ElementAt(i * 2).setEnabled(true);
-		}
+		//for (int i = 0; i < 4; i++)
+		//{
+		//	currentButtonList.ElementAt(i * 2).setEnabled(true);
+		//}
 		//END TEST CODE
 	}
 
@@ -60,21 +54,19 @@
 	{
 		if(isSingleUnitSelected)
 		{
-			isEnabledStyleString = BUTTON_ENABLED_STYLE;
-			buttonPointerEventsString = BUTTON_EVENTS_ENABLED_STYLE;
+			unitStanceButton.setEnabled(true);
 			if (isUnitInAttackStance)
 			{
-				isAttackStanceString = ATTACK_STANCE_IMAGE;
+				unitStanceButton.setButtonState(ATTACK_STANCE_IMAGE);
 			}
 			else
 			{
-				isAttackStanceString = DEFEND_STANCE_IMAGE;
+				unitStanceButton.setButtonState(DEFEND_STANCE_IMAGE);
 			}
 		}
 		else
 		{
-			buttonPointerEventsString = BUTTON_EVENTS_DISABLED_STYLE;
-			isEnabledStyleString = BUTTON_DISABLED_STYLE;
+			unitStanceButton.setEnabled(false);
 		}
 		this.StateHasChanged();
 		this.Panel.Style.Dirty();
@@ -82,10 +74,9 @@
 
 	public void stanceButtonClicked()
 	{
-		if (isAttackStanceString == ATTACK_STANCE_IMAGE)
+		var selectedObjList = RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects;
+		if (unitStanceButton.activeBackgroundImage == ATTACK_STANCE_IMAGE)
 		{
-			isAttackStanceString = DEFEND_STANCE_IMAGE;
-			var selectedObjList = RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects;
 			foreach (Unit obj in selectedObjList)
 			{
 				obj.setIsInAttackMode(false);
@@ -93,13 +84,12 @@
 		}
 		else
 		{
-			isAttackStanceString = ATTACK_STANCE_IMAGE;
-			var selectedObjList = RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects;
 			foreach (Unit obj in selectedObjList)
 			{
 				obj.setIsInAttackMode(true);
 			}
 		}
+		unitStanceButton.toggleButtonState();
 		this.StateHasChanged();
 		this.Panel.Style.Dirty();
 	}
@@ -108,21 +98,6 @@
 	{
 		showPanel = setShow;
 	}
-
-	private string getIsDisabledStyle()
-	{
-		return this.isEnabledStyleString;
-	}
-
-	private string getStanceBackgroundImage()
-	{
-		return this.isAttackStanceString;
-	}
-
-	private string getPointerEventsStyle()
-	{
-		return buttonPointerEventsString;
-	}
 }
 
 <root>
@@ -130,17 +105,15 @@
 		<div class="minimapSubPanel"></div>
 		<div class="statusSubPanel"></div>
 		<div class="dynamicButtonSubPanel">
-			<button style="background-image: url(@(getStanceBackgroundImage())); pointer-events: @(getPointerEventsStyle());" @onclick="@( () => stanceButtonClicked())" class="dynamicButtonSlot">
-				<div class="buttonHintText">1</div>
-				<div style="display: @(getIsDisabledStyle());" class="buttonDisabledOverlay"></div>
-			</button>
 			@foreach (var button in currentButtonList)
 			{
-				<button style="background-image: url(@(button.backgroundImage)); pointer-events: @(button.getPointerEventsStyle());" @onclick="@( () => button.OnClick())" class="dynamicButtonSlot">
-					<div class="buttonHintText">@(button.hotkeyChar)</div>
+				<button style="background-image: url(@(button.activeBackgroundImage)); pointer-events: @(button.getPointerEventsStyle());" @onclick="@( () => button.OnClick())" class="dynamicButtonSlot">
+					<div style="color: @(button.getIsDisabledStyleHint());" class="buttonHintText">@(button.hotkeyChar)</div>
 					<div style="display: @(button.getIsDisabledStyle());" class="buttonDisabledOverlay"></div>
 				</button>
 			}
 		</div>
 	</div>
 </root>
+
+<!-- -->
