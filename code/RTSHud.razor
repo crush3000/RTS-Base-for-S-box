@@ -18,6 +18,13 @@
 
 	private DynamicToggleButton unitStanceButton;
 
+	private string focusedUnitPortraitImage;
+	private string focusedUnitHealth;
+	private string focusedUnitName;
+	private string focusedUnitTeam;
+	private string focusedUnitMeleeDamage;
+	private string focusedUnitRangedDamage;
+
 	//private string displayButton
 
 	public List<DynamicButton> currentButtonList { get; set; }
@@ -31,6 +38,12 @@
 		base.OnStart();
 		unitStanceButton = new DynamicToggleButton('z', ATTACK_STANCE_IMAGE, DEFEND_STANCE_IMAGE, stanceButtonClicked);
 		currentButtonList = new List<DynamicButton>();
+		focusedUnitPortraitImage = "";
+		focusedUnitHealth = "";
+		focusedUnitName = "";
+		focusedUnitTeam = "";
+		focusedUnitMeleeDamage = "";
+		focusedUnitRangedDamage = "";
 		//TEST CODE
 		currentButtonList.Add(unitStanceButton);
 		for(int i=0;i<14;i++)
@@ -50,10 +63,43 @@
 		Log.Info("Button Clicked!");
 	}
 
+	private string getFocusedUnitPortraitImage()
+	{
+		if (focusedUnitPortraitImage == "")
+		{
+			return DEFEND_STANCE_IMAGE;
+		}
+		else
+		{
+			return focusedUnitPortraitImage;
+		}
+	}
+
 	public void setSelectionVars(bool isSingleUnitSelected, bool isUnitInAttackStance)
 	{
 		if(isSingleUnitSelected)
 		{
+			// Grab stats
+			var selectedObjList = RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects;
+			foreach (SkinnedRTSObject obj in selectedObjList)
+			{
+				focusedUnitPortraitImage = obj.PortraitImage;
+				focusedUnitHealth = "Health: " + obj.currentHealthPoints + "/" + obj.MaxHealth;
+				focusedUnitName = obj.name;
+				focusedUnitTeam = "Team " + obj.team.ToString();
+				if(obj.Tags.Contains("unit"))
+				{
+					focusedUnitMeleeDamage = "Melee Damage: " + ((Unit)obj).MeleeAttackDamage;
+					focusedUnitRangedDamage = "Ranged Damage: " + ((Unit)obj).RangedAttackDamage;
+				}
+				else
+				{
+					focusedUnitMeleeDamage = "";
+					focusedUnitRangedDamage = "";
+				}
+			}
+
+			// Setup Stance Button
 			unitStanceButton.setEnabled(true);
 			if (isUnitInAttackStance)
 			{
@@ -66,6 +112,13 @@
 		}
 		else
 		{
+			focusedUnitPortraitImage = "";
+			focusedUnitHealth = "";
+			focusedUnitName = "";
+			focusedUnitTeam = "";
+			focusedUnitMeleeDamage = "";
+			focusedUnitRangedDamage = "";
+
 			unitStanceButton.setEnabled(false);
 		}
 		this.StateHasChanged();
@@ -99,11 +152,21 @@
 		showPanel = setShow;
 	}
 }
-
 <root>
 	<div class="bottomPanel">
 		<div class="minimapSubPanel"></div>
-		<div class="statusSubPanel"></div>
+		<div class="statusSubPanel">
+			<div class="portraitStatusPanel">
+				<div style="background-image: url(@(getFocusedUnitPortraitImage()));" class="portraitImage"></div>
+				<div class="portraitStatusFocused">@(focusedUnitHealth)</div>
+			</div>
+			<div class="infoStatusPanel">
+				<div class="singleUnitStatusName">@(focusedUnitName)</div>
+				<div class="singleUnitStatusTeam">@(focusedUnitTeam)</div>
+				<div class="singleUnitStatusMeleeDamage">@(focusedUnitMeleeDamage)</div>
+				<div class="singleUnitStatusRangedDamage">@(focusedUnitRangedDamage)</div>
+			</div>
+		</div>
 		<div class="dynamicButtonSubPanel">
 			@foreach (var button in currentButtonList)
 			{

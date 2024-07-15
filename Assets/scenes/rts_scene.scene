@@ -57,7 +57,7 @@
           },
           "ThisScreen": {
             "_type": "component",
-            "component_id": "b838f1ee-eec4-4409-982d-031f5755a553",
+            "component_id": "2214d902-6f6a-4727-9f80-c631ce2c12eb",
             "go": "0341ba11-a8d6-482e-8cbf-cf21beffa91d",
             "component_type": "ScreenPanel"
           }
@@ -77,7 +77,7 @@
           "Team": 0,
           "UnitControl": {
             "_type": "component",
-            "component_id": "75bf7be2-bcf3-4f37-ad72-32d88b17969b",
+            "component_id": "58e6fba2-cb15-45e7-a565-a63fdc9a3e4b",
             "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
             "component_type": "PlayerUnitControl"
           },
@@ -318,12 +318,14 @@
           "MaxHealth": 1000,
           "ModelFile": "models/buildings/temple.vmdl",
           "ModelMaterial": "materials/temple.vmat",
+          "name": "Temple",
           "PhysicalModelRenderer": {
             "_type": "component",
             "component_id": "7c1ca1bd-099d-49f3-9571-5bd73908f158",
             "go": "fb61ed76-912a-4f99-a5ad-07f3e681a147",
             "component_type": "UnitModelBasic"
           },
+          "PortraitImage": "materials/temple_portrait.PNG",
           "RangedAttackDamage": 0,
           "RangedAttackRange": 0,
           "RangedAttackSpeed": 0,

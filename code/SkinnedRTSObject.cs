@@ -1,8 +1,11 @@
 ﻿
+using Sandbox.UI;
 using System.Drawing;
 
 public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 {
+	[Group( "Gameplay" )]
+	[Property] public string name { get; set; }
 	[Group( "Gameplay" )]
 	[Property] public int team { get; set; }
 	[Group( "Gameplay" )]
@@ -24,12 +27,15 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 	[Group( "Triggers And Collision" )]
 	[Property] public BoxCollider SelectionHitbox { get; set; }
 
+	[Group( "User Interface" )]
+	[Property] public string PortraitImage { get; set; }
+
 
 
 	// Class Vars
 	bool selected { get; set; }
 
-	protected int currentHealthPoints;
+	public int currentHealthPoints;
 	protected string objectTypeTag = "";
 
 	// Constants
