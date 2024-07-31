@@ -20,14 +20,19 @@
 
 	private string focusedUnitPortraitImage;
 	private string focusedUnitHealth;
-	private string focusedUnitName;
-	private string focusedUnitTeam;
-	private string focusedUnitMeleeDamage;
-	private string focusedUnitRangedDamage;
+	private string selectedUnitName;
+	private string selectedUnitTeam;
+	private string selectedUnitMeleeDamage;
+	private string selectedUnitRangedDamage;
+
+	private bool isSingleUnitSelected;
+	private bool selectionPresent;
 
 	//private string displayButton
 
 	public List<DynamicButton> currentButtonList { get; set; }
+
+	public SkinnedRTSObject focusedUnit;
 
 	/* public void setButtons(List<DynamicButton> newbuttonList)
 		* {
@@ -40,10 +45,13 @@
 		currentButtonList = new List<DynamicButton>();
 		focusedUnitPortraitImage = "";
 		focusedUnitHealth = "";
-		focusedUnitName = "";
-		focusedUnitTeam = "";
-		focusedUnitMeleeDamage = "";
-		focusedUnitRangedDamage = "";
+		selectedUnitName = "";
+		selectedUnitTeam = "";
+		selectedUnitMeleeDamage = "";
+		selectedUnitRangedDamage = "";
+		isSingleUnitSelected = false;
+		selectionPresent = false;
+		focusedUnit = null;
 		//TEST CODE
 		currentButtonList.Add(unitStanceButton);
 		for(int i=0;i<14;i++)
@@ -57,6 +65,26 @@
 		//END TEST CODE
 	}
 
+	protected override void OnUpdate()
+	{
+		base.OnUpdate();
+		this.StateHasChanged();
+	}
+
+	public string getFocusedUnitHealthString()
+	{
+		if(focusedUnit != null)
+		{
+			return "Health: " + getUnitHealthString(focusedUnit);
+		}
+		return "";
+	}
+
+	public string getUnitHealthString(SkinnedRTSObject unit)
+	{
+		return unit.currentHealthPoints + "/" + unit.MaxHealth;
+	}
+
 	//BS TEST FUNCTION
 	public void printy()
 	{
@@ -65,62 +93,93 @@
 
 	private string getFocusedUnitPortraitImage()
 	{
-		if (focusedUnitPortraitImage == "")
+		if (focusedUnit == null)
 		{
 			return DEFEND_STANCE_IMAGE;
 		}
 		else
 		{
-			return focusedUnitPortraitImage;
+			return focusedUnit.PortraitImage;
 		}
 	}
 
-	public void setSelectionVars(bool isSingleUnitSelected, bool isUnitInAttackStance)
+	public void setSelectionVars(bool isSelect, bool isSingleUnitSelected, bool isUnitInAttackStance)
 	{
-		if(isSingleUnitSelected)
+		focusedUnit = null;
+		if(isSelect)
 		{
-			// Grab stats
-			var selectedObjList = RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects;
-			foreach (SkinnedRTSObject obj in selectedObjList)
+			if (isSingleUnitSelected)
 			{
-				focusedUnitPortraitImage = obj.PortraitImage;
-				focusedUnitHealth = "Health: " + obj.currentHealthPoints + "/" + obj.MaxHealth;
-				focusedUnitName = obj.name;
-				focusedUnitTeam = "Team " + obj.team.ToString();
-				if(obj.Tags.Contains("unit"))
+				this.isSingleUnitSelected = true;
+				this.selectionPresent = true;
+				// Grab stats
+				var selectedObjList = RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects;
+				foreach (SkinnedRTSObject obj in selectedObjList)
 				{
-					focusedUnitMeleeDamage = "Melee Damage: " + ((Unit)obj).MeleeAttackDamage;
-					focusedUnitRangedDamage = "Ranged Damage: " + ((Unit)obj).RangedAttackDamage;
+
+					focusedUnit = obj;
+					focusedUnitPortraitImage = obj.PortraitImage;
+					focusedUnitHealth = "Health: " + obj.currentHealthPoints + "/" + obj.MaxHealth;
+					selectedUnitName = obj.name;
+					selectedUnitTeam = "Team " + obj.team.ToString();
+					if (obj.Tags.Contains("unit"))
+					{
+						selectedUnitMeleeDamage = "Melee Damage: " + ((Unit)obj).MeleeAttackDamage;
+						selectedUnitRangedDamage = "Ranged Damage: " + ((Unit)obj).RangedAttackDamage;
+					}
+					else
+					{
+						selectedUnitMeleeDamage = "";
+						selectedUnitRangedDamage = "";
+					}
+				}
+
+				// Setup Stance Button
+				unitStanceButton.setEnabled(true);
+				if (isUnitInAttackStance)
+				{
+					unitStanceButton.setButtonState(ATTACK_STANCE_IMAGE);
 				}
 				else
 				{
-					focusedUnitMeleeDamage = "";
-					focusedUnitRangedDamage = "";
+					unitStanceButton.setButtonState(DEFEND_STANCE_IMAGE);
 				}
-			}
-
-			// Setup Stance Button
-			unitStanceButton.setEnabled(true);
-			if (isUnitInAttackStance)
-			{
-				unitStanceButton.setButtonState(ATTACK_STANCE_IMAGE);
 			}
 			else
 			{
-				unitStanceButton.setButtonState(DEFEND_STANCE_IMAGE);
+				if (RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects.Count() > 0)
+				{
+					SkinnedRTSObject firstUnit = RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects.First();
+					focusedUnit = firstUnit;
+				}
+
+				focusedUnitPortraitImage = "";
+				focusedUnitHealth = "";
+				selectedUnitName = "";
+				selectedUnitTeam = "";
+				selectedUnitMeleeDamage = "";
+				selectedUnitRangedDamage = "";
+				this.isSingleUnitSelected = false;
+				this.selectionPresent = true;
+
+				unitStanceButton.setEnabled(false);
 			}
 		}
 		else
 		{
 			focusedUnitPortraitImage = "";
 			focusedUnitHealth = "";
-			focusedUnitName = "";
-			focusedUnitTeam = "";
-			focusedUnitMeleeDamage = "";
-			focusedUnitRangedDamage = "";
+			selectedUnitName = "";
+			selectedUnitTeam = "";
+			selectedUnitMeleeDamage = "";
+			selectedUnitRangedDamage = "";
+			focusedUnit = null;
+			this.isSingleUnitSelected = false;
+			this.selectionPresent = false;
 
 			unitStanceButton.setEnabled(false);
 		}
+
 		this.StateHasChanged();
 		this.Panel.Style.Dirty();
 	}
@@ -147,6 +206,13 @@
 		this.Panel.Style.Dirty();
 	}
 
+	public void unitListItemClicked(SkinnedRTSObject unit)
+	{
+		Log.Info("Clicked Unit List Item");
+		focusedUnit = unit;
+		this.StateHasChanged();
+	}
+
 	public void setShowPanel(bool setShow)
 	{
 		showPanel = setShow;
@@ -158,13 +224,26 @@
 		<div class="statusSubPanel">
 			<div class="portraitStatusPanel">
 				<div style="background-image: url(@(getFocusedUnitPortraitImage()));" class="portraitImage"></div>
-				<div class="portraitStatusFocused">@(focusedUnitHealth)</div>
+				<div class="portraitStatusFocused">@(getFocusedUnitHealthString())</div>
 			</div>
-			<div class="infoStatusPanel">
-				<div class="singleUnitStatusName">@(focusedUnitName)</div>
-				<div class="singleUnitStatusTeam">@(focusedUnitTeam)</div>
-				<div class="singleUnitStatusMeleeDamage">@(focusedUnitMeleeDamage)</div>
-				<div class="singleUnitStatusRangedDamage">@(focusedUnitRangedDamage)</div>
+			<div class=@(isSingleUnitSelected ? "infoStatusPanel" : "infoStatusPanelMultiple")>
+				@if(selectionPresent == true && isSingleUnitSelected != true)
+				{
+					foreach (SkinnedRTSObject selectedUnit in RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects)
+					{
+						<div @onclick="@(() => unitListItemClicked(selectedUnit))" class=@(focusedUnit == selectedUnit ? "portraitStatusPanelListItemFocused" : "portraitStatusPanelListItem")>
+							<div style="background-image: url(@(selectedUnit.PortraitImage));" class="portraitImage"></div>
+							<div class="portraitStatusList">@(getUnitHealthString(selectedUnit))</div>
+						</button>
+					}
+				}
+				else
+				{
+					<div class="singleUnitStatusName">@(selectedUnitName)</div>
+					<div class="singleUnitStatusTeam">@(selectedUnitTeam)</div>
+					<div class="singleUnitStatusMeleeDamage">@(selectedUnitMeleeDamage)</div>
+					<div class="singleUnitStatusRangedDamage">@(selectedUnitRangedDamage)</div>
+				}
 			</div>
 		</div>
 		<div class="dynamicButtonSubPanel">
@@ -179,4 +258,4 @@
 	</div>
 </root>
 
-<!-- -->
+<!--/*unitListItemClicked(selectedUnit)*/ -->

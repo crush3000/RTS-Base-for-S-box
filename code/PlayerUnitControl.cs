@@ -63,12 +63,16 @@ public class PlayerUnitControl : Component
 		// Select button has been released
 		else if(Input.Released("Select"))
 		{
+			// Delesect all currently selected
+			foreach ( SkinnedRTSObject obj in SelectedObjects )
+			{
+				obj.deSelect();
+			}
+			SelectedObjects.Clear();
 			// For a drag just make sure we give them some time to actually click
 			// TODO: I think I can fix the jank here if I make multiselect ALSO depend on how large of a rectangle you actually draw
 			if ( Time.Now - startSelectTime > CLICK_TIME )
 			{
-				// TODO: Make the stance stuff less cheesy
-				RTSGame.Instance.GameHUD.setSelectionVars( false, false );
 				//Log.Info( "Release" );
 				endRectPos = Mouse.Position;
 				// Get ALL units. This is possibly a bad idea for speed
@@ -100,6 +104,8 @@ public class PlayerUnitControl : Component
 					}
 				}
 				stopDrawSelectionRect();
+				// TODO: Make the stance stuff less cheesy
+				RTSGame.Instance.GameHUD.setSelectionVars( true, false, false );
 			}
 			// This is for a single click
 			else
@@ -107,12 +113,6 @@ public class PlayerUnitControl : Component
 				//RTSGame.Instance.GameHUD.setSelectionVars( false, false );
 
 				var mouseScreenPos = Mouse.Position;
-				// Delesect all currently selected
-				foreach ( SkinnedRTSObject obj in SelectedObjects )
-				{
-					obj.deSelect();
-				}
-				SelectedObjects.Clear();
 				// Set up and run mouse ray to find what we're now selecting
 				var mouseDirection = RTSCam.CamView.ScreenPixelToRay( mouseScreenPos );
 				var mouseRay = Scene.Trace.Ray( mouseDirection, 5000f );
@@ -133,12 +133,12 @@ public class PlayerUnitControl : Component
 						// Select Unit
 						SelectedObjects.Add( selectedUnit );
 						selectedUnit.select();
-						RTSGame.Instance.GameHUD.setSelectionVars( true, selectedUnit.isInAttackMode );
+						RTSGame.Instance.GameHUD.setSelectionVars(true, true, selectedUnit.isInAttackMode );
 					}
 				}
 				else
 				{
-					RTSGame.Instance.GameHUD.setSelectionVars( false, false );
+					RTSGame.Instance.GameHUD.setSelectionVars(false, false, false );
 				}
 
 				// Select building if one is hit
@@ -152,7 +152,7 @@ public class PlayerUnitControl : Component
 						// Select Building
 						SelectedObjects.Add( selectedBuilding );
 						selectedBuilding.select();
-						RTSGame.Instance.GameHUD.setSelectionVars( false, false );
+						RTSGame.Instance.GameHUD.setSelectionVars(true, true, false );
 					}
 				}
 			}
