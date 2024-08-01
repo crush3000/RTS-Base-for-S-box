@@ -105,7 +105,15 @@ public class PlayerUnitControl : Component
 				}
 				stopDrawSelectionRect();
 				// TODO: Make the stance stuff less cheesy
-				RTSGame.Instance.GameHUD.setSelectionVars( true, false, false );
+				Log.Info( SelectedObjects.Count() );
+				if( SelectedObjects.Count() == 1)
+				{
+					RTSGame.Instance.GameHUD.setSelectionVars( true, true, units.First<Unit>().isInAttackMode );
+				}
+				else
+				{
+					RTSGame.Instance.GameHUD.setSelectionVars( true, false, false );
+				}
 			}
 			// This is for a single click
 			else
@@ -121,39 +129,49 @@ public class PlayerUnitControl : Component
 				// Get unit under ray
 				var hitUnitComponents = tr.GameObject.Components.GetAll().OfType<Unit>();
 				var hitBuildingComponents = tr.GameObject.Components.GetAll().OfType<Building>();
+				var hitSomethingValid = false;
 
-				// Select unit if one is hit
-				if ( hitUnitComponents.Any() )
+				if ( hitUnitComponents.Any() != false || hitBuildingComponents.Any() != false )
 				{
-					var selectedUnit = hitUnitComponents.First();
-					// Make sure the unit is ours
-					if ( selectedUnit.team == team)
+					// Select unit if one is hit
+					if ( hitUnitComponents.Any() )
 					{
-						//Log.Info( "Team " + team + " " + selectedUnit.GameObject.Name + " Selected from team " + selectedUnit.team );
-						// Select Unit
-						SelectedObjects.Add( selectedUnit );
-						selectedUnit.select();
-						RTSGame.Instance.GameHUD.setSelectionVars(true, true, selectedUnit.isInAttackMode );
+						var selectedUnit = hitUnitComponents.First();
+						// Make sure the unit is ours
+						if ( selectedUnit.team == team )
+						{
+							//Log.Info( "Team " + team + " " + selectedUnit.GameObject.Name + " Selected from team " + selectedUnit.team );
+							// Select Unit
+							SelectedObjects.Add( selectedUnit );
+							selectedUnit.select();
+							RTSGame.Instance.GameHUD.setSelectionVars( true, true, selectedUnit.isInAttackMode );
+							hitSomethingValid = true;
+						}
+					}
+
+					// Select building if one is hit
+					if ( hitBuildingComponents.Any() )
+					{
+						var selectedBuilding = hitBuildingComponents.First();
+						// Make sure the unit is ours
+						if ( selectedBuilding.team == team )
+						{
+							//Log.Info( "Team " + team + " " + selectedUnit.GameObject.Name + " Selected from team " + selectedUnit.team );
+							// Select Building
+							SelectedObjects.Add( selectedBuilding );
+							selectedBuilding.select();
+							RTSGame.Instance.GameHUD.setSelectionVars( true, true, false );
+							hitSomethingValid = true;
+						}
+					}
+					if (! hitSomethingValid )
+					{
+						RTSGame.Instance.GameHUD.setSelectionVars( false, false, false );
 					}
 				}
 				else
 				{
-					RTSGame.Instance.GameHUD.setSelectionVars(false, false, false );
-				}
-
-				// Select building if one is hit
-				if ( hitBuildingComponents.Any() )
-				{
-					var selectedBuilding = hitBuildingComponents.First();
-					// Make sure the unit is ours
-					if ( selectedBuilding.team == team )
-					{
-						//Log.Info( "Team " + team + " " + selectedUnit.GameObject.Name + " Selected from team " + selectedUnit.team );
-						// Select Building
-						SelectedObjects.Add( selectedBuilding );
-						selectedBuilding.select();
-						RTSGame.Instance.GameHUD.setSelectionVars(true, true, false );
-					}
+					RTSGame.Instance.GameHUD.setSelectionVars( false, false, false );
 				}
 			}
 		}

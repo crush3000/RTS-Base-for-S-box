@@ -106,6 +106,7 @@
 	//TODO: FIX STANCE BUTTON TO WORK WITH MULTI-SELECT FOCUS
 	public void setSelectionVars(bool isSelect, bool isSingleUnitSelected, bool isUnitInAttackStance)
 	{
+		Log.Info("setSelectionVars(isSelect=" + isSelect + ", isSingleUnitSelected=" + isSingleUnitSelected + ", isUnitInAttackStance=" + isUnitInAttackStance);
 		focusedUnit = null;
 		if(isSelect)
 		{
@@ -238,7 +239,7 @@
 						</button>
 					}
 				}
-				else
+				else if(selectionPresent == true)
 				{
 					<div class="singleUnitStatusName">@(selectedUnitName)</div>
 					<div class="singleUnitStatusTeam">@(selectedUnitTeam)</div>
