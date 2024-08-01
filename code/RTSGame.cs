@@ -5,6 +5,7 @@
 	public ScreenPanel ThisScreen { get; set; }
 	public CorpseList GameCorpseList { get; set; }
 	public CommandIndicatorBase GameCommandIndicator { get; set; }
+	public RTSHud GameHUD { get; set; }
 
 	private RTSGame()
 	{
@@ -26,12 +27,13 @@
 		internal static readonly RTSGame instance = new RTSGame();
 	}
 
-	public void destroyRefs()
+	/*public void destroyRefs()
 	{
 		GameOptions.Destroy();
 		ThisPlayer.Destroy();
 		ThisScreen.Destroy();
 		GameCorpseList.Destroy();
 		GameCommandIndicator.Destroy();
-	}
+		GameHUD.Destroy();
+	}*/
 }

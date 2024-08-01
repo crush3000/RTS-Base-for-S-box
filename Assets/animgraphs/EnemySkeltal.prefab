@@ -5,8 +5,6 @@
     "Name": "enemyskeltal",
     "Tags": "unit",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Unit",
@@ -19,12 +17,14 @@
         "MeleeAttackSpeed": 1.5,
         "ModelFile": "models/prebuilt_characters/sk_light_infantry_a.vmdl",
         "ModelMaterial": "materials/t_undead_standard.vmat",
+        "name": "Skeltal",
         "PhysicalModelRenderer": {
           "_type": "component",
           "component_id": "ade42ab9-eb04-44ea-a252-8ac0bc0ca736",
           "go": "30d479cd-5b1b-4bf3-920b-e15a743d4094",
           "component_type": "UnitModel"
         },
+        "PortraitImage": "materials/skeltal_portrait.PNG",
         "RangedAttackDamage": 0,
         "RangedAttackRange": 0,
         "RangedAttackSpeed": 0,
@@ -115,8 +115,6 @@
         "Flags": 0,
         "Name": "BasicUnitModel",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.HighlightOutline",
@@ -168,8 +166,6 @@
             "Position": "0,0,50",
             "Rotation": "0,0.7071068,0,0.7071068",
             "Enabled": true,
-            "NetworkMode": 2,
-            "NetworkInterpolation": true,
             "Components": [
               {
                 "__type": "Sandbox.ModelRenderer",
@@ -211,8 +207,6 @@
         "Flags": 0,
         "Name": "UnitHealthBar",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "HealthBar",

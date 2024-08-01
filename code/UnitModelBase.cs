@@ -18,6 +18,9 @@ public abstract class UnitModelBase : Component
 
 	public void addToCorpsePile()
 	{
+		outline.Enabled = false;
+		baseStand.Enabled = false;
+
 		RTSGame.Instance.GameCorpseList.addCorpse( model, Time.Now );
 	}
 
@@ -80,8 +83,9 @@ public abstract class UnitModelBase : Component
 	{
 	}
 
-	protected override void OnDestroy() 
+	/*protected override void OnDestroy() 
 	{
+		Log.Info( "Hello?" );
 		outline.Enabled = false;
 		outline.Destroy();
 		baseStand.Enabled = false;
@@ -89,5 +93,5 @@ public abstract class UnitModelBase : Component
 		//model.Enabled = false;
 		//model.Destroy();
 		base.OnDestroy();
-	}
+	}*/
 }

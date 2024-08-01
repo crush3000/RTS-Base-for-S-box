@@ -42,7 +42,7 @@ class UnitModelBasic : UnitModelBase
 	{
 	}
 
-	protected override void OnDestroy()
+	/*protected override void OnDestroy()
 	{
 		outline.Enabled = false;
 		outline.Destroy();
@@ -51,5 +51,5 @@ class UnitModelBasic : UnitModelBase
 		model.Enabled = false;
 		model.Destroy();
 		base.OnDestroy();
-	}
+	}*/
 }

@@ -1,8 +1,11 @@
 ﻿
+using Sandbox.UI;
 using System.Drawing;
 
-class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
+public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 {
+	[Group( "Gameplay" )]
+	[Property] public string name { get; set; }
 	[Group( "Gameplay" )]
 	[Property] public int team { get; set; }
 	[Group( "Gameplay" )]
@@ -24,12 +27,15 @@ class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 	[Group( "Triggers And Collision" )]
 	[Property] public BoxCollider SelectionHitbox { get; set; }
 
+	[Group( "User Interface" )]
+	[Property] public string PortraitImage { get; set; }
+
 
 
 	// Class Vars
 	bool selected { get; set; }
 
-	protected int currentHealthPoints;
+	public int currentHealthPoints;
 	protected string objectTypeTag = "";
 
 	// Constants
@@ -58,7 +64,7 @@ class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 	}
 
 	// Cleanup
-	protected override void OnDestroy()
+	/*protected override void OnDestroy()
 	{
 		Log.Info( "Base Object OnDestroy" );
 		PhysicalModelRenderer.Enabled = false;
@@ -69,7 +75,7 @@ class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 		ThisHealthBar.Destroy();
 		this.Enabled = false;
 		base.OnDestroy();
-	}
+	}*/
 
 	public virtual void select()
 	{

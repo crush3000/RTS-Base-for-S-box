@@ -42,6 +42,7 @@ class Unit : SkinnedRTSObject
 	private float maxChaseDistanceFromHome = 600f;
 	private float lastMeleeTime = Time.Now;
 	private float lastMoveOrderTime = Time.Now;
+	public bool isInAttackMode = true;
 
 	// Unit Constants
 	public const string UNIT_TAG = "unit";
@@ -159,7 +160,7 @@ class Unit : SkinnedRTSObject
 			}
 		}
 		// Auto Melee
-		if(UnitAutoMeleeCollider != null)
+		if(UnitAutoMeleeCollider != null && isInAttackMode)
 		{
 			var validUnitFound = false;
 			if ( tempTargetObject == null )
@@ -213,8 +214,17 @@ class Unit : SkinnedRTSObject
 		}
 	}
 
+	public void setIsInAttackMode(bool isNowInAttackMode)
+	{
+		isInAttackMode = isNowInAttackMode;
+		if ( !isNowInAttackMode )
+		{
+			tempTargetObject = null;
+		}
+	}
+
 	// Cleanup
-	protected override void OnDestroy()
+	/*protected override void OnDestroy()
 	{
 		Log.Info( "Unit Object OnDestroy" );
 		UnitNavAgent.Enabled = false;
@@ -228,9 +238,14 @@ class Unit : SkinnedRTSObject
 			UnitRangedAttackCollider.Enabled = false;
 			UnitRangedAttackCollider.Destroy();
 		}
-		base.OnDestroy();
+		SelectionHitbox.Enabled = false;
+		SelectionHitbox.Destroy();
+		ThisHealthBar.Enabled = false;
+		ThisHealthBar.Destroy();
 
-	}
+		//This will be fully destroyed later when the corpse dissapears
+		PhysicalModelRenderer.addToCorpsePile();
+	}*/
 
 	public override void deSelect()
 	{
@@ -243,7 +258,24 @@ class Unit : SkinnedRTSObject
 	{
 		//Log.Info( this.GameObject.Name + " dies!" );
 		PhysicalModelRenderer.animateDeath();
-		Destroy();
+		//GameObject.Destroy();
+		//Destroy();
+		Log.Info( "Unit Die" );
+		UnitNavAgent.Enabled = false;
+		UnitMeleeCollider.Enabled = false;
+		UnitAutoMeleeCollider.Enabled = false;
+		if ( UnitRangedAttackCollider != null )
+		{
+			UnitRangedAttackCollider.Enabled = false;
+		}
+		SelectionHitbox.Enabled = false;
+		ThisHealthBar.Enabled = false;
+		ThisHealthBar.setEnabled( false );
+		PhysicalModelRenderer.baseStand.setEnabled( false );
+		Enabled = false;
+
+		//This will be fully destroyed later when the corpse dissapears
+		PhysicalModelRenderer.addToCorpsePile();
 	}
 
 	public void move(Vector3 location, bool isNewMoveCommand)

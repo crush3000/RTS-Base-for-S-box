@@ -3,6 +3,7 @@ using Sandbox.UI;
 using Sandbox.UI.Construct;
 using Sandbox.Utility.Svg;
 using System;
+using System.Linq;
 using System.Reflection.Metadata;
 using System.Threading;
 public class PlayerUnitControl : Component
@@ -12,7 +13,7 @@ public class PlayerUnitControl : Component
 	[Property]	RTSCamComponent RTSCam {  get; set; }
 	[Property] SelectionPanel selectionPanel { get; set; }
 	[Property] int team { get; set; }
-	List<SkinnedRTSObject> SelectedObjects { get; set; }
+	public List<SkinnedRTSObject> SelectedObjects { get; set; }
 
 	private Rect selectionRect = new Rect();
 	private Vector2 startSelectPos {  get; set; }
@@ -63,7 +64,14 @@ public class PlayerUnitControl : Component
 		// Select button has been released
 		else if(Input.Released("Select"))
 		{
+			// Delesect all currently selected
+			foreach ( SkinnedRTSObject obj in SelectedObjects )
+			{
+				obj.deSelect();
+			}
+			SelectedObjects.Clear();
 			// For a drag just make sure we give them some time to actually click
+			// TODO: I think I can fix the jank here if I make multiselect ALSO depend on how large of a rectangle you actually draw
 			if ( Time.Now - startSelectTime > CLICK_TIME )
 			{
 				//Log.Info( "Release" );
@@ -95,19 +103,34 @@ public class PlayerUnitControl : Component
 							}
 						}
 					}
+
+					// TODO: Make the stance stuff less cheesy
+					Log.Info( SelectedObjects.Count() );
+					if ( SelectedObjects.Count() == 1 )
+					{
+						RTSGame.Instance.GameHUD.setSelectionVars( true, true, ((Unit)SelectedObjects.First()).isInAttackMode );
+					}
+					else if ( SelectedObjects.Count() == 0 )
+					{
+						RTSGame.Instance.GameHUD.setSelectionVars( false, false, false );
+					}
+					else
+					{
+						RTSGame.Instance.GameHUD.setSelectionVars( true, false, ((Unit)SelectedObjects.First()).isInAttackMode );
+					}
+				}
+				else
+				{
+					RTSGame.Instance.GameHUD.setSelectionVars( false, false, false );
 				}
 				stopDrawSelectionRect();
 			}
 			// This is for a single click
 			else
 			{
+				//RTSGame.Instance.GameHUD.setSelectionVars( false, false );
+
 				var mouseScreenPos = Mouse.Position;
-				// Delesect all currently selected
-				foreach ( SkinnedRTSObject obj in SelectedObjects )
-				{
-					obj.deSelect();
-				}
-				SelectedObjects.Clear();
 				// Set up and run mouse ray to find what we're now selecting
 				var mouseDirection = RTSCam.CamView.ScreenPixelToRay( mouseScreenPos );
 				var mouseRay = Scene.Trace.Ray( mouseDirection, 5000f );
@@ -116,33 +139,49 @@ public class PlayerUnitControl : Component
 				// Get unit under ray
 				var hitUnitComponents = tr.GameObject.Components.GetAll().OfType<Unit>();
 				var hitBuildingComponents = tr.GameObject.Components.GetAll().OfType<Building>();
+				var hitSomethingValid = false;
 
-				// Select unit if one is hit
-				if ( hitUnitComponents.Any() )
+				if ( hitUnitComponents.Any() != false || hitBuildingComponents.Any() != false )
 				{
-					var selectedUnit = hitUnitComponents.First();
-					// Make sure the unit is ours
-					if ( selectedUnit.team == team)
+					// Select unit if one is hit
+					if ( hitUnitComponents.Any() )
 					{
-						//Log.Info( "Team " + team + " " + selectedUnit.GameObject.Name + " Selected from team " + selectedUnit.team );
-						// Select Unit
-						SelectedObjects.Add( selectedUnit );
-						selectedUnit.select();
+						var selectedUnit = hitUnitComponents.First();
+						// Make sure the unit is ours
+						if ( selectedUnit.team == team )
+						{
+							//Log.Info( "Team " + team + " " + selectedUnit.GameObject.Name + " Selected from team " + selectedUnit.team );
+							// Select Unit
+							SelectedObjects.Add( selectedUnit );
+							selectedUnit.select();
+							RTSGame.Instance.GameHUD.setSelectionVars( true, true, selectedUnit.isInAttackMode );
+							hitSomethingValid = true;
+						}
+					}
+
+					// Select building if one is hit
+					if ( hitBuildingComponents.Any() )
+					{
+						var selectedBuilding = hitBuildingComponents.First();
+						// Make sure the unit is ours
+						if ( selectedBuilding.team == team )
+						{
+							//Log.Info( "Team " + team + " " + selectedUnit.GameObject.Name + " Selected from team " + selectedUnit.team );
+							// Select Building
+							SelectedObjects.Add( selectedBuilding );
+							selectedBuilding.select();
+							RTSGame.Instance.GameHUD.setSelectionVars( true, true, false );
+							hitSomethingValid = true;
+						}
+					}
+					if (! hitSomethingValid )
+					{
+						RTSGame.Instance.GameHUD.setSelectionVars( false, false, false );
 					}
 				}
-
-				// Select building if one is hit
-				if ( hitBuildingComponents.Any() )
+				else
 				{
-					var selectedBuilding = hitBuildingComponents.First();
-					// Make sure the unit is ours
-					if ( selectedBuilding.team == team )
-					{
-						//Log.Info( "Team " + team + " " + selectedUnit.GameObject.Name + " Selected from team " + selectedUnit.team );
-						// Select Building
-						SelectedObjects.Add( selectedBuilding );
-						selectedBuilding.select();
-					}
+					RTSGame.Instance.GameHUD.setSelectionVars( false, false, false );
 				}
 			}
 		}
@@ -213,10 +252,10 @@ public class PlayerUnitControl : Component
 			var tr = mouseRay.Run();
 
 			//Call Unit Factory Here.
-			//Log.Info( "Spawning Skeltal!" );
-			//RTSGame.Instance.ThisPlayer.myUnitFactory.spawnUnit(RTSGame.Instance.ThisPlayer.skeltalPrefab, tr.EndPosition);
-			Log.Info( "Spawning Skeltal House!" );
-			RTSGame.Instance.ThisPlayer.myUnitFactory.spawnUnit( RTSGame.Instance.ThisPlayer.skeltalHousePrefab, tr.EndPosition );
+			Log.Info( "Spawning Skeltal!" );
+			RTSGame.Instance.ThisPlayer.myUnitFactory.spawnUnit(RTSGame.Instance.ThisPlayer.skeltalPrefab, tr.EndPosition);
+			//Log.Info( "Spawning Skeltal House!" );
+			//RTSGame.Instance.ThisPlayer.myUnitFactory.spawnUnit( RTSGame.Instance.ThisPlayer.skeltalHousePrefab, tr.EndPosition );
 		}
 	}
 
