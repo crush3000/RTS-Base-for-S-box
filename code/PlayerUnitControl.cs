@@ -3,6 +3,7 @@ using Sandbox.UI;
 using Sandbox.UI.Construct;
 using Sandbox.Utility.Svg;
 using System;
+using System.Linq;
 using System.Reflection.Metadata;
 using System.Threading;
 public class PlayerUnitControl : Component
@@ -102,18 +103,27 @@ public class PlayerUnitControl : Component
 							}
 						}
 					}
-				}
-				stopDrawSelectionRect();
-				// TODO: Make the stance stuff less cheesy
-				Log.Info( SelectedObjects.Count() );
-				if( SelectedObjects.Count() == 1)
-				{
-					RTSGame.Instance.GameHUD.setSelectionVars( true, true, units.First<Unit>().isInAttackMode );
+
+					// TODO: Make the stance stuff less cheesy
+					Log.Info( SelectedObjects.Count() );
+					if ( SelectedObjects.Count() == 1 )
+					{
+						RTSGame.Instance.GameHUD.setSelectionVars( true, true, ((Unit)SelectedObjects.First()).isInAttackMode );
+					}
+					else if ( SelectedObjects.Count() == 0 )
+					{
+						RTSGame.Instance.GameHUD.setSelectionVars( false, false, false );
+					}
+					else
+					{
+						RTSGame.Instance.GameHUD.setSelectionVars( true, false, ((Unit)SelectedObjects.First()).isInAttackMode );
+					}
 				}
 				else
 				{
-					RTSGame.Instance.GameHUD.setSelectionVars( true, false, false );
+					RTSGame.Instance.GameHUD.setSelectionVars( false, false, false );
 				}
+				stopDrawSelectionRect();
 			}
 			// This is for a single click
 			else

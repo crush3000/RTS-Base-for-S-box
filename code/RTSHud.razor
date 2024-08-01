@@ -38,6 +38,7 @@
 		* {
 		* }
 		*/
+
 	protected override void OnStart()
 	{
 		base.OnStart();
@@ -58,11 +59,7 @@
 		{
 			currentButtonList.Add(new DynamicButton('a', DEFEND_STANCE_IMAGE,printy ));
 		}
-		//for (int i = 0; i < 4; i++)
-		//{
-		//	currentButtonList.ElementAt(i * 2).setEnabled(true);
-		//}
-		//END TEST CODE
+		/////
 	}
 
 	protected override void OnUpdate()
@@ -110,6 +107,9 @@
 		focusedUnit = null;
 		if(isSelect)
 		{
+			// Setup Stance Button
+			unitStanceButton.setEnabled(true);
+
 			if (isSingleUnitSelected)
 			{
 				this.isSingleUnitSelected = true;
@@ -136,8 +136,6 @@
 					}
 				}
 
-				// Setup Stance Button
-				unitStanceButton.setEnabled(true);
 				if (isUnitInAttackStance)
 				{
 					unitStanceButton.setButtonState(ATTACK_STANCE_IMAGE);
@@ -152,7 +150,9 @@
 				if (RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects.Count() > 0)
 				{
 					SkinnedRTSObject firstUnit = RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects.First();
-					focusedUnit = firstUnit;
+					//focusedUnit = firstUnit;
+					unitListItemClicked(firstUnit);
+					//unitStanceButton.buttonState = !(((Unit)focusedUnit).isInAttackMode);
 				}
 
 				focusedUnitPortraitImage = "";
@@ -163,8 +163,6 @@
 				selectedUnitRangedDamage = "";
 				this.isSingleUnitSelected = false;
 				this.selectionPresent = true;
-
-				unitStanceButton.setEnabled(false);
 			}
 		}
 		else
@@ -188,20 +186,13 @@
 
 	public void stanceButtonClicked()
 	{
-		var selectedObjList = RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects;
 		if (unitStanceButton.activeBackgroundImage == ATTACK_STANCE_IMAGE)
 		{
-			foreach (Unit obj in selectedObjList)
-			{
-				obj.setIsInAttackMode(false);
-			}
+			((Unit)focusedUnit).setIsInAttackMode(false);
 		}
 		else
 		{
-			foreach (Unit obj in selectedObjList)
-			{
-				obj.setIsInAttackMode(true);
-			}
+			((Unit)focusedUnit).setIsInAttackMode(true);
 		}
 		unitStanceButton.toggleButtonState();
 		this.StateHasChanged();
@@ -210,9 +201,19 @@
 
 	public void unitListItemClicked(SkinnedRTSObject unit)
 	{
-		Log.Info("Clicked Unit List Item");
+		Log.Info("Clicked Unit List Item " + unit.GameObject.Name);
 		focusedUnit = unit;
+
+		if (((Unit)focusedUnit).isInAttackMode)
+		{
+			unitStanceButton.setButtonState(ATTACK_STANCE_IMAGE);
+		}
+		else
+		{
+			unitStanceButton.setButtonState(DEFEND_STANCE_IMAGE);
+		}
 		this.StateHasChanged();
+		this.Panel.Style.Dirty();
 	}
 
 	public void setShowPanel(bool setShow)
