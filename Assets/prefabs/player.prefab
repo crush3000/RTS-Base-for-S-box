@@ -4,8 +4,6 @@
     "Flags": 0,
     "Name": "player",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "RTSCamComponent",
@@ -43,9 +41,8 @@
         "__guid": "7edcc219-da7e-40b9-bdf5-98101fabcf61",
         "Flags": 0,
         "Name": "RTS_Camera",
+        "Rotation": "0,0.258819,0,0.9659258",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.CameraComponent",
@@ -75,8 +72,6 @@
         "Flags": 0,
         "Name": "Selection_Panel",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "SelectionPanel",
@@ -92,7 +87,8 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

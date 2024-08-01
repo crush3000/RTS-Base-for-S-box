@@ -48,59 +48,9 @@
             "component_id": "b7a2bf13-569e-4740-9910-49ee3979e9fd",
             "go": "c7a17bca-5a92-4484-9126-4bd9cc2556d9",
             "component_type": "RTSGameOptionsComponent"
-          },
-          "ThisPlayer": {
-            "_type": "component",
-            "component_id": "e4f86cb1-f9a1-4e97-8a8a-c9df9b67f540",
-            "go": "88fe0df8-db2f-4954-9a8e-ff064164a8ea",
-            "component_type": "RTSPlayer"
-          },
-          "ThisScreen": {
-            "_type": "component",
-            "component_id": "952f06ca-394b-4c81-9b14-a344a670f0db",
-            "go": "0341ba11-a8d6-482e-8cbf-cf21beffa91d",
-            "component_type": "ScreenPanel"
           }
         }
       ]
-    },
-    {
-      "__guid": "88fe0df8-db2f-4954-9a8e-ff064164a8ea",
-      "Flags": 0,
-      "Name": "Player1",
-      "Position": "453.1334,961.2402,50.9276",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "RTSPlayer",
-          "__guid": "e4f86cb1-f9a1-4e97-8a8a-c9df9b67f540",
-          "Team": 0,
-          "UnitControl": {
-            "_type": "component",
-            "component_id": "6fb4307f-6ce5-441a-8940-c3e501122ea7",
-            "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
-            "component_type": "PlayerUnitControl"
-          },
-          "skeltalHousePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/skeltalhouse.prefab"
-          },
-          "skeltalPrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/skeltal.prefab"
-          }
-        }
-      ]
-    },
-    {
-      "__guid": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
-      "Flags": 0,
-      "Name": "Player1_Controller",
-      "Position": "215.7641,152.0348,514.7264",
-      "Rotation": "-0.08282786,0.1999641,0.3736123,0.9019799",
-      "Enabled": true,
-      "__Prefab": "prefabs/player.prefab",
-      "__PrefabVariables": {}
     },
     {
       "__guid": "9fe8a9d1-d2b6-40dd-98ff-f7f8984aab67",
@@ -121,15 +71,6 @@
         }
       ],
       "Children": []
-    },
-    {
-      "__guid": "0341ba11-a8d6-482e-8cbf-cf21beffa91d",
-      "Flags": 0,
-      "Name": "ScreenPanel",
-      "Position": "694.0824,200.8844,335.0042",
-      "Enabled": true,
-      "__Prefab": "prefabs/selectionscreen.prefab",
-      "__PrefabVariables": {}
     },
     {
       "__guid": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
@@ -509,6 +450,25 @@
               "__guid": "13066355-0c6e-474b-b2a4-57682c65c45a"
             }
           ]
+        }
+      ]
+    },
+    {
+      "__guid": "c1fc4d69-6627-4f2b-a43d-a569ab3fae2d",
+      "Flags": 0,
+      "Name": "Network",
+      "Position": "116.3176,116.3176,-164.4979",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.NetworkHelper",
+          "__guid": "1b696761-de72-4095-864c-ef39789f5e65",
+          "PlayerPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/player.prefab"
+          },
+          "SpawnPoints": [],
+          "StartServer": true
         }
       ]
     }
