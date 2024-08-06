@@ -57,7 +57,7 @@
           },
           "ThisScreen": {
             "_type": "component",
-            "component_id": "952f06ca-394b-4c81-9b14-a344a670f0db",
+            "component_id": "95ff15ee-8418-401a-a93f-7b466fa30e22",
             "go": "0341ba11-a8d6-482e-8cbf-cf21beffa91d",
             "component_type": "ScreenPanel"
           }
@@ -77,7 +77,7 @@
           "Team": 0,
           "UnitControl": {
             "_type": "component",
-            "component_id": "6fb4307f-6ce5-441a-8940-c3e501122ea7",
+            "component_id": "99d9ba8a-483c-4602-b20d-ea8fb491d6e8",
             "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
             "component_type": "PlayerUnitControl"
           },
@@ -115,7 +115,7 @@
           "__guid": "d05ad306-2733-45cd-b870-12dc8b12ec74",
           "__version": 1,
           "EnableCollision": true,
-          "MapName": "maps/rts_river.vmap",
+          "MapName": "maps/debug.vmap",
           "NoOrigin": true,
           "UseMapFromLaunch": true
         }
@@ -317,8 +317,8 @@
           "__guid": "dba19110-d9d4-48ef-bd91-e6a906ec9cea",
           "HasRangedAttack": false,
           "MaxHealth": 1000,
-          "ModelFile": "models/buildings/temple.vmdl",
-          "ModelMaterial": "materials/temple.vmat",
+          "ModelFile": "models/dev/error.vmdl",
+          "ModelMaterial": "materials/error.vmat",
           "name": "Temple",
           "PhysicalModelRenderer": {
             "_type": "component",
@@ -429,7 +429,7 @@
                   "__guid": "d17af929-be7c-4ddf-b630-717ecba57f20",
                   "CutoffAngle": 0,
                   "CutoffAngleSoftness": 5,
-                  "Material": "materials/circle.vmat",
+                  "Material": "materials/error.vmat",
                   "Mod2XBlending": false,
                   "Size": "1,1,1",
                   "TintColor": "0,1,0,0.50196",
