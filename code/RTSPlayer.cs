@@ -14,6 +14,8 @@ public class RTSPlayer : Component
 	protected override void OnStart()
 	{
 		base.OnStart();
+
+		RTSGame.Instance.ThisPlayer = this;
 	}
 
 	public void addUnit(GameObject newUnit)
