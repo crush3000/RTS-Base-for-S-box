@@ -48,18 +48,6 @@
             "component_id": "b7a2bf13-569e-4740-9910-49ee3979e9fd",
             "go": "c7a17bca-5a92-4484-9126-4bd9cc2556d9",
             "component_type": "RTSGameOptionsComponent"
-          },
-          "ThisPlayer": {
-            "_type": "component",
-            "component_id": "e4f86cb1-f9a1-4e97-8a8a-c9df9b67f540",
-            "go": "88fe0df8-db2f-4954-9a8e-ff064164a8ea",
-            "component_type": "RTSPlayer"
-          },
-          "ThisScreen": {
-            "_type": "component",
-            "component_id": "f4e52928-22cd-408e-a02e-50d807c1b47e",
-            "go": "0341ba11-a8d6-482e-8cbf-cf21beffa91d",
-            "component_type": "ScreenPanel"
           }
         }
       ]
@@ -69,7 +57,6 @@
       "Flags": 0,
       "Name": "Player1",
       "Position": "453.1334,961.2402,50.9276",
-      "Enabled": true,
       "Components": [
         {
           "__type": "RTSPlayer",
@@ -77,7 +64,7 @@
           "Team": 0,
           "UnitControl": {
             "_type": "component",
-            "component_id": "b3403d6f-fd56-47e0-b024-28d27d423f81",
+            "component_id": "dd047269-c5b2-4535-bd2f-8d61d2d2a3f0",
             "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
             "component_type": "PlayerUnitControl"
           },
@@ -509,6 +496,25 @@
               "__guid": "13066355-0c6e-474b-b2a4-57682c65c45a"
             }
           ]
+        }
+      ]
+    },
+    {
+      "__guid": "775b0ff0-11c8-4da7-8139-bee10a3d79f7",
+      "Flags": 0,
+      "Name": "Network",
+      "Position": "408.021,344.2917,387.9409",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.NetworkHelper",
+          "__guid": "d5142296-d96e-453a-8d26-18da905ff46f",
+          "PlayerPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/player.prefab"
+          },
+          "SpawnPoints": [],
+          "StartServer": true
         }
       ]
     }
