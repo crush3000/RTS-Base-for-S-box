@@ -1,10 +1,10 @@
 {
-  "Title": "Roaring Roomba Roulette",
+  "Title": "Suck It Up",
   "Type": "game",
   "Org": "crush",
-  "Ident": "roomba_zm",
+  "Ident": "suckitup",
   "Schema": 1,
-  "IncludeSourceFiles": false,
+  "IncludeSourceFiles": true,
   "Resources": null,
   "PackageReferences": [],
   "EditorReferences": null,
@@ -24,7 +24,7 @@
     "StartupScene": "scenes/rts_scene.scene",
     "MapStartupScene": "scenes/rts_scene.scene",
     "LaunchMode": "Normal",
-    "ParentPackage": "crush.rts_base#local",
+    "ParentPackage": "",
     "ControlModes": {},
     "InputSettings": {
       "Actions": [

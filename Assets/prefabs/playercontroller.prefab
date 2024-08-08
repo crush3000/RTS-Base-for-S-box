@@ -1,0 +1,98 @@
+{
+  "RootObject": {
+    "__guid": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
+    "Flags": 0,
+    "Name": "playercontroller",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "RTSCamComponent",
+        "__guid": "c2d6d821-9684-4d1c-8316-ba4108fc12f2",
+        "CamMoveSpeed": 20,
+        "CamRotateSpeed": 400,
+        "CamView": {
+          "_type": "component",
+          "component_id": "696eeed9-e514-4404-af04-459dd4e1e78d",
+          "go": "7edcc219-da7e-40b9-bdf5-98101fabcf61",
+          "component_type": "CameraComponent"
+        },
+        "CamZoomSpeed": 20
+      },
+      {
+        "__type": "PlayerUnitControl",
+        "__guid": "c24bc613-9c9e-4cb1-b8c5-1153b60fc4e5",
+        "RTSCam": {
+          "_type": "component",
+          "component_id": "c2d6d821-9684-4d1c-8316-ba4108fc12f2",
+          "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
+          "component_type": "RTSCamComponent"
+        },
+        "selectionPanel": {
+          "_type": "component",
+          "component_id": "30bc6e25-8351-4798-b106-24d6af0f0148",
+          "go": "41917b06-dd47-4f85-9f87-91f6da018323",
+          "component_type": "SelectionPanel"
+        },
+        "team": 0
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "7edcc219-da7e-40b9-bdf5-98101fabcf61",
+        "Flags": 0,
+        "Name": "RTS_Camera",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.CameraComponent",
+            "__guid": "696eeed9-e514-4404-af04-459dd4e1e78d",
+            "BackgroundColor": "0.33333,0.46275,0.52157,1",
+            "ClearFlags": "All",
+            "FieldOfView": 60,
+            "IsMainCamera": true,
+            "Orthographic": false,
+            "OrthographicHeight": 1204,
+            "Priority": 1,
+            "RenderExcludeTags": "",
+            "RenderTags": "",
+            "TargetEye": "None",
+            "Viewport": "0,0,1,1",
+            "ZFar": 10000,
+            "ZNear": 10
+          },
+          {
+            "__type": "Sandbox.Highlight",
+            "__guid": "589faab7-0cb5-4f05-8a77-944ec1a0e541"
+          }
+        ]
+      },
+      {
+        "__guid": "41917b06-dd47-4f85-9f87-91f6da018323",
+        "Flags": 0,
+        "Name": "Selection_Panel",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "SelectionPanel",
+            "__guid": "30bc6e25-8351-4798-b106-24d6af0f0148"
+          },
+          {
+            "__type": "Sandbox.ScreenPanel",
+            "__guid": "636725e6-582b-4dfa-9729-c1eee43e4272",
+            "AutoScreenScale": false,
+            "Opacity": 1,
+            "Scale": 1,
+            "ZIndex": 100
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

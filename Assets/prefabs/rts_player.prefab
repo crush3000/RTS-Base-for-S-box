@@ -1,38 +1,57 @@
 {
   "RootObject": {
-    "__guid": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
+    "__guid": "88fe0df8-db2f-4954-9a8e-ff064164a8ea",
     "Flags": 0,
-    "Name": "player",
+    "Name": "Player",
+    "Position": "0,1114.194,322.2849",
+    "Rotation": "0,0.258819,0,0.9659258",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
+        "__type": "RTSPlayer",
+        "__guid": "e4f86cb1-f9a1-4e97-8a8a-c9df9b67f540",
+        "Team": 0,
+        "UnitControl": {
+          "_type": "component",
+          "component_id": "687811f8-c19b-4ea5-bae8-f8e15743dfb6",
+          "go": "88fe0df8-db2f-4954-9a8e-ff064164a8ea",
+          "component_type": "PlayerUnitControl"
+        },
+        "skeltalHousePrefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/skeltalhouse.prefab"
+        },
+        "skeltalPrefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/skeltal.prefab"
+        }
+      },
+      {
         "__type": "RTSCamComponent",
-        "__guid": "c2d6d821-9684-4d1c-8316-ba4108fc12f2",
+        "__guid": "4587917f-8749-473b-896d-d4f735f0583e",
         "CamMoveSpeed": 20,
         "CamRotateSpeed": 400,
         "CamView": {
           "_type": "component",
-          "component_id": "696eeed9-e514-4404-af04-459dd4e1e78d",
-          "go": "7edcc219-da7e-40b9-bdf5-98101fabcf61",
+          "component_id": "4d2dfad5-8ebd-46e7-b67a-cb67ee079709",
+          "go": "8528f3f8-a612-4849-91df-7e5381f61e6a",
           "component_type": "CameraComponent"
         },
         "CamZoomSpeed": 20
       },
       {
         "__type": "PlayerUnitControl",
-        "__guid": "c24bc613-9c9e-4cb1-b8c5-1153b60fc4e5",
+        "__guid": "687811f8-c19b-4ea5-bae8-f8e15743dfb6",
         "RTSCam": {
           "_type": "component",
-          "component_id": "c2d6d821-9684-4d1c-8316-ba4108fc12f2",
-          "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
+          "component_id": "4587917f-8749-473b-896d-d4f735f0583e",
+          "go": "88fe0df8-db2f-4954-9a8e-ff064164a8ea",
           "component_type": "RTSCamComponent"
         },
         "selectionPanel": {
           "_type": "component",
-          "component_id": "30bc6e25-8351-4798-b106-24d6af0f0148",
-          "go": "41917b06-dd47-4f85-9f87-91f6da018323",
+          "component_id": "6a6f24c9-d2d7-4e7f-a602-c6998d096e2d",
+          "go": "05211eb6-adf4-4f89-a023-cf7c074d3704",
           "component_type": "SelectionPanel"
         },
         "team": 0
@@ -40,16 +59,15 @@
     ],
     "Children": [
       {
-        "__guid": "7edcc219-da7e-40b9-bdf5-98101fabcf61",
+        "__guid": "8528f3f8-a612-4849-91df-7e5381f61e6a",
         "Flags": 0,
         "Name": "RTS_Camera",
+        "Position": "0,0,0",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.CameraComponent",
-            "__guid": "696eeed9-e514-4404-af04-459dd4e1e78d",
+            "__guid": "4d2dfad5-8ebd-46e7-b67a-cb67ee079709",
             "BackgroundColor": "0.33333,0.46275,0.52157,1",
             "ClearFlags": "All",
             "FieldOfView": 60,
@@ -66,25 +84,24 @@
           },
           {
             "__type": "Sandbox.Highlight",
-            "__guid": "589faab7-0cb5-4f05-8a77-944ec1a0e541"
+            "__guid": "d7bb6fce-9aff-47d5-aa07-8e2becc3b513"
           }
         ]
       },
       {
-        "__guid": "41917b06-dd47-4f85-9f87-91f6da018323",
+        "__guid": "05211eb6-adf4-4f89-a023-cf7c074d3704",
         "Flags": 0,
         "Name": "Selection_Panel",
+        "Position": "0,0,0",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "SelectionPanel",
-            "__guid": "30bc6e25-8351-4798-b106-24d6af0f0148"
+            "__guid": "6a6f24c9-d2d7-4e7f-a602-c6998d096e2d"
           },
           {
             "__type": "Sandbox.ScreenPanel",
-            "__guid": "636725e6-582b-4dfa-9729-c1eee43e4272",
+            "__guid": "c272d49a-2a87-40a7-b9e1-f2a6b84def0c",
             "AutoScreenScale": false,
             "Opacity": 1,
             "Scale": 1,

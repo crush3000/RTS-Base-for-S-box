@@ -22,12 +22,14 @@ public class PlayerUnitControl : Component
 
 	protected override void OnStart()
 	{
+		if (Network.IsProxy) { return; }
 		base.OnStart();
 		SelectedObjects = new List<SkinnedRTSObject>();
 	}
 
 	protected override void OnUpdate()
 	{
+		if (Network.IsProxy) { return; }
 		// Select Controls
 		// Select Is now Pressed
 		if ( Input.Pressed( "Select" ) )
