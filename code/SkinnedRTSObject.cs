@@ -6,8 +6,8 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 {
 	[Group( "Gameplay" )]
 	[Property] public string name { get; set; }
-	[Group( "Gameplay" )]
-	[Property] public int team { get; set; }
+	//[Group( "Gameplay" )]
+	//[Property] public int team { get; set; }
 	[Group( "Gameplay" )]
 	[Property] public Vector3 Size { get; set; }
 	[Group( "Gameplay" )]
@@ -33,6 +33,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 
 
 	// Class Vars
+	public int team {  get; set; }
 	bool selected { get; set; }
 
 	public int currentHealthPoints;

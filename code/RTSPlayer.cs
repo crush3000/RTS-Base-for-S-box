@@ -27,7 +27,13 @@ public class RTSPlayer : Component
 
 	protected override void OnStart()
 	{
-		if(Network.IsProxy) { return; }
+		if(Network.IsProxy) 
+		{ 
+			Enabled = false;
+			UnitControl.Enabled = false;
+			LocalGame.Enabled = false;
+			return;
+		}
 		base.OnStart();
 
 	}

@@ -11,10 +11,29 @@ public class RTSCamComponent : Component
 	float camYaw;
 	float camPitch;
 
+	protected override void OnStart()
+	{
+		base.OnStart();
+		if (Network.IsProxy)
+		{
+			CamView.IsMainCamera = false;
+			Enabled = false;
+			CamView.Enabled = false;
+		}
+		else
+		{
+			CamView.IsMainCamera = true;
+		}
+	}
+
 	protected override void OnUpdate()
 	{
 		if (Network.IsProxy) {
 			Log.Info("I am The Proxy");
+			//CamView.IsMainCamera = false;
+			//Enabled = false;
+			//CamView.Destroy();
+			//this.Destroy();
 			return; 
 		}
 		else

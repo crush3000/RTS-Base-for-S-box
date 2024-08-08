@@ -22,7 +22,13 @@ public class PlayerUnitControl : Component
 
 	protected override void OnStart()
 	{
-		if (Network.IsProxy) { return; }
+		if (Network.IsProxy)
+		{
+			Enabled = false;
+			RTSCam.Enabled = false;
+			selectionPanel.Enabled = false;
+			return;
+		}
 		base.OnStart();
 		SelectedObjects = new List<SkinnedRTSObject>();
 	}
