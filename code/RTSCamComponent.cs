@@ -1,5 +1,5 @@
 
-public sealed class RTSCamComponent : Component
+public class RTSCamComponent : Component
 {
 	[Property] public CameraComponent CamView { get; set; }
 	[Property] public float CamMoveSpeed {  get; set; }
@@ -13,7 +13,14 @@ public sealed class RTSCamComponent : Component
 
 	protected override void OnUpdate()
 	{
-		if (Network.IsProxy) { return; }
+		if (Network.IsProxy) {
+			Log.Info("I am The Proxy");
+			return; 
+		}
+		else
+		{
+			Log.Info("I am The Owner");
+		}
 		//Downwards ray calculates global z-level of the ground
 		var groundRay = Scene.Trace.Ray( new Ray( Transform.Position, Vector3.Down), 5000.0F);
 		var tr = groundRay.Run();

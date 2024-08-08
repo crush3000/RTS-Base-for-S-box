@@ -6,7 +6,6 @@
       "Flags": 0,
       "Name": "RTSGameOptions",
       "Position": "728.2209,1060.234,5.679298",
-      "Enabled": true,
       "Components": [
         {
           "__type": "RTSGameOptionsComponent",
@@ -20,7 +19,6 @@
       "Flags": 0,
       "Name": "Game",
       "Position": "282.3805,932.6121,409.9373",
-      "Enabled": true,
       "Components": [
         {
           "__type": "RTSGameComponent",
@@ -42,52 +40,9 @@
             "component_id": "13066355-0c6e-474b-b2a4-57682c65c45a",
             "go": "dded4699-7725-45c2-8268-07c33cd5711d",
             "component_type": "RTSHud"
-          },
-          "Options": {
-            "_type": "component",
-            "component_id": "b7a2bf13-569e-4740-9910-49ee3979e9fd",
-            "go": "c7a17bca-5a92-4484-9126-4bd9cc2556d9",
-            "component_type": "RTSGameOptionsComponent"
           }
         }
       ]
-    },
-    {
-      "__guid": "88fe0df8-db2f-4954-9a8e-ff064164a8ea",
-      "Flags": 0,
-      "Name": "Player1",
-      "Position": "453.1334,961.2402,50.9276",
-      "Components": [
-        {
-          "__type": "RTSPlayer",
-          "__guid": "e4f86cb1-f9a1-4e97-8a8a-c9df9b67f540",
-          "Team": 0,
-          "UnitControl": {
-            "_type": "component",
-            "component_id": "dd047269-c5b2-4535-bd2f-8d61d2d2a3f0",
-            "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
-            "component_type": "PlayerUnitControl"
-          },
-          "skeltalHousePrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/skeltalhouse.prefab"
-          },
-          "skeltalPrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/skeltal.prefab"
-          }
-        }
-      ]
-    },
-    {
-      "__guid": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
-      "Flags": 0,
-      "Name": "Player1_Controller",
-      "Position": "215.7641,152.0348,514.7264",
-      "Rotation": "-0.08282786,0.1999641,0.3736123,0.9019799",
-      "Enabled": true,
-      "__Prefab": "prefabs/player.prefab",
-      "__PrefabVariables": {}
     },
     {
       "__guid": "9fe8a9d1-d2b6-40dd-98ff-f7f8984aab67",
@@ -114,7 +69,6 @@
       "Flags": 0,
       "Name": "ScreenPanel",
       "Position": "694.0824,200.8844,335.0042",
-      "Enabled": true,
       "__Prefab": "prefabs/selectionscreen.prefab",
       "__PrefabVariables": {}
     },
@@ -238,7 +192,6 @@
       "Flags": 0,
       "Name": "CorpsePile",
       "Position": "627.7982,1385.857,5.38932",
-      "Enabled": true,
       "Components": [
         {
           "__type": "CorpseList",
@@ -256,7 +209,6 @@
       "Name": "CommandIndicator",
       "Position": "568.1535,-554.3341,41.04226",
       "Tags": "particles",
-      "Enabled": true,
       "Components": [
         {
           "__type": "ParticleCommandIndicator",
@@ -472,7 +424,6 @@
       "Flags": 0,
       "Name": "HUDPanel",
       "Position": "300,0,0",
-      "Enabled": true,
       "Components": [
         {
           "__type": "Sandbox.ScreenPanel",
@@ -511,12 +462,24 @@
           "__guid": "d5142296-d96e-453a-8d26-18da905ff46f",
           "PlayerPrefab": {
             "_type": "gameobject",
-            "prefab": "prefabs/player.prefab"
+            "prefab": "prefabs/rts_player.prefab"
           },
-          "SpawnPoints": [],
+          "SpawnPoints": [
+            {
+              "_type": "gameobject",
+              "go": "0058073b-536a-4b1b-bb61-375e2280b0b2"
+            }
+          ],
           "StartServer": true
         }
       ]
+    },
+    {
+      "__guid": "0058073b-536a-4b1b-bb61-375e2280b0b2",
+      "Flags": 0,
+      "Name": "GameObject",
+      "Position": "0,993.0723,487.0792",
+      "Enabled": true
     }
   ],
   "SceneProperties": {

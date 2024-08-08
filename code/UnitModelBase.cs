@@ -21,7 +21,7 @@ public abstract class UnitModelBase : Component
 		outline.Enabled = false;
 		baseStand.Enabled = false;
 
-		RTSGame.Instance.GameCorpseList.addCorpse( model, Time.Now );
+		RTSPlayer.Local.LocalGame.GameCorpseList.addCorpse( model, Time.Now );
 	}
 
 	public virtual void setOutlineState( UnitModelUtils.OutlineState newState )

@@ -48,7 +48,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 		currentHealthPoints = MaxHealth;
 		setRelativeSizeHelper( Size );
 		PhysicalModelRenderer.setModel( ModelFile, AnimGraph, ModelMaterial );
-		if ( team != RTSGame.Instance.ThisPlayer.Team )
+		if ( team != RTSPlayer.Local.Team )
 		{
 			ThisHealthBar.setBarColor( "red" );
 			ThisHealthBar.setShowHealthBar( true );

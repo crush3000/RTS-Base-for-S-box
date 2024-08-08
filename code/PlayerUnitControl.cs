@@ -110,27 +110,27 @@ public class PlayerUnitControl : Component
 					Log.Info( SelectedObjects.Count() );
 					if ( SelectedObjects.Count() == 1 )
 					{
-						RTSGame.Instance.GameHUD.setSelectionVars( true, true, ((Unit)SelectedObjects.First()).isInAttackMode );
+						RTSPlayer.Local.LocalGame.GameHud.setSelectionVars( true, true, ((Unit)SelectedObjects.First()).isInAttackMode );
 					}
 					else if ( SelectedObjects.Count() == 0 )
 					{
-						RTSGame.Instance.GameHUD.setSelectionVars( false, false, false );
+						RTSPlayer.Local.LocalGame.GameHud.setSelectionVars( false, false, false );
 					}
 					else
 					{
-						RTSGame.Instance.GameHUD.setSelectionVars( true, false, ((Unit)SelectedObjects.First()).isInAttackMode );
+						RTSPlayer.Local.LocalGame.GameHud.setSelectionVars( true, false, ((Unit)SelectedObjects.First()).isInAttackMode );
 					}
 				}
 				else
 				{
-					RTSGame.Instance.GameHUD.setSelectionVars( false, false, false );
+					RTSPlayer.Local.LocalGame.GameHud.setSelectionVars( false, false, false );
 				}
 				stopDrawSelectionRect();
 			}
 			// This is for a single click
 			else
 			{
-				//RTSGame.Instance.GameHUD.setSelectionVars( false, false );
+				//RTSPlayer.Local.LocalGame.GameHUD.setSelectionVars( false, false );
 
 				var mouseScreenPos = Mouse.Position;
 				// Set up and run mouse ray to find what we're now selecting
@@ -156,7 +156,7 @@ public class PlayerUnitControl : Component
 							// Select Unit
 							SelectedObjects.Add( selectedUnit );
 							selectedUnit.select();
-							RTSGame.Instance.GameHUD.setSelectionVars( true, true, selectedUnit.isInAttackMode );
+							RTSPlayer.Local.LocalGame.GameHud.setSelectionVars( true, true, selectedUnit.isInAttackMode );
 							hitSomethingValid = true;
 						}
 					}
@@ -172,18 +172,18 @@ public class PlayerUnitControl : Component
 							// Select Building
 							SelectedObjects.Add( selectedBuilding );
 							selectedBuilding.select();
-							RTSGame.Instance.GameHUD.setSelectionVars( true, true, false );
+							RTSPlayer.Local.LocalGame.GameHud.setSelectionVars( true, true, false );
 							hitSomethingValid = true;
 						}
 					}
 					if (! hitSomethingValid )
 					{
-						RTSGame.Instance.GameHUD.setSelectionVars( false, false, false );
+						RTSPlayer.Local.LocalGame.GameHud.setSelectionVars( false, false, false );
 					}
 				}
 				else
 				{
-					RTSGame.Instance.GameHUD.setSelectionVars( false, false, false );
+					RTSPlayer.Local.LocalGame.GameHud.setSelectionVars( false, false, false );
 				}
 			}
 		}
@@ -233,11 +233,11 @@ public class PlayerUnitControl : Component
 					{
 						case UnitModelUtils.CommandType.Move:
 							((Unit)unit).homeTargetLocation = moveTarget;
-							RTSGame.Instance.GameCommandIndicator.PlayMoveIndicatorHere(moveTarget);
+							RTSPlayer.Local.LocalGame.GameCommandIndicator.PlayMoveIndicatorHere(moveTarget);
 							break;
 						case UnitModelUtils.CommandType.Attack:
 							((Unit)unit).targetObject = commandTarget;
-							RTSGame.Instance.GameCommandIndicator.PlayAttackIndicatorHere( commandTarget.GameObject );
+							RTSPlayer.Local.LocalGame.GameCommandIndicator.PlayAttackIndicatorHere( commandTarget.GameObject );
 							break;
 					}
 					((Unit)unit).commandGiven = commandType;
@@ -255,7 +255,7 @@ public class PlayerUnitControl : Component
 
 			//Call Unit Factory Here.
 			Log.Info( "Spawning Skeltal!" );
-			RTSGame.Instance.ThisPlayer.myUnitFactory.spawnUnit(RTSGame.Instance.ThisPlayer.skeltalPrefab, tr.EndPosition);
+			RTSPlayer.Local.myUnitFactory.spawnUnit(RTSPlayer.Local.skeltalPrefab, tr.EndPosition);
 			//Log.Info( "Spawning Skeltal House!" );
 			//RTSGame.Instance.ThisPlayer.myUnitFactory.spawnUnit( RTSGame.Instance.ThisPlayer.skeltalHousePrefab, tr.EndPosition );
 		}

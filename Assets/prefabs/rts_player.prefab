@@ -2,14 +2,19 @@
   "RootObject": {
     "__guid": "88fe0df8-db2f-4954-9a8e-ff064164a8ea",
     "Flags": 0,
-    "Name": "Player",
-    "Position": "0,1114.194,322.2849",
-    "Rotation": "0,0.258819,0,0.9659258",
+    "Name": "rts_player",
     "Enabled": true,
+    "NetworkMode": 0,
     "Components": [
       {
         "__type": "RTSPlayer",
         "__guid": "e4f86cb1-f9a1-4e97-8a8a-c9df9b67f540",
+        "LocalGame": {
+          "_type": "component",
+          "component_id": "99a86183-13ce-49c4-9a7c-f4993541c946",
+          "go": "88fe0df8-db2f-4954-9a8e-ff064164a8ea",
+          "component_type": "RTSGameComponent"
+        },
         "Team": 0,
         "UnitControl": {
           "_type": "component",
@@ -24,6 +29,40 @@
         "skeltalPrefab": {
           "_type": "gameobject",
           "prefab": "prefabs/skeltal.prefab"
+        }
+      },
+      {
+        "__type": "RTSGameComponent",
+        "__guid": "99a86183-13ce-49c4-9a7c-f4993541c946",
+        "GameCommandIndicator": {
+          "_type": "component",
+          "component_id": "0dcf9ad2-94b9-4f03-a463-b3473378816b",
+          "go": "f9f73746-b2b5-40c1-8e26-0c4084bd2925",
+          "component_type": "ParticleCommandIndicator"
+        },
+        "GameCorpseList": {
+          "_type": "component",
+          "component_id": "48225074-877f-4240-84bf-1daf5b5df742",
+          "go": "cc4befa9-1429-4109-baae-5bd7082691f4",
+          "component_type": "CorpseList"
+        },
+        "GameHud": {
+          "_type": "component",
+          "component_id": "eb6d19b8-680c-4774-94cc-99c6a2685469",
+          "go": "c3475e63-68b1-427d-a41e-4e90e8d0068b",
+          "component_type": "RTSHud"
+        },
+        "GameOptions": {
+          "_type": "component",
+          "component_id": "0d8a3edc-95fb-49e0-bd47-e8aaab4c82d7",
+          "go": "5429ad17-03d0-4628-bbaf-a3ec48401308",
+          "component_type": "RTSGameOptionsComponent"
+        },
+        "ThisScreen": {
+          "_type": "component",
+          "component_id": "c272d49a-2a87-40a7-b9e1-f2a6b84def0c",
+          "go": "05211eb6-adf4-4f89-a023-cf7c074d3704",
+          "component_type": "ScreenPanel"
         }
       },
       {
@@ -62,7 +101,6 @@
         "__guid": "8528f3f8-a612-4849-91df-7e5381f61e6a",
         "Flags": 0,
         "Name": "RTS_Camera",
-        "Position": "0,0,0",
         "Enabled": true,
         "Components": [
           {
@@ -92,7 +130,6 @@
         "__guid": "05211eb6-adf4-4f89-a023-cf7c074d3704",
         "Flags": 0,
         "Name": "Selection_Panel",
-        "Position": "0,0,0",
         "Enabled": true,
         "Components": [
           {
@@ -108,8 +145,114 @@
             "ZIndex": 100
           }
         ]
+      },
+      {
+        "__guid": "8b90a272-40a8-441e-b515-c8d12934d0bb",
+        "Flags": 0,
+        "Name": "HUDPanel",
+        "Position": "300,0,0",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ScreenPanel",
+            "__guid": "acc6eb6b-68ad-46cf-a4e7-521e8fa599f9",
+            "AutoScreenScale": true,
+            "Opacity": 1,
+            "Scale": 1,
+            "ZIndex": 100
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "c3475e63-68b1-427d-a41e-4e90e8d0068b",
+            "Flags": 0,
+            "Name": "HUD",
+            "Position": "0,0,0",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "RTSHud",
+                "__guid": "eb6d19b8-680c-4774-94cc-99c6a2685469"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "__guid": "f9f73746-b2b5-40c1-8e26-0c4084bd2925",
+        "Flags": 0,
+        "Name": "CommandIndicator",
+        "Position": "568.1535,-554.3341,41.04226",
+        "Tags": "particles",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "ParticleCommandIndicator",
+            "__guid": "0dcf9ad2-94b9-4f03-a463-b3473378816b",
+            "attackCommandEmitter": {
+              "_type": "component",
+              "component_id": "586d2bd9-a88b-422f-be42-d22f1448ce06",
+              "go": "f9f73746-b2b5-40c1-8e26-0c4084bd2925",
+              "component_type": "LegacyParticleSystem"
+            },
+            "moveCommandEmitter": {
+              "_type": "component",
+              "component_id": "f966d1fb-a72f-4a0e-af0b-541e19069f0e",
+              "go": "f9f73746-b2b5-40c1-8e26-0c4084bd2925",
+              "component_type": "LegacyParticleSystem"
+            }
+          },
+          {
+            "__type": "Sandbox.LegacyParticleSystem",
+            "__guid": "f966d1fb-a72f-4a0e-af0b-541e19069f0e",
+            "ControlPoints": [],
+            "Looped": false,
+            "Particles": "particles/move_command_indicator.vpcf",
+            "PlaybackSpeed": 1
+          },
+          {
+            "__type": "Sandbox.LegacyParticleSystem",
+            "__guid": "586d2bd9-a88b-422f-be42-d22f1448ce06",
+            "ControlPoints": [],
+            "Looped": false,
+            "Particles": "particles/attack_command_indicator.vpcf",
+            "PlaybackSpeed": 1
+          }
+        ]
+      },
+      {
+        "__guid": "cc4befa9-1429-4109-baae-5bd7082691f4",
+        "Flags": 0,
+        "Name": "CorpsePile",
+        "Position": "627.7982,1385.857,5.38932",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "CorpseList",
+            "__guid": "48225074-877f-4240-84bf-1daf5b5df742",
+            "CorpseLimit": 100,
+            "CorpseTimeoutTime": 0,
+            "ImposeCorpseLimit": true,
+            "ImposeCorpseTimeout": false
+          }
+        ]
+      },
+      {
+        "__guid": "5429ad17-03d0-4628-bbaf-a3ec48401308",
+        "Flags": 0,
+        "Name": "RTSGameOptions",
+        "Position": "728.2209,1060.234,5.679298",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "RTSGameOptionsComponent",
+            "__guid": "0d8a3edc-95fb-49e0-bd47-e8aaab4c82d7",
+            "GlobalUnitScale": 0.1
+          }
+        ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

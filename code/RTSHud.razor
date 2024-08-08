@@ -115,7 +115,7 @@
 				this.isSingleUnitSelected = true;
 				this.selectionPresent = true;
 				// Grab stats
-				var selectedObjList = RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects;
+				var selectedObjList = RTSPlayer.Local.UnitControl.SelectedObjects;
 				foreach (SkinnedRTSObject obj in selectedObjList)
 				{
 
@@ -147,9 +147,9 @@
 			}
 			else
 			{
-				if (RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects.Count() > 0)
+				if (RTSPlayer.Local.UnitControl.SelectedObjects.Count() > 0)
 				{
-					SkinnedRTSObject firstUnit = RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects.First();
+					SkinnedRTSObject firstUnit = RTSPlayer.Local.UnitControl.SelectedObjects.First();
 					//focusedUnit = firstUnit;
 					unitListItemClicked(firstUnit);
 					//unitStanceButton.buttonState = !(((Unit)focusedUnit).isInAttackMode);
@@ -232,7 +232,7 @@
 			<div class=@(isSingleUnitSelected ? "infoStatusPanel" : "infoStatusPanelMultiple")>
 				@if(selectionPresent == true && isSingleUnitSelected != true)
 				{
-					foreach (SkinnedRTSObject selectedUnit in RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects)
+					foreach (SkinnedRTSObject selectedUnit in RTSPlayer.Local.UnitControl.SelectedObjects)
 					{
 						<div @onclick="@(() => unitListItemClicked(selectedUnit))" class=@(focusedUnit == selectedUnit ? "portraitStatusPanelListItemFocused" : "portraitStatusPanelListItem")>
 							<div style="background-image: url(@(selectedUnit.PortraitImage));" class="portraitImage"></div>

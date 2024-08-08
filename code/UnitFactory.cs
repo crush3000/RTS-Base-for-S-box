@@ -6,7 +6,7 @@
 		{
 			var newUnit = unitPrefab.Clone();
 			newUnit.Transform.Position = newUnitPosition;
-			RTSGame.Instance.ThisPlayer.addUnit( newUnit );
+			RTSPlayer.Local.addUnit( newUnit );
 			newUnit.Enabled = true;
 		}
 		else
