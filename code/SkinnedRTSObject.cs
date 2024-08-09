@@ -6,8 +6,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 {
 	[Group( "Gameplay" )]
 	[Property] public string name { get; set; }
-	//[Group( "Gameplay" )]
-	//[Property] public int team { get; set; }
+	
 	[Group( "Gameplay" )]
 	[Property] public Vector3 Size { get; set; }
 	[Group( "Gameplay" )]
@@ -16,7 +15,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 	[Group( "Visuals" )]
 	[Property] public Model ModelFile { get; set; }
 	[Group( "Visuals" )]
-	/*[Sync]*/ [Property] public AnimationGraph AnimGraph { get; set; }
+	[Property] public AnimationGraph AnimGraph { get; set; }
 	[Group( "Visuals" )]
 	[Property] public Material ModelMaterial { get; set; }
 	[Group( "Visuals" )]
@@ -36,7 +35,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 	[Sync] public int team { get; private set; }
 	bool selected { get; set; }
 
-	[Sync] public int currentHealthPoints { get; set; }
+	[Sync] public int currentHealthPoints { get; private set; }
 	protected string objectTypeTag = "";
 
 	// Constants
@@ -46,26 +45,13 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 	{
 		Log.Info( "Base Object OnStart" );
 		base.OnStart();
-		currentHealthPoints = MaxHealth;
 		setRelativeSizeHelper( Size );
 		PhysicalModelRenderer.setModel( ModelFile, AnimGraph, ModelMaterial );
 		onTeamChange();
 		Tags.Add( objectTypeTag );
+		if (!Network.IsOwner) { return; }
+		setHealth(MaxHealth);
 	}
-
-	// Cleanup
-	/*protected override void OnDestroy()
-	{
-		Log.Info( "Base Object OnDestroy" );
-		PhysicalModelRenderer.Enabled = false;
-		PhysicalModelRenderer.Destroy();
-		SelectionHitbox.Enabled = false;
-		SelectionHitbox.Destroy();
-		ThisHealthBar.Enabled = false;
-		ThisHealthBar.Destroy();
-		this.Enabled = false;
-		base.OnDestroy();
-	}*/
 
 	public virtual void select()
 	{
@@ -83,18 +69,21 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 		ThisHealthBar.setShowHealthBar( false );
 	}
 
-	[Broadcast]
 	public virtual void takeDamage( int damage )
 	{
 		//Log.Info( this.GameObject.Name + " takes " + damage + " damage!");
 		PhysicalModelRenderer.animateDamageTaken();
-		if (!Network.IsOwner) { return; }
-		currentHealthPoints -= damage;
-		ThisHealthBar.setHealth( currentHealthPoints, MaxHealth );
+		setHealth(currentHealthPoints - damage);
 		if ( currentHealthPoints <= 0 )
 		{
 			die();
 		}
+	}
+
+	private void setHealth(int newHealth)
+	{
+		currentHealthPoints = newHealth;
+		ThisHealthBar.setHealth(newHealth, MaxHealth);
 	}
 
 	//[Broadcast]
