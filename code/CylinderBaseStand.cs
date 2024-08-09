@@ -4,7 +4,7 @@ using System;
 
 public class CylinderBaseStand : UnitBaseStandBase
 {
-	[Property] public ModelRenderer BaseStandModel { get; set; }
+	[Property] public new ModelRenderer BaseStandModel { get; set; }
 
 	[Property] public UnitModelUtils.OutlineState SelectionOutlineState = UnitModelUtils.OutlineState.Mine;
 

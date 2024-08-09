@@ -16,7 +16,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 	[Group( "Visuals" )]
 	[Property] public Model ModelFile { get; set; }
 	[Group( "Visuals" )]
-	[Sync] [Property] public AnimationGraph AnimGraph { get; set; }
+	/*[Sync]*/ [Property] public AnimationGraph AnimGraph { get; set; }
 	[Group( "Visuals" )]
 	[Property] public Material ModelMaterial { get; set; }
 	[Group( "Visuals" )]
@@ -33,17 +33,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 
 
 	// Class Vars
-	public int team {
-		get
-		{
-			return team;
-		}
-		set 
-		{
-			team = value;
-			onTeamChange();
-		}
-	}
+	[Sync] public int team { get; private set; }
 	bool selected { get; set; }
 
 	[Sync] public int currentHealthPoints { get; set; }
@@ -79,6 +69,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 
 	public virtual void select()
 	{
+		if(!Network.IsOwner) {  return; }
 		selected = true;
 		PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Selected );
 		ThisHealthBar.setShowHealthBar( true );
@@ -86,6 +77,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 
 	public virtual void deSelect()
 	{
+		if (!Network.IsOwner) { return; }
 		selected = false;
 		PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.None );
 		ThisHealthBar.setShowHealthBar( false );
@@ -96,6 +88,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 	{
 		//Log.Info( this.GameObject.Name + " takes " + damage + " damage!");
 		PhysicalModelRenderer.animateDamageTaken();
+		if (!Network.IsOwner) { return; }
 		currentHealthPoints -= damage;
 		ThisHealthBar.setHealth( currentHealthPoints, MaxHealth );
 		if ( currentHealthPoints <= 0 )
@@ -104,7 +97,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 		}
 	}
 
-	[Broadcast]
+	//[Broadcast]
 	public virtual void die()
 	{
 		//Log.Info( this.GameObject.Name + " dies!" );
@@ -142,6 +135,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 
 	public void onTeamChange()
 	{
+		Log.Info("Calling onTeamChange");
 		if (team == RTSPlayer.Local.Team)
 		{
 			PhysicalModelRenderer.setOutlineState(UnitModelUtils.OutlineState.Mine);
@@ -154,5 +148,11 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 			ThisHealthBar.setBarColor("red");
 			ThisHealthBar.setShowHealthBar(true);
 		}
+	}
+
+	public void setTeam(int newTeam)
+	{
+		team = newTeam;
+		onTeamChange();
 	}
 }

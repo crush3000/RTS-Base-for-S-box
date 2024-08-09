@@ -51,6 +51,7 @@ class Unit : SkinnedRTSObject
 	private const float AUTO_MELEE_RAD_MULTIPLIER = 30f;
 	private const float NAV_AGENT_RAD_MULTIPLIER = .5f;
 	private const float CLICK_HITBOX_RADIUS_MULTIPLIER = .5f;
+	private const float GLOBAL_UNIT_SCALE = .1f;
 
 	protected override void OnStart()
 	{
@@ -62,12 +63,14 @@ class Unit : SkinnedRTSObject
 			Log.Info( tag );
 		}
 
+		if(!Network.IsOwner) { return; }
 		commandGiven = UnitModelUtils.CommandType.None;
 		homeTargetLocation = Transform.Position;
 	}
 
 	protected override void OnUpdate()
 	{
+		if (!Network.IsOwner) { return; }
 		// Handle Player Commands
 		if ( commandGiven != UnitModelUtils.CommandType.None )
 		{
@@ -212,6 +215,7 @@ class Unit : SkinnedRTSObject
 
 	public void setIsInAttackMode(bool isNowInAttackMode)
 	{
+		if (!Network.IsOwner) { return; }
 		isInAttackMode = isNowInAttackMode;
 		if ( !isNowInAttackMode )
 		{
@@ -221,6 +225,7 @@ class Unit : SkinnedRTSObject
 
 	public override void deSelect()
 	{
+		if (!Network.IsOwner) { return; }
 		selected = false;
 		PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Mine );
 		ThisHealthBar.setShowHealthBar(false);
@@ -253,7 +258,8 @@ class Unit : SkinnedRTSObject
 
 	public void move(Vector3 location, bool isNewMoveCommand)
 	{
-		if(location != UnitNavAgent.TargetPosition)
+		if (!Network.IsOwner) { return; }
+		if (location != UnitNavAgent.TargetPosition)
 		{
 			if(isNewMoveCommand || Time.Now - lastMoveOrderTime >= MOVE_ORDER_FREQUENCY )
 			{
@@ -266,6 +272,7 @@ class Unit : SkinnedRTSObject
 
 	public void stopMoving()
 	{
+		if (!Network.IsOwner) { return; }
 		homeTargetLocation = Transform.Position;
 		UnitNavAgent.Stop();
 	}
@@ -287,7 +294,7 @@ class Unit : SkinnedRTSObject
 		//Vector3 globalScaleModifier = Vector3.One * Scene.GetAllObjects( true ).Where( go => go.Name == "RTSGameOptions" ).First().Components.GetAll<RTSGameOptionsComponent>().First().getFloatValue( RTSGameOptionsComponent.GLOBAL_UNIT_SCALE );
 		Log.Info( ModelFile.Bounds.Size );
 
-		Vector3 globalScaleModifier = Vector3.One * RTSPlayer.Local.LocalGame.GameOptions.getFloatValue( RTSGameOptionsComponent.GLOBAL_UNIT_SCALE );
+		Vector3 globalScaleModifier = Vector3.One * GLOBAL_UNIT_SCALE;//RTSPlayer.Local.LocalGame.GameOptions.getFloatValue( RTSGameOptionsComponent.GLOBAL_UNIT_SCALE );
 		Vector3 targetModelSize = new Vector3((unitSize.x * globalScaleModifier.x), (unitSize.y * globalScaleModifier.y), (unitSize.z * globalScaleModifier.z));
 		float targetxyMin = float.Min( targetModelSize.x, targetModelSize.y );
 		float targetxyMax = float.Max( targetModelSize.x, targetModelSize.y );

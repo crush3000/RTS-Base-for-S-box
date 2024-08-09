@@ -29,8 +29,9 @@
 		if (unitPrefab != null) 
 		{
 			var newUnit = unitPrefab.Clone();
+			newUnit.NetworkMode = NetworkMode.Object;
 			newUnit.Transform.Position = newUnitPosition;
-			newUnit.Components.Get<Unit>().team = team;
+			newUnit.Components.Get<Unit>().setTeam(team);
 			RTSPlayer.Local.addUnit( newUnit );
 			newUnit.Enabled = true;
 			newUnit.NetworkSpawn();

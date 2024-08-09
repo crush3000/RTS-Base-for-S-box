@@ -35,9 +35,11 @@ public class RTSPlayer : Component
 			LocalGame.Enabled = false;
 			return;
 		}
+		Log.Info("Starting me");
 
 		//Set Team. This will probably be replaced when we have a lobby setup
-		if(Game.ActiveScene.GetAllComponents<RTSPlayer>().Count() == 1)
+		Log.Info("Setting team");
+		if (Game.ActiveScene.GetAllComponents<RTSPlayer>().Count() == 1)
 		{
 			this.Team = 0;
 		}
@@ -46,12 +48,22 @@ public class RTSPlayer : Component
 			this.Team = Game.ActiveScene.GetAllComponents<RTSPlayer>().MaxBy(x => x.Team).Team + 1;
 		}
 
+		//Update display for all units (probably wont work for those it doesnt have ownership of)
+		var allUnitList = Game.ActiveScene.GetAllComponents<Unit>();
+		foreach(var unit in allUnitList)
+		{
+			Log.Info("Updating Display vars for " + unit.GameObject.Name);
+			unit.onTeamChange();
+		}
+
+		Log.Info("Getting my units");
 		//Get Ownership over your units
 		var myUnitList = Game.ActiveScene.GetAllComponents<Unit>().Where(x => x.team == Team);
 		foreach( var unit in myUnitList)
 		{
-			//Log.Info("Taking Ownership of " + unit.GameObject.Name);
+			Log.Info("Taking Ownership of " + unit.GameObject.Name);
 			unit.Network.TakeOwnership();
+			unit.onTeamChange();
 		}
 		
 		base.OnStart();
