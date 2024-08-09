@@ -57,10 +57,6 @@ class Unit : SkinnedRTSObject
 		Log.Info( "Unit Object OnStart" );
 		objectTypeTag = UNIT_TAG;
 		base.OnStart();
-		if ( team == RTSPlayer.Local.Team )
-		{
-			PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Mine );
-		}
 			foreach ( var tag in Tags )
 		{
 			Log.Info( tag );
@@ -223,30 +219,6 @@ class Unit : SkinnedRTSObject
 		}
 	}
 
-	// Cleanup
-	/*protected override void OnDestroy()
-	{
-		Log.Info( "Unit Object OnDestroy" );
-		UnitNavAgent.Enabled = false;
-		UnitNavAgent.Destroy();
-		UnitMeleeCollider.Enabled = false;
-		UnitMeleeCollider.Destroy();
-		UnitAutoMeleeCollider.Enabled = false;
-		UnitAutoMeleeCollider.Destroy();
-		if(UnitRangedAttackCollider != null )
-		{
-			UnitRangedAttackCollider.Enabled = false;
-			UnitRangedAttackCollider.Destroy();
-		}
-		SelectionHitbox.Enabled = false;
-		SelectionHitbox.Destroy();
-		ThisHealthBar.Enabled = false;
-		ThisHealthBar.Destroy();
-
-		//This will be fully destroyed later when the corpse dissapears
-		PhysicalModelRenderer.addToCorpsePile();
-	}*/
-
 	public override void deSelect()
 	{
 		selected = false;
@@ -254,6 +226,7 @@ class Unit : SkinnedRTSObject
 		ThisHealthBar.setShowHealthBar(false);
 	}
 
+	[Broadcast]
 	public override void die()
 	{
 		//Log.Info( this.GameObject.Name + " dies!" );
@@ -297,6 +270,7 @@ class Unit : SkinnedRTSObject
 		UnitNavAgent.Stop();
 	}
 
+	[Broadcast]
 	private void directMeleeAttack(SkinnedRTSObject targetUnit)
 	{
 		this.PhysicalModelRenderer.animateMeleeAttack();

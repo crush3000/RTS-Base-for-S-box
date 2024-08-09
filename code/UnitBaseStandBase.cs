@@ -16,10 +16,4 @@ public abstract class UnitBaseStandBase : Component
 	{
 		BaseStandModel.Enabled = enabled;
 	}
-	/*protected override void OnDestroy()
-	{
-		BaseStandModel.Enabled = false;
-		BaseStandModel.Destroy();
-		base.OnDestroy();
-	}*/
 }

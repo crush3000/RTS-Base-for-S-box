@@ -79,7 +79,6 @@
       "Position": "894.9849,1127.778,98.47247",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
-      "Enabled": true,
       "__Prefab": "animgraphs/enemyskeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -90,7 +89,6 @@
       "Position": "716.1846,1253.781,98.47247",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
-      "Enabled": true,
       "__Prefab": "animgraphs/enemyskeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -101,7 +99,6 @@
       "Position": "733.5142,1274.828,98.47247",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
-      "Enabled": true,
       "__Prefab": "animgraphs/enemyskeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -112,7 +109,6 @@
       "Position": "753.8583,1253.781,98.47247",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
-      "Enabled": true,
       "__Prefab": "animgraphs/enemyskeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -123,7 +119,6 @@
       "Position": "733.5142,1231.888,98.47247",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
-      "Enabled": true,
       "__Prefab": "animgraphs/enemyskeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -135,7 +130,6 @@
       "Rotation": "-0.000007480383,0.000005097823,1,0.00001529347",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
-      "Enabled": true,
       "__Prefab": "prefabs/skeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -147,7 +141,6 @@
       "Rotation": "-0.000007480383,0.000005097823,1,0.00001529347",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
-      "Enabled": true,
       "__Prefab": "prefabs/skeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -159,7 +152,6 @@
       "Rotation": "-0.000007480383,0.000005097823,1,0.00001529347",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
-      "Enabled": true,
       "__Prefab": "prefabs/skeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -171,7 +163,6 @@
       "Rotation": "-0.000007480383,0.000005097823,1,0.00001529347",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
-      "Enabled": true,
       "__Prefab": "prefabs/skeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -183,7 +174,6 @@
       "Rotation": "-0.000007480383,0.000005097823,1,0.00001529347",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
-      "Enabled": true,
       "__Prefab": "prefabs/skeltal.prefab",
       "__PrefabVariables": {}
     },
@@ -249,7 +239,6 @@
       "Flags": 0,
       "Name": "SkeltalHouse",
       "Position": "476.6099,1268.737,68.33839",
-      "Enabled": true,
       "Components": [
         {
           "__type": "Building",
@@ -276,7 +265,6 @@
             "component_type": "BoxCollider"
           },
           "Size": "653.5387,654.9819,776.3831",
-          "team": 0,
           "ThisHealthBar": {
             "_type": "component",
             "component_id": "fd63de4e-ded7-48d2-a8e6-0311b33f196b",

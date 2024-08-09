@@ -12,7 +12,6 @@ public class PlayerUnitControl : Component
 
 	[Property]	RTSCamComponent RTSCam {  get; set; }
 	[Property] SelectionPanel selectionPanel { get; set; }
-	[Property] int team { get; set; }
 	public List<SkinnedRTSObject> SelectedObjects { get; set; }
 
 	private Rect selectionRect = new Rect();
@@ -31,6 +30,9 @@ public class PlayerUnitControl : Component
 		}
 		base.OnStart();
 		SelectedObjects = new List<SkinnedRTSObject>();
+		//DEBUG REMOVE
+		RTSPlayer.Local.myUnitFactory.SpawnDebugUnits();
+		//DEBUG REMOVE
 	}
 
 	protected override void OnUpdate()
@@ -92,7 +94,7 @@ public class PlayerUnitControl : Component
 					foreach ( var unit in units )
 					{
 						// Ensure these are our units
-						if ( unit != null && unit.team == team )
+						if ( unit != null && unit.team == RTSPlayer.Local.Team )
 						{
 							var unitPos = RTSCam.CamView.PointToScreenPixels( unit.Transform.Position );
 							//Log.Info( "Unit Pos: " + unitRec );
@@ -156,7 +158,7 @@ public class PlayerUnitControl : Component
 					{
 						var selectedUnit = hitUnitComponents.First();
 						// Make sure the unit is ours
-						if ( selectedUnit.team == team )
+						if ( selectedUnit.team == RTSPlayer.Local.Team)
 						{
 							//Log.Info( "Team " + team + " " + selectedUnit.GameObject.Name + " Selected from team " + selectedUnit.team );
 							// Select Unit
@@ -172,7 +174,7 @@ public class PlayerUnitControl : Component
 					{
 						var selectedBuilding = hitBuildingComponents.First();
 						// Make sure the unit is ours
-						if ( selectedBuilding.team == team )
+						if ( selectedBuilding.team == RTSPlayer.Local.Team )
 						{
 							//Log.Info( "Team " + team + " " + selectedUnit.GameObject.Name + " Selected from team " + selectedUnit.team );
 							// Select Building
@@ -215,10 +217,10 @@ public class PlayerUnitControl : Component
 			// Set Up Attack Command if we hit an enemy unit
 			// TODO Probably make sure that if we hit friendly units instead that it goes to a move, actually just test this code
 			// TODO Cleanup generic command code with tags
-			if ( hitRtsObjects.Any() && hitRtsObjects.First().team != team )
+			if ( hitRtsObjects.Any() && hitRtsObjects.First().team != RTSPlayer.Local.Team)
 			{
 				commandType = UnitModelUtils.CommandType.Attack;
-				Log.Info( "Team " + team + " " + ((SkinnedRTSObject)(hitRtsObjects.First())).GameObject.Name + " Selected to be attacked!" );
+				Log.Info( "Team " + RTSPlayer.Local.Team + " " + ((SkinnedRTSObject)(hitRtsObjects.First())).GameObject.Name + " Selected to be attacked!" );
 				commandTarget = (SkinnedRTSObject)(hitRtsObjects.First());
 			}
 			// Otherwise Set Up Move Command
@@ -261,7 +263,7 @@ public class PlayerUnitControl : Component
 
 			//Call Unit Factory Here.
 			Log.Info( "Spawning Skeltal!" );
-			RTSPlayer.Local.myUnitFactory.spawnUnit(RTSPlayer.Local.skeltalPrefab, tr.EndPosition);
+			RTSPlayer.Local.myUnitFactory.spawnUnit(RTSPlayer.Local.skeltalPrefab, RTSPlayer.Local.Team, tr.EndPosition);
 			//Log.Info( "Spawning Skeltal House!" );
 			//RTSGame.Instance.ThisPlayer.myUnitFactory.spawnUnit( RTSGame.Instance.ThisPlayer.skeltalHousePrefab, tr.EndPosition );
 		}

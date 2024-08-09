@@ -16,7 +16,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 	[Group( "Visuals" )]
 	[Property] public Model ModelFile { get; set; }
 	[Group( "Visuals" )]
-	[Property] public AnimationGraph AnimGraph { get; set; }
+	[Sync] [Property] public AnimationGraph AnimGraph { get; set; }
 	[Group( "Visuals" )]
 	[Property] public Material ModelMaterial { get; set; }
 	[Group( "Visuals" )]
@@ -33,10 +33,20 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 
 
 	// Class Vars
-	public int team {  get; set; }
+	public int team {
+		get
+		{
+			return team;
+		}
+		set 
+		{
+			team = value;
+			onTeamChange();
+		}
+	}
 	bool selected { get; set; }
 
-	public int currentHealthPoints;
+	[Sync] public int currentHealthPoints { get; set; }
 	protected string objectTypeTag = "";
 
 	// Constants
@@ -49,18 +59,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 		currentHealthPoints = MaxHealth;
 		setRelativeSizeHelper( Size );
 		PhysicalModelRenderer.setModel( ModelFile, AnimGraph, ModelMaterial );
-		if ( team != RTSPlayer.Local.Team )
-		{
-			ThisHealthBar.setBarColor( "red" );
-			ThisHealthBar.setShowHealthBar( true );
-			PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Hostile );	
-		}
-		else
-		{
-			ThisHealthBar.setBarColor( "#40ff40" );
-			ThisHealthBar.setShowHealthBar( false );
-			PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.None );
-		}
+		onTeamChange();
 		Tags.Add( objectTypeTag );
 	}
 
@@ -92,6 +91,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 		ThisHealthBar.setShowHealthBar( false );
 	}
 
+	[Broadcast]
 	public virtual void takeDamage( int damage )
 	{
 		//Log.Info( this.GameObject.Name + " takes " + damage + " damage!");
@@ -104,6 +104,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 		}
 	}
 
+	[Broadcast]
 	public virtual void die()
 	{
 		//Log.Info( this.GameObject.Name + " dies!" );
@@ -137,5 +138,21 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 		// Auto Calculate other visual element sizes
 		PhysicalModelRenderer.setModelSize( defaultModelSize );
 		ThisHealthBar.setSize( defaultModelSize );
+	}
+
+	public void onTeamChange()
+	{
+		if (team == RTSPlayer.Local.Team)
+		{
+			PhysicalModelRenderer.setOutlineState(UnitModelUtils.OutlineState.Mine);
+			ThisHealthBar.setBarColor("#40ff40");
+			ThisHealthBar.setShowHealthBar(false);
+		}
+		else
+		{
+			PhysicalModelRenderer.setOutlineState(UnitModelUtils.OutlineState.Hostile);
+			ThisHealthBar.setBarColor("red");
+			ThisHealthBar.setShowHealthBar(true);
+		}
 	}
 }

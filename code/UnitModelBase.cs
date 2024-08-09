@@ -4,7 +4,7 @@ using System;
 public abstract class UnitModelBase : Component
 {
 
-	[Property] public ModelRenderer model { get; set; }
+	[Sync] [Property] public ModelRenderer model { get; set; }
 
 	[Property] public HighlightOutline outline { get; set; }
 

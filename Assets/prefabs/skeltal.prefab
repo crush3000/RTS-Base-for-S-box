@@ -5,6 +5,9 @@
     "Name": "skeltal",
     "Tags": "unit",
     "Enabled": true,
+    "NetworkMode": 1,
+    "NetworkOrphaned": 1,
+    "OwnerTransfer": 2,
     "Components": [
       {
         "__type": "Unit",
@@ -35,7 +38,6 @@
           "component_type": "BoxCollider"
         },
         "Size": "133.7544,195.3692,180.2918",
-        "team": 0,
         "ThisHealthBar": {
           "_type": "component",
           "component_id": "f6d58d2a-15e3-4ef4-8e43-bcf483540be8",
