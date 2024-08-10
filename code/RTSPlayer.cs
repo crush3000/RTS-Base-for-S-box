@@ -32,6 +32,7 @@ public class RTSPlayer : Component
 		if(Network.IsProxy) 
 		{ 
 			UnitControl.Enabled = false;
+			LocalGame.GameHud.Enabled = false;
 			LocalGame.Enabled = false;
 			return;
 		}
