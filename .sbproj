@@ -5,7 +5,7 @@
   "Ident": "suckitup",
   "Schema": 1,
   "IncludeSourceFiles": true,
-  "Resources": null,
+  "Resources": "\nmaterials/temple_portrait.PNG\nmaterials/skeltal_portrait.PNG\nmaterials/attack_stance.png\nmaterials/defend_stance.png",
   "PackageReferences": [],
   "EditorReferences": null,
   "Metadata": {

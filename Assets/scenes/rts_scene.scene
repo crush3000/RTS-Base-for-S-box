@@ -50,6 +50,7 @@
       "Flags": 0,
       "Name": "GameObject",
       "Position": "0,993.0723,487.0792",
+      "Tags": "particles,skybox",
       "Enabled": true
     }
   ],

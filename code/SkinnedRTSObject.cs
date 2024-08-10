@@ -43,9 +43,10 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 
 	protected override void OnStart()
 	{
+		//TODO there is a bug where units can attack this one before it fully initializes its size or is able to fight back. Need a solution
+		setRelativeSizeHelper(Size);
 		Log.Info( "Base Object OnStart" );
 		base.OnStart();
-		setRelativeSizeHelper( Size );
 		PhysicalModelRenderer.setModel( ModelFile, AnimGraph, ModelMaterial );
 		onTeamChange();
 		Tags.Add( objectTypeTag );

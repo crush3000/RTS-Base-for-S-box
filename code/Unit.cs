@@ -63,7 +63,6 @@ class Unit : SkinnedRTSObject
 			Log.Info( tag );
 		}
 
-		if(!Network.IsOwner) { return; }
 		commandGiven = UnitModelUtils.CommandType.None;
 		homeTargetLocation = Transform.Position;
 	}

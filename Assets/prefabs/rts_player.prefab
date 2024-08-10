@@ -92,8 +92,7 @@
           "component_id": "6a6f24c9-d2d7-4e7f-a602-c6998d096e2d",
           "go": "05211eb6-adf4-4f89-a023-cf7c074d3704",
           "component_type": "SelectionPanel"
-        },
-        "team": 0
+        }
       }
     ],
     "Children": [
@@ -172,7 +171,9 @@
             "Components": [
               {
                 "__type": "RTSHud",
-                "__guid": "eb6d19b8-680c-4774-94cc-99c6a2685469"
+                "__guid": "eb6d19b8-680c-4774-94cc-99c6a2685469",
+                "AttackStanceImageResource": "materials/attack_stance.jpg",
+                "DefendStanceImageResource": "materials/defend_stance.jpg"
               }
             ]
           }
