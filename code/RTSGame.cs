@@ -7,7 +7,7 @@
 	public CommandIndicatorBase GameCommandIndicator { get; set; }
 	public RTSHud GameHUD { get; set; }
 
-	private RTSGame()
+	/*private RTSGame()
 	{
 	}
 
@@ -25,7 +25,7 @@
 		{ }
 
 		internal static readonly RTSGame instance = new RTSGame();
-	}
+	}*/
 
 	/*public void destroyRefs()
 	{

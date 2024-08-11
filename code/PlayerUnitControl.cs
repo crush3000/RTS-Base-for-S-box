@@ -12,7 +12,6 @@ public class PlayerUnitControl : Component
 
 	[Property]	RTSCamComponent RTSCam {  get; set; }
 	[Property] SelectionPanel selectionPanel { get; set; }
-	[Property] int team { get; set; }
 	public List<SkinnedRTSObject> SelectedObjects { get; set; }
 
 	private Rect selectionRect = new Rect();
@@ -22,12 +21,23 @@ public class PlayerUnitControl : Component
 
 	protected override void OnStart()
 	{
+		if (Network.IsProxy)
+		{
+			Enabled = false;
+			RTSCam.Enabled = false;
+			selectionPanel.Enabled = false;
+			return;
+		}
 		base.OnStart();
 		SelectedObjects = new List<SkinnedRTSObject>();
+		//DEBUG REMOVE
+		RTSPlayer.Local.myUnitFactory.SpawnDebugUnits();
+		//DEBUG REMOVE
 	}
 
 	protected override void OnUpdate()
 	{
+		if (Network.IsProxy) { return; }
 		// Select Controls
 		// Select Is now Pressed
 		if ( Input.Pressed( "Select" ) )
@@ -84,7 +94,7 @@ public class PlayerUnitControl : Component
 					foreach ( var unit in units )
 					{
 						// Ensure these are our units
-						if ( unit != null && unit.team == team )
+						if ( unit != null && unit.team == RTSPlayer.Local.Team )
 						{
 							var unitPos = RTSCam.CamView.PointToScreenPixels( unit.Transform.Position );
 							//Log.Info( "Unit Pos: " + unitRec );
@@ -108,27 +118,27 @@ public class PlayerUnitControl : Component
 					Log.Info( SelectedObjects.Count() );
 					if ( SelectedObjects.Count() == 1 )
 					{
-						RTSGame.Instance.GameHUD.setSelectionVars( true, true, ((Unit)SelectedObjects.First()).isInAttackMode );
+						RTSPlayer.Local.LocalGame.GameHud.setSelectionVars( true, true, ((Unit)SelectedObjects.First()).isInAttackMode );
 					}
 					else if ( SelectedObjects.Count() == 0 )
 					{
-						RTSGame.Instance.GameHUD.setSelectionVars( false, false, false );
+						RTSPlayer.Local.LocalGame.GameHud.setSelectionVars( false, false, false );
 					}
 					else
 					{
-						RTSGame.Instance.GameHUD.setSelectionVars( true, false, ((Unit)SelectedObjects.First()).isInAttackMode );
+						RTSPlayer.Local.LocalGame.GameHud.setSelectionVars( true, false, ((Unit)SelectedObjects.First()).isInAttackMode );
 					}
 				}
 				else
 				{
-					RTSGame.Instance.GameHUD.setSelectionVars( false, false, false );
+					RTSPlayer.Local.LocalGame.GameHud.setSelectionVars( false, false, false );
 				}
 				stopDrawSelectionRect();
 			}
 			// This is for a single click
 			else
 			{
-				//RTSGame.Instance.GameHUD.setSelectionVars( false, false );
+				//RTSPlayer.Local.LocalGame.GameHUD.setSelectionVars( false, false );
 
 				var mouseScreenPos = Mouse.Position;
 				// Set up and run mouse ray to find what we're now selecting
@@ -148,13 +158,13 @@ public class PlayerUnitControl : Component
 					{
 						var selectedUnit = hitUnitComponents.First();
 						// Make sure the unit is ours
-						if ( selectedUnit.team == team )
+						if ( selectedUnit.team == RTSPlayer.Local.Team)
 						{
 							//Log.Info( "Team " + team + " " + selectedUnit.GameObject.Name + " Selected from team " + selectedUnit.team );
 							// Select Unit
 							SelectedObjects.Add( selectedUnit );
 							selectedUnit.select();
-							RTSGame.Instance.GameHUD.setSelectionVars( true, true, selectedUnit.isInAttackMode );
+							RTSPlayer.Local.LocalGame.GameHud.setSelectionVars( true, true, selectedUnit.isInAttackMode );
 							hitSomethingValid = true;
 						}
 					}
@@ -164,24 +174,24 @@ public class PlayerUnitControl : Component
 					{
 						var selectedBuilding = hitBuildingComponents.First();
 						// Make sure the unit is ours
-						if ( selectedBuilding.team == team )
+						if ( selectedBuilding.team == RTSPlayer.Local.Team )
 						{
 							//Log.Info( "Team " + team + " " + selectedUnit.GameObject.Name + " Selected from team " + selectedUnit.team );
 							// Select Building
 							SelectedObjects.Add( selectedBuilding );
 							selectedBuilding.select();
-							RTSGame.Instance.GameHUD.setSelectionVars( true, true, false );
+							RTSPlayer.Local.LocalGame.GameHud.setSelectionVars( true, true, false );
 							hitSomethingValid = true;
 						}
 					}
 					if (! hitSomethingValid )
 					{
-						RTSGame.Instance.GameHUD.setSelectionVars( false, false, false );
+						RTSPlayer.Local.LocalGame.GameHud.setSelectionVars( false, false, false );
 					}
 				}
 				else
 				{
-					RTSGame.Instance.GameHUD.setSelectionVars( false, false, false );
+					RTSPlayer.Local.LocalGame.GameHud.setSelectionVars( false, false, false );
 				}
 			}
 		}
@@ -207,10 +217,10 @@ public class PlayerUnitControl : Component
 			// Set Up Attack Command if we hit an enemy unit
 			// TODO Probably make sure that if we hit friendly units instead that it goes to a move, actually just test this code
 			// TODO Cleanup generic command code with tags
-			if ( hitRtsObjects.Any() && hitRtsObjects.First().team != team )
+			if ( hitRtsObjects.Any() && hitRtsObjects.First().team != RTSPlayer.Local.Team)
 			{
 				commandType = UnitModelUtils.CommandType.Attack;
-				Log.Info( "Team " + team + " " + ((SkinnedRTSObject)(hitRtsObjects.First())).GameObject.Name + " Selected to be attacked!" );
+				Log.Info( "Team " + RTSPlayer.Local.Team + " " + ((SkinnedRTSObject)(hitRtsObjects.First())).GameObject.Name + " Selected to be attacked!" );
 				commandTarget = (SkinnedRTSObject)(hitRtsObjects.First());
 			}
 			// Otherwise Set Up Move Command
@@ -231,11 +241,11 @@ public class PlayerUnitControl : Component
 					{
 						case UnitModelUtils.CommandType.Move:
 							((Unit)unit).homeTargetLocation = moveTarget;
-							RTSGame.Instance.GameCommandIndicator.PlayMoveIndicatorHere(moveTarget);
+							RTSPlayer.Local.LocalGame.GameCommandIndicator.PlayMoveIndicatorHere(moveTarget);
 							break;
 						case UnitModelUtils.CommandType.Attack:
 							((Unit)unit).targetObject = commandTarget;
-							RTSGame.Instance.GameCommandIndicator.PlayAttackIndicatorHere( commandTarget.GameObject );
+							RTSPlayer.Local.LocalGame.GameCommandIndicator.PlayAttackIndicatorHere( commandTarget.GameObject );
 							break;
 					}
 					((Unit)unit).commandGiven = commandType;
@@ -253,7 +263,7 @@ public class PlayerUnitControl : Component
 
 			//Call Unit Factory Here.
 			Log.Info( "Spawning Skeltal!" );
-			RTSGame.Instance.ThisPlayer.myUnitFactory.spawnUnit(RTSGame.Instance.ThisPlayer.skeltalPrefab, tr.EndPosition);
+			RTSPlayer.Local.myUnitFactory.spawnUnit(RTSPlayer.Local.skeltalPrefab, RTSPlayer.Local.Team, tr.EndPosition);
 			//Log.Info( "Spawning Skeltal House!" );
 			//RTSGame.Instance.ThisPlayer.myUnitFactory.spawnUnit( RTSGame.Instance.ThisPlayer.skeltalHousePrefab, tr.EndPosition );
 		}

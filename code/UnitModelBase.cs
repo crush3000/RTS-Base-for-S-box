@@ -4,7 +4,7 @@ using System;
 public abstract class UnitModelBase : Component
 {
 
-	[Property] public ModelRenderer model { get; set; }
+	[Property] public SkinnedModelRenderer skinnedModel { get; set; }
 
 	[Property] public HighlightOutline outline { get; set; }
 
@@ -21,7 +21,7 @@ public abstract class UnitModelBase : Component
 		outline.Enabled = false;
 		baseStand.Enabled = false;
 
-		RTSGame.Instance.GameCorpseList.addCorpse( model, Time.Now );
+		RTSPlayer.Local.LocalGame.GameCorpseList.addCorpse( skinnedModel, Time.Now );
 	}
 
 	public virtual void setOutlineState( UnitModelUtils.OutlineState newState )
@@ -82,16 +82,4 @@ public abstract class UnitModelBase : Component
 	protected override void OnUpdate()
 	{
 	}
-
-	/*protected override void OnDestroy() 
-	{
-		Log.Info( "Hello?" );
-		outline.Enabled = false;
-		outline.Destroy();
-		baseStand.Enabled = false;
-		baseStand.Destroy();
-		//model.Enabled = false;
-		//model.Destroy();
-		base.OnDestroy();
-	}*/
 }

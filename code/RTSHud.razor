@@ -7,8 +7,12 @@
 
 @code
 {
-	public const string ATTACK_STANCE_IMAGE = "materials/attack_stance.png";
-	public const string DEFEND_STANCE_IMAGE = "materials/defend_stance.png";
+	[Property, GameResource("PNG Image", "png", ""), ResourceType("png")]
+	public Texture AttackStanceImageResource { get; set; }
+
+	[Property, GameResource("PNG Image", "png", ""), ResourceType("png")]
+	public Texture DefendStanceImageResource { get; set; }
+
 	public const string BUTTON_DISABLED_STYLE = "flex";
 	public const string BUTTON_ENABLED_STYLE = "none";
 	public const string BUTTON_EVENTS_ENABLED_STYLE = "all";
@@ -17,6 +21,9 @@
 	public bool showPanel = true;
 
 	private DynamicToggleButton unitStanceButton;
+
+	private string AttackStanceImagePath;
+	private string DefendStanceImagePath;
 
 	private string focusedUnitPortraitImage;
 	private string focusedUnitHealth;
@@ -42,7 +49,9 @@
 	protected override void OnStart()
 	{
 		base.OnStart();
-		unitStanceButton = new DynamicToggleButton('z', ATTACK_STANCE_IMAGE, DEFEND_STANCE_IMAGE, stanceButtonClicked);
+		AttackStanceImagePath = AttackStanceImageResource.ResourcePath.Split(".")[0] + ".png";
+		DefendStanceImagePath = DefendStanceImageResource.ResourcePath.Split(".")[0] + ".png";
+		unitStanceButton = new DynamicToggleButton('z', AttackStanceImagePath, DefendStanceImagePath, stanceButtonClicked);
 		currentButtonList = new List<DynamicButton>();
 		focusedUnitPortraitImage = "";
 		focusedUnitHealth = "";
@@ -53,11 +62,12 @@
 		isSingleUnitSelected = false;
 		selectionPresent = false;
 		focusedUnit = null;
+
 		//TEST CODE
 		currentButtonList.Add(unitStanceButton);
 		for(int i=0;i<14;i++)
 		{
-			currentButtonList.Add(new DynamicButton('a', DEFEND_STANCE_IMAGE,printy ));
+			currentButtonList.Add(new DynamicButton('a', DefendStanceImagePath, printy));
 		}
 		/////
 	}
@@ -92,7 +102,7 @@
 	{
 		if (focusedUnit == null)
 		{
-			return DEFEND_STANCE_IMAGE;
+			return DefendStanceImagePath;
 		}
 		else
 		{
@@ -100,7 +110,6 @@
 		}
 	}
 
-	//TODO: FIX STANCE BUTTON TO WORK WITH MULTI-SELECT FOCUS
 	public void setSelectionVars(bool isSelect, bool isSingleUnitSelected, bool isUnitInAttackStance)
 	{
 		Log.Info("setSelectionVars(isSelect=" + isSelect + ", isSingleUnitSelected=" + isSingleUnitSelected + ", isUnitInAttackStance=" + isUnitInAttackStance);
@@ -115,7 +124,7 @@
 				this.isSingleUnitSelected = true;
 				this.selectionPresent = true;
 				// Grab stats
-				var selectedObjList = RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects;
+				var selectedObjList = RTSPlayer.Local.UnitControl.SelectedObjects;
 				foreach (SkinnedRTSObject obj in selectedObjList)
 				{
 
@@ -138,18 +147,18 @@
 
 				if (isUnitInAttackStance)
 				{
-					unitStanceButton.setButtonState(ATTACK_STANCE_IMAGE);
+					unitStanceButton.setButtonState(AttackStanceImagePath);
 				}
 				else
 				{
-					unitStanceButton.setButtonState(DEFEND_STANCE_IMAGE);
+					unitStanceButton.setButtonState(DefendStanceImagePath);
 				}
 			}
 			else
 			{
-				if (RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects.Count() > 0)
+				if (RTSPlayer.Local.UnitControl.SelectedObjects.Count() > 0)
 				{
-					SkinnedRTSObject firstUnit = RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects.First();
+					SkinnedRTSObject firstUnit = RTSPlayer.Local.UnitControl.SelectedObjects.First();
 					//focusedUnit = firstUnit;
 					unitListItemClicked(firstUnit);
 					//unitStanceButton.buttonState = !(((Unit)focusedUnit).isInAttackMode);
@@ -186,7 +195,7 @@
 
 	public void stanceButtonClicked()
 	{
-		if (unitStanceButton.activeBackgroundImage == ATTACK_STANCE_IMAGE)
+		if (unitStanceButton.activeBackgroundImage == AttackStanceImagePath)
 		{
 			((Unit)focusedUnit).setIsInAttackMode(false);
 		}
@@ -206,11 +215,11 @@
 
 		if (((Unit)focusedUnit).isInAttackMode)
 		{
-			unitStanceButton.setButtonState(ATTACK_STANCE_IMAGE);
+			unitStanceButton.setButtonState(AttackStanceImagePath);
 		}
 		else
 		{
-			unitStanceButton.setButtonState(DEFEND_STANCE_IMAGE);
+			unitStanceButton.setButtonState(DefendStanceImagePath);
 		}
 		this.StateHasChanged();
 		this.Panel.Style.Dirty();
@@ -232,7 +241,7 @@
 			<div class=@(isSingleUnitSelected ? "infoStatusPanel" : "infoStatusPanelMultiple")>
 				@if(selectionPresent == true && isSingleUnitSelected != true)
 				{
-					foreach (SkinnedRTSObject selectedUnit in RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects)
+					foreach (SkinnedRTSObject selectedUnit in RTSPlayer.Local.UnitControl.SelectedObjects)
 					{
 						<div @onclick="@(() => unitListItemClicked(selectedUnit))" class=@(focusedUnit == selectedUnit ? "portraitStatusPanelListItemFocused" : "portraitStatusPanelListItem")>
 							<div style="background-image: url(@(selectedUnit.PortraitImage));" class="portraitImage"></div>

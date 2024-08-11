@@ -4,38 +4,43 @@ using System;
 class UnitModel : UnitModelBase
 {
 
-	[Property] public SkinnedModelRenderer model {  get; set; }
+	/*[Sync]*/ //[Property] public new SkinnedModelRenderer skinnedModel {  get; set; }
 
 	public override void setModel( Model newModel, AnimationGraph newAnimGraph, Material newMaterial )
 	{
-		model.Model = newModel;
-		model.AnimationGraph = newAnimGraph;
-		model.MaterialOverride = newMaterial;
+		skinnedModel.Model = newModel;
+		skinnedModel.AnimationGraph = newAnimGraph;
+		skinnedModel.MaterialOverride = newMaterial;
 	}
 
+	[Broadcast]
 	public override void animateMovement(Vector3 velocity, Vector3 wishVelocity)
 	{
-		model.SceneModel.SetAnimParameter( "isMoving", true );
+		skinnedModel.SceneModel.SetAnimParameter( "isMoving", true );
 	}
 
+	[Broadcast]
 	public override void stopMovementAnimate()
 	{
-		model.SceneModel.SetAnimParameter( "isMoving", false );
+		skinnedModel.SceneModel.SetAnimParameter( "isMoving", false );
 	}
 
+	[Broadcast]
 	public override void animateMeleeAttack()
 	{
-		model.SceneModel.SetAnimParameter( "onAttack", true );
+		skinnedModel.SceneModel.SetAnimParameter( "onAttack", true );
 	}
 
+	[Broadcast]
 	public override void animateDamageTaken()
 	{
-		model.SceneModel.SetAnimParameter( "onDamage", true );
+		skinnedModel.SceneModel.SetAnimParameter( "onDamage", true );
 	}
 
+	[Broadcast]
 	public override void animateDeath()
 	{
-		model.SceneModel.SetAnimParameter( "onDeath", true );
+		skinnedModel.SceneModel.SetAnimParameter( "onDeath", true );
 		addToCorpsePile();
 	}
 

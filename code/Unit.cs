@@ -51,16 +51,13 @@ class Unit : SkinnedRTSObject
 	private const float AUTO_MELEE_RAD_MULTIPLIER = 30f;
 	private const float NAV_AGENT_RAD_MULTIPLIER = .5f;
 	private const float CLICK_HITBOX_RADIUS_MULTIPLIER = .5f;
+	private const float GLOBAL_UNIT_SCALE = .1f;
 
 	protected override void OnStart()
 	{
 		Log.Info( "Unit Object OnStart" );
 		objectTypeTag = UNIT_TAG;
 		base.OnStart();
-		if ( team == RTSGame.Instance.ThisPlayer.Team )
-		{
-			PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Mine );
-		}
 			foreach ( var tag in Tags )
 		{
 			Log.Info( tag );
@@ -72,6 +69,7 @@ class Unit : SkinnedRTSObject
 
 	protected override void OnUpdate()
 	{
+		if (!Network.IsOwner) { return; }
 		// Handle Player Commands
 		if ( commandGiven != UnitModelUtils.CommandType.None )
 		{
@@ -216,6 +214,7 @@ class Unit : SkinnedRTSObject
 
 	public void setIsInAttackMode(bool isNowInAttackMode)
 	{
+		if (!Network.IsOwner) { return; }
 		isInAttackMode = isNowInAttackMode;
 		if ( !isNowInAttackMode )
 		{
@@ -223,37 +222,15 @@ class Unit : SkinnedRTSObject
 		}
 	}
 
-	// Cleanup
-	/*protected override void OnDestroy()
-	{
-		Log.Info( "Unit Object OnDestroy" );
-		UnitNavAgent.Enabled = false;
-		UnitNavAgent.Destroy();
-		UnitMeleeCollider.Enabled = false;
-		UnitMeleeCollider.Destroy();
-		UnitAutoMeleeCollider.Enabled = false;
-		UnitAutoMeleeCollider.Destroy();
-		if(UnitRangedAttackCollider != null )
-		{
-			UnitRangedAttackCollider.Enabled = false;
-			UnitRangedAttackCollider.Destroy();
-		}
-		SelectionHitbox.Enabled = false;
-		SelectionHitbox.Destroy();
-		ThisHealthBar.Enabled = false;
-		ThisHealthBar.Destroy();
-
-		//This will be fully destroyed later when the corpse dissapears
-		PhysicalModelRenderer.addToCorpsePile();
-	}*/
-
 	public override void deSelect()
 	{
+		if (!Network.IsOwner) { return; }
 		selected = false;
 		PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Mine );
 		ThisHealthBar.setShowHealthBar(false);
 	}
 
+	[Broadcast]
 	public override void die()
 	{
 		//Log.Info( this.GameObject.Name + " dies!" );
@@ -280,7 +257,8 @@ class Unit : SkinnedRTSObject
 
 	public void move(Vector3 location, bool isNewMoveCommand)
 	{
-		if(location != UnitNavAgent.TargetPosition)
+		if (!Network.IsOwner) { return; }
+		if (location != UnitNavAgent.TargetPosition)
 		{
 			if(isNewMoveCommand || Time.Now - lastMoveOrderTime >= MOVE_ORDER_FREQUENCY )
 			{
@@ -293,10 +271,12 @@ class Unit : SkinnedRTSObject
 
 	public void stopMoving()
 	{
+		if (!Network.IsOwner) { return; }
 		homeTargetLocation = Transform.Position;
 		UnitNavAgent.Stop();
 	}
 
+	[Broadcast]
 	private void directMeleeAttack(SkinnedRTSObject targetUnit)
 	{
 		this.PhysicalModelRenderer.animateMeleeAttack();
@@ -313,7 +293,7 @@ class Unit : SkinnedRTSObject
 		//Vector3 globalScaleModifier = Vector3.One * Scene.GetAllObjects( true ).Where( go => go.Name == "RTSGameOptions" ).First().Components.GetAll<RTSGameOptionsComponent>().First().getFloatValue( RTSGameOptionsComponent.GLOBAL_UNIT_SCALE );
 		Log.Info( ModelFile.Bounds.Size );
 
-		Vector3 globalScaleModifier = Vector3.One * RTSGame.Instance.GameOptions.getFloatValue( RTSGameOptionsComponent.GLOBAL_UNIT_SCALE );
+		Vector3 globalScaleModifier = Vector3.One * GLOBAL_UNIT_SCALE;//RTSPlayer.Local.LocalGame.GameOptions.getFloatValue( RTSGameOptionsComponent.GLOBAL_UNIT_SCALE );
 		Vector3 targetModelSize = new Vector3((unitSize.x * globalScaleModifier.x), (unitSize.y * globalScaleModifier.y), (unitSize.z * globalScaleModifier.z));
 		float targetxyMin = float.Min( targetModelSize.x, targetModelSize.y );
 		float targetxyMax = float.Max( targetModelSize.x, targetModelSize.y );

@@ -6,8 +6,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 {
 	[Group( "Gameplay" )]
 	[Property] public string name { get; set; }
-	[Group( "Gameplay" )]
-	[Property] public int team { get; set; }
+	
 	[Group( "Gameplay" )]
 	[Property] public Vector3 Size { get; set; }
 	[Group( "Gameplay" )]
@@ -33,9 +32,10 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 
 
 	// Class Vars
+	[Sync] public int team { get; private set; }
 	bool selected { get; set; }
 
-	public int currentHealthPoints;
+	[Sync] public int currentHealthPoints { get; private set; }
 	protected string objectTypeTag = "";
 
 	// Constants
@@ -43,42 +43,20 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 
 	protected override void OnStart()
 	{
+		//TODO there is a bug where units can attack this one before it fully initializes its size or is able to fight back. Need a solution
+		setRelativeSizeHelper(Size);
 		Log.Info( "Base Object OnStart" );
 		base.OnStart();
-		currentHealthPoints = MaxHealth;
-		setRelativeSizeHelper( Size );
 		PhysicalModelRenderer.setModel( ModelFile, AnimGraph, ModelMaterial );
-		if ( team != RTSGame.Instance.ThisPlayer.Team )
-		{
-			ThisHealthBar.setBarColor( "red" );
-			ThisHealthBar.setShowHealthBar( true );
-			PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Hostile );	
-		}
-		else
-		{
-			ThisHealthBar.setBarColor( "#40ff40" );
-			ThisHealthBar.setShowHealthBar( false );
-			PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.None );
-		}
+		onTeamChange();
 		Tags.Add( objectTypeTag );
+		if (!Network.IsOwner) { return; }
+		setHealth(MaxHealth);
 	}
-
-	// Cleanup
-	/*protected override void OnDestroy()
-	{
-		Log.Info( "Base Object OnDestroy" );
-		PhysicalModelRenderer.Enabled = false;
-		PhysicalModelRenderer.Destroy();
-		SelectionHitbox.Enabled = false;
-		SelectionHitbox.Destroy();
-		ThisHealthBar.Enabled = false;
-		ThisHealthBar.Destroy();
-		this.Enabled = false;
-		base.OnDestroy();
-	}*/
 
 	public virtual void select()
 	{
+		if(!Network.IsOwner) {  return; }
 		selected = true;
 		PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.Selected );
 		ThisHealthBar.setShowHealthBar( true );
@@ -86,6 +64,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 
 	public virtual void deSelect()
 	{
+		if (!Network.IsOwner) { return; }
 		selected = false;
 		PhysicalModelRenderer.setOutlineState( UnitModelUtils.OutlineState.None );
 		ThisHealthBar.setShowHealthBar( false );
@@ -95,14 +74,20 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 	{
 		//Log.Info( this.GameObject.Name + " takes " + damage + " damage!");
 		PhysicalModelRenderer.animateDamageTaken();
-		currentHealthPoints -= damage;
-		ThisHealthBar.setHealth( currentHealthPoints, MaxHealth );
+		setHealth(currentHealthPoints - damage);
 		if ( currentHealthPoints <= 0 )
 		{
 			die();
 		}
 	}
 
+	private void setHealth(int newHealth)
+	{
+		currentHealthPoints = newHealth;
+		ThisHealthBar.setHealth(newHealth, MaxHealth);
+	}
+
+	//[Broadcast]
 	public virtual void die()
 	{
 		//Log.Info( this.GameObject.Name + " dies!" );
@@ -136,5 +121,28 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 		// Auto Calculate other visual element sizes
 		PhysicalModelRenderer.setModelSize( defaultModelSize );
 		ThisHealthBar.setSize( defaultModelSize );
+	}
+
+	public void onTeamChange()
+	{
+		Log.Info("Calling onTeamChange");
+		if (team == RTSPlayer.Local.Team)
+		{
+			PhysicalModelRenderer.setOutlineState(UnitModelUtils.OutlineState.Mine);
+			ThisHealthBar.setBarColor("#40ff40");
+			ThisHealthBar.setShowHealthBar(false);
+		}
+		else
+		{
+			PhysicalModelRenderer.setOutlineState(UnitModelUtils.OutlineState.Hostile);
+			ThisHealthBar.setBarColor("red");
+			ThisHealthBar.setShowHealthBar(true);
+		}
+	}
+
+	public void setTeam(int newTeam)
+	{
+		team = newTeam;
+		onTeamChange();
 	}
 }
