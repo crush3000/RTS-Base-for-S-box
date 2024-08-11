@@ -1,8 +1,8 @@
 {
-  "Title": "RTS_Base",
+  "Title": "Roaring Roomba Roulette",
   "Type": "game",
-  "Org": "local",
-  "Ident": "rts_base",
+  "Org": "crush",
+  "Ident": "roomba_zm",
   "Schema": 1,
   "IncludeSourceFiles": false,
   "Resources": null,
@@ -24,7 +24,7 @@
     "StartupScene": "scenes/rts_scene.scene",
     "MapStartupScene": "scenes/rts_scene.scene",
     "LaunchMode": "Normal",
-    "ParentPackage": "",
+    "ParentPackage": "crush.rts_base#local",
     "ControlModes": {},
     "InputSettings": {
       "Actions": [

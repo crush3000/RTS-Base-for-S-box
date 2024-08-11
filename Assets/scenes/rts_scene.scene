@@ -1,5 +1,5 @@
 {
-  "__guid": "f185b88e-db15-49d5-b3d1-c77068bd7618",
+  "__guid": "e776ce16-3d5d-47f8-99ff-bacb2f6934f6",
   "GameObjects": [
     {
       "__guid": "c7a17bca-5a92-4484-9126-4bd9cc2556d9",
@@ -57,7 +57,7 @@
           },
           "ThisScreen": {
             "_type": "component",
-            "component_id": "952f06ca-394b-4c81-9b14-a344a670f0db",
+            "component_id": "f4e52928-22cd-408e-a02e-50d807c1b47e",
             "go": "0341ba11-a8d6-482e-8cbf-cf21beffa91d",
             "component_type": "ScreenPanel"
           }
@@ -77,7 +77,7 @@
           "Team": 0,
           "UnitControl": {
             "_type": "component",
-            "component_id": "6fb4307f-6ce5-441a-8940-c3e501122ea7",
+            "component_id": "b3403d6f-fd56-47e0-b024-28d27d423f81",
             "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
             "component_type": "PlayerUnitControl"
           },
@@ -115,7 +115,7 @@
           "__guid": "d05ad306-2733-45cd-b870-12dc8b12ec74",
           "__version": 1,
           "EnableCollision": true,
-          "MapName": "maps/rts_river.vmap",
+          "MapName": "maps/debug.vmap",
           "NoOrigin": true,
           "UseMapFromLaunch": true
         }
@@ -135,7 +135,7 @@
       "__guid": "f1a99720-48c5-4711-ad5d-f4b7e54120e8",
       "Flags": 0,
       "Name": "EnemyUnit",
-      "Position": "894.9849,1127.778,40.34199",
+      "Position": "894.9849,1127.778,98.47247",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
       "Enabled": true,
@@ -146,7 +146,7 @@
       "__guid": "d01bd5a2-b429-4618-b245-05d103f0f1f5",
       "Flags": 0,
       "Name": "EnemyUnit (4)",
-      "Position": "716.1846,1253.781,40.34199",
+      "Position": "716.1846,1253.781,98.47247",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
       "Enabled": true,
@@ -157,7 +157,7 @@
       "__guid": "a7967e98-be1b-41b8-97b5-45c8af68ac61",
       "Flags": 0,
       "Name": "EnemyUnit (3)",
-      "Position": "733.5142,1274.828,40.34199",
+      "Position": "733.5142,1274.828,98.47247",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
       "Enabled": true,
@@ -168,7 +168,7 @@
       "__guid": "3d8f25b5-cd17-4fc4-bb18-2ce2b318d591",
       "Flags": 0,
       "Name": "EnemyUnit (2)",
-      "Position": "753.8583,1253.781,40.34199",
+      "Position": "753.8583,1253.781,98.47247",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
       "Enabled": true,
@@ -179,7 +179,7 @@
       "__guid": "ccaff9b4-e31e-47e7-877c-b3f64331125e",
       "Flags": 0,
       "Name": "EnemyUnit (1)",
-      "Position": "733.5142,1231.888,40.34199",
+      "Position": "733.5142,1231.888,98.47247",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
       "Enabled": true,
@@ -190,7 +190,7 @@
       "__guid": "1ad99cde-ebec-480b-ba4d-58ef33985c9e",
       "Flags": 0,
       "Name": "Skeltal1",
-      "Position": "607.9017,1004.787,35.47852",
+      "Position": "607.9017,1004.787,93.60901",
       "Rotation": "-0.000007480383,0.000005097823,1,0.00001529347",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
@@ -202,7 +202,7 @@
       "__guid": "1e43ced9-0c63-4095-9675-05bb161cd2c6",
       "Flags": 0,
       "Name": "Skeltal1 (4)",
-      "Position": "715.1464,1004.782,41.37007",
+      "Position": "715.1464,1004.782,99.50056",
       "Rotation": "-0.000007480383,0.000005097823,1,0.00001529347",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
@@ -214,7 +214,7 @@
       "__guid": "a39d7a83-b5db-412d-b680-469a35dc2d6a",
       "Flags": 0,
       "Name": "Skeltal1 (3)",
-      "Position": "689.8447,1023.656,41.36951",
+      "Position": "689.8447,1023.656,99.5",
       "Rotation": "-0.000007480383,0.000005097823,1,0.00001529347",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
@@ -226,7 +226,7 @@
       "__guid": "9b1923f3-cc80-4361-8dc1-9be84f8c9c31",
       "Flags": 0,
       "Name": "Skeltal1 (2)",
-      "Position": "689.8434,981.8479,41.36993",
+      "Position": "689.8434,981.8479,99.50041",
       "Rotation": "-0.000007480383,0.000005097823,1,0.00001529347",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
@@ -238,7 +238,7 @@
       "__guid": "a6caed93-f18c-4817-8215-47fa00c917a0",
       "Flags": 0,
       "Name": "Skeltal1 (1)",
-      "Position": "665.3873,1004.783,41.36932",
+      "Position": "665.3873,1004.783,99.4998",
       "Rotation": "-0.000007480383,0.000005097823,1,0.00001529347",
       "Scale": "0.1,0.1,0.1",
       "Tags": "unit",
@@ -309,7 +309,7 @@
       "__guid": "285f6d1e-4ecc-4ac6-9977-529bdfd47eeb",
       "Flags": 0,
       "Name": "SkeltalHouse",
-      "Position": "476.6099,1268.737,55.94473",
+      "Position": "476.6099,1268.737,68.33839",
       "Enabled": true,
       "Components": [
         {
