@@ -48,10 +48,176 @@
     {
       "__guid": "0058073b-536a-4b1b-bb61-375e2280b0b2",
       "Flags": 0,
-      "Name": "GameObject",
+      "Name": "Spawn",
       "Position": "0,993.0723,487.0792",
       "Tags": "particles,skybox",
       "Enabled": true
+    },
+    {
+      "__guid": "eb8b4e93-e065-47f6-a029-64ca210dfabc",
+      "Flags": 0,
+      "Name": "Spawner Orb",
+      "Position": "402.0809,1072.692,184.9817",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkOrphaned": 3,
+      "OwnerTransfer": 2,
+      "Components": [
+        {
+          "__type": "ControlOrb",
+          "__guid": "7f5920a2-e218-4b96-8e91-71628b9e2551",
+          "ModelFile": "models/dev/sphere.vmdl",
+          "ModelMaterial": "materials/default.vmat",
+          "name": "Spawner Orb",
+          "OrbHighlight": {
+            "_type": "component",
+            "component_id": "54fd3cfa-e13d-4bb2-ae03-0d8b35facfc1",
+            "go": "eb8b4e93-e065-47f6-a029-64ca210dfabc",
+            "component_type": "HighlightOutline"
+          },
+          "PhysicalModelRenderer": {
+            "_type": "component",
+            "component_id": "2b9ec37c-0ca8-48cd-b119-d1aecbe52cc6",
+            "go": "eb8b4e93-e065-47f6-a029-64ca210dfabc",
+            "component_type": "UnitModelBasic"
+          },
+          "PortraitImage": "materials/spawner_icon.png",
+          "SelectionHitbox": {
+            "_type": "component",
+            "component_id": "ca8dc545-442b-4b29-878c-24b77dde7f4a",
+            "go": "eb8b4e93-e065-47f6-a029-64ca210dfabc",
+            "component_type": "BoxCollider"
+          },
+          "Size": "100,100,100",
+          "Type": "Spawner"
+        },
+        {
+          "__type": "Sandbox.HighlightOutline",
+          "__guid": "54fd3cfa-e13d-4bb2-ae03-0d8b35facfc1",
+          "Color": "1,1,1,1",
+          "InsideColor": "0,0,0,0",
+          "InsideObscuredColor": "0,0,0,0",
+          "ObscuredColor": "0,0,0,0.4",
+          "Width": 0.25
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "ca8dc545-442b-4b29-878c-24b77dde7f4a",
+          "Center": "0,0,0",
+          "IsTrigger": false,
+          "Scale": "50,50,50",
+          "Static": false
+        },
+        {
+          "__type": "UnitModelBasic",
+          "__guid": "2b9ec37c-0ca8-48cd-b119-d1aecbe52cc6",
+          "selectionOutlineState": "Mine",
+          "outline": {
+            "_type": "component",
+            "component_id": "54fd3cfa-e13d-4bb2-ae03-0d8b35facfc1",
+            "go": "eb8b4e93-e065-47f6-a029-64ca210dfabc",
+            "component_type": "HighlightOutline"
+          },
+          "skinnedModel": {
+            "_type": "component",
+            "component_id": "ccf1e817-2c0e-45e1-bb96-45079960a154",
+            "go": "eb8b4e93-e065-47f6-a029-64ca210dfabc",
+            "component_type": "SkinnedModelRenderer"
+          }
+        },
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "ccf1e817-2c0e-45e1-bb96-45079960a154",
+          "BodyGroups": 18446744073709551615,
+          "CreateBoneObjects": false,
+          "RenderType": "On",
+          "Tint": "1,1,1,1",
+          "UseAnimGraph": false
+        }
+      ]
+    },
+    {
+      "__guid": "3456dd03-a89b-4534-a1db-cd7acbdf5d17",
+      "Flags": 0,
+      "Name": "Trap Orb",
+      "Position": "402.0809,1340.323,184.9817",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkOrphaned": 3,
+      "OwnerTransfer": 2,
+      "Components": [
+        {
+          "__type": "ControlOrb",
+          "__guid": "fc5445e2-2f56-4d66-a6ad-00a5b9452a93",
+          "ModelFile": "models/dev/sphere.vmdl",
+          "ModelMaterial": "materials/default.vmat",
+          "name": "Trap Orb",
+          "OrbHighlight": {
+            "_type": "component",
+            "component_id": "373b9e8d-e2bc-4aaf-aa49-68add9032c4f",
+            "go": "3456dd03-a89b-4534-a1db-cd7acbdf5d17",
+            "component_type": "HighlightOutline"
+          },
+          "PhysicalModelRenderer": {
+            "_type": "component",
+            "component_id": "bdb81736-0fbf-4dfa-8e26-addfadcf4acc",
+            "go": "3456dd03-a89b-4534-a1db-cd7acbdf5d17",
+            "component_type": "UnitModelBasic"
+          },
+          "PortraitImage": "materials/trap_icon.png",
+          "SelectionHitbox": {
+            "_type": "component",
+            "component_id": "84e87c9e-feac-4b2c-b5df-c2e5ca59bcab",
+            "go": "3456dd03-a89b-4534-a1db-cd7acbdf5d17",
+            "component_type": "BoxCollider"
+          },
+          "Size": "100,100,100",
+          "Type": "Trap"
+        },
+        {
+          "__type": "UnitModelBasic",
+          "__guid": "bdb81736-0fbf-4dfa-8e26-addfadcf4acc",
+          "selectionOutlineState": "Mine",
+          "outline": {
+            "_type": "component",
+            "component_id": "373b9e8d-e2bc-4aaf-aa49-68add9032c4f",
+            "go": "3456dd03-a89b-4534-a1db-cd7acbdf5d17",
+            "component_type": "HighlightOutline"
+          },
+          "skinnedModel": {
+            "_type": "component",
+            "component_id": "b288c956-aa35-4973-abe6-90113d4e88d2",
+            "go": "3456dd03-a89b-4534-a1db-cd7acbdf5d17",
+            "component_type": "SkinnedModelRenderer"
+          }
+        },
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "b288c956-aa35-4973-abe6-90113d4e88d2",
+          "BodyGroups": 18446744073709551615,
+          "CreateBoneObjects": false,
+          "RenderType": "On",
+          "Tint": "1,1,1,1",
+          "UseAnimGraph": true
+        },
+        {
+          "__type": "Sandbox.HighlightOutline",
+          "__guid": "373b9e8d-e2bc-4aaf-aa49-68add9032c4f",
+          "Color": "1,1,1,1",
+          "InsideColor": "0,0,0,0",
+          "InsideObscuredColor": "0,0,0,0",
+          "ObscuredColor": "0,0,0,0.4",
+          "Width": 0.25
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "84e87c9e-feac-4b2c-b5df-c2e5ca59bcab",
+          "Center": "0,0,0",
+          "IsTrigger": false,
+          "Scale": "50,50,50",
+          "Static": false
+        }
+      ]
     }
   ],
   "SceneProperties": {

@@ -39,7 +39,7 @@
 
 	public List<DynamicButton> currentButtonList { get; set; }
 
-	public SkinnedRTSObject focusedUnit;
+	public SelectableObject focusedUnit;
 
 	/* public void setButtons(List<DynamicButton> newbuttonList)
 		* {
@@ -87,9 +87,17 @@
 		return "";
 	}
 
-	public string getUnitHealthString(SkinnedRTSObject unit)
+	public string getUnitHealthString(SelectableObject unit)
 	{
-		return unit.currentHealthPoints + "/" + unit.MaxHealth;
+		if(unit.Tags.Has("unit"))
+		{
+			//var specificUnit = (SkinnedModelRenderer)unit;
+			return ((SkinnedRTSObject)unit).currentHealthPoints + "/" + ((SkinnedRTSObject)unit).MaxHealth;
+		}
+		else
+		{
+			return "";
+		}
 	}
 
 	//BS TEST FUNCTION
@@ -121,44 +129,52 @@
 
 			if (isSingleUnitSelected)
 			{
+				var selectedObjList = RTSPlayer.Local.UnitControl.SelectedObjects;
 				this.isSingleUnitSelected = true;
 				this.selectionPresent = true;
-				// Grab stats
-				var selectedObjList = RTSPlayer.Local.UnitControl.SelectedObjects;
-				foreach (SkinnedRTSObject obj in selectedObjList)
+				if(selectedObjList.Any())
 				{
-
-					focusedUnit = obj;
-					focusedUnitPortraitImage = obj.PortraitImage;
-					focusedUnitHealth = "Health: " + obj.currentHealthPoints + "/" + obj.MaxHealth;
-					selectedUnitName = obj.name;
-					selectedUnitTeam = "Team " + obj.team.ToString();
-					if (obj.Tags.Contains("unit"))
+					// Grab stats
+					foreach (SelectableObject obj in selectedObjList)
 					{
-						selectedUnitMeleeDamage = "Melee Damage: " + ((Unit)obj).MeleeAttackDamage;
-						selectedUnitRangedDamage = "Ranged Damage: " + ((Unit)obj).RangedAttackDamage;
+
+						focusedUnit = obj;
+						focusedUnitPortraitImage = obj.PortraitImage;
+						selectedUnitName = obj.name;
+						selectedUnitTeam = "Team " + obj.team.ToString();
+						if (obj.Tags.Contains("unit"))
+						{
+							focusedUnitHealth = "Health: " + ((SkinnedRTSObject)obj).currentHealthPoints + "/" + ((SkinnedRTSObject)obj).MaxHealth;
+							selectedUnitMeleeDamage = "Melee Damage: " + ((Unit)obj).MeleeAttackDamage;
+							selectedUnitRangedDamage = "Ranged Damage: " + ((Unit)obj).RangedAttackDamage;
+						}
+						else
+						{
+							selectedUnitMeleeDamage = "";
+							selectedUnitRangedDamage = "";
+							focusedUnitHealth = "";
+						}
+					}
+
+					if (isUnitInAttackStance)
+					{
+						unitStanceButton.setButtonState(AttackStanceImagePath);
 					}
 					else
 					{
-						selectedUnitMeleeDamage = "";
-						selectedUnitRangedDamage = "";
+						unitStanceButton.setButtonState(DefendStanceImagePath);
 					}
-				}
-
-				if (isUnitInAttackStance)
-				{
-					unitStanceButton.setButtonState(AttackStanceImagePath);
 				}
 				else
 				{
-					unitStanceButton.setButtonState(DefendStanceImagePath);
+					
 				}
 			}
 			else
 			{
 				if (RTSPlayer.Local.UnitControl.SelectedObjects.Count() > 0)
 				{
-					SkinnedRTSObject firstUnit = RTSPlayer.Local.UnitControl.SelectedObjects.First();
+					SelectableObject firstUnit = RTSPlayer.Local.UnitControl.SelectedObjects.First();
 					//focusedUnit = firstUnit;
 					unitListItemClicked(firstUnit);
 					//unitStanceButton.buttonState = !(((Unit)focusedUnit).isInAttackMode);
@@ -208,7 +224,7 @@
 		this.Panel.Style.Dirty();
 	}
 
-	public void unitListItemClicked(SkinnedRTSObject unit)
+	public void unitListItemClicked(SelectableObject unit)
 	{
 		Log.Info("Clicked Unit List Item " + unit.GameObject.Name);
 		focusedUnit = unit;
@@ -241,7 +257,7 @@
 			<div class=@(isSingleUnitSelected ? "infoStatusPanel" : "infoStatusPanelMultiple")>
 				@if(selectionPresent == true && isSingleUnitSelected != true)
 				{
-					foreach (SkinnedRTSObject selectedUnit in RTSPlayer.Local.UnitControl.SelectedObjects)
+					foreach (SelectableObject selectedUnit in RTSPlayer.Local.UnitControl.SelectedObjects)
 					{
 						<div @onclick="@(() => unitListItemClicked(selectedUnit))" class=@(focusedUnit == selectedUnit ? "portraitStatusPanelListItemFocused" : "portraitStatusPanelListItem")>
 							<div style="background-image: url(@(selectedUnit.PortraitImage));" class="portraitImage"></div>

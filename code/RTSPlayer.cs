@@ -66,7 +66,15 @@ public class RTSPlayer : Component
 			unit.Network.TakeOwnership();
 			unit.onTeamChange();
 		}
-		
+		//Get Ownership over control orbs
+		var myOrbList = Game.ActiveScene.GetAllComponents<ControlOrb>();
+		foreach (var orb in myOrbList)
+		{
+			Log.Info("Taking Ownership of " + orb.GameObject.Name);
+			orb.Network.TakeOwnership();
+			orb.onOwnerJoin();
+		}
+
 		base.OnStart();
 
 	}

@@ -2,41 +2,24 @@
 using Sandbox.UI;
 using System.Drawing;
 
-public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
+public class SkinnedRTSObject : SelectableObject, IScalable, IDamageable, ISelectable
 {
-	[Group( "Gameplay" )]
-	[Property] public string name { get; set; }
-	
-	[Group( "Gameplay" )]
-	[Property] public Vector3 Size { get; set; }
 	[Group( "Gameplay" )]
 	[Property] public int MaxHealth { get; set; }
 
 	[Group( "Visuals" )]
-	[Property] public Model ModelFile { get; set; }
-	[Group( "Visuals" )]
 	[Property] public AnimationGraph AnimGraph { get; set; }
-	[Group( "Visuals" )]
-	[Property] public Material ModelMaterial { get; set; }
-	[Group( "Visuals" )]
-	[Property] public UnitModelBase PhysicalModelRenderer { get; set; }
+
 	[Group( "Visuals" )]
 	[Property] public HealthBar ThisHealthBar { get; set; }
 
-	[Group( "Triggers And Collision" )]
-	[Property] public BoxCollider SelectionHitbox { get; set; }
-
-	[Group( "User Interface" )]
-	[Property] public string PortraitImage { get; set; }
 
 
 
 	// Class Vars
-	[Sync] public int team { get; private set; }
 	bool selected { get; set; }
 
 	[Sync] public int currentHealthPoints { get; private set; }
-	protected string objectTypeTag = "";
 
 	// Constants
 	private const float CLICK_HITBOX_RADIUS_MULTIPLIER = 1f;
@@ -46,7 +29,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 		//TODO there is a bug where units can attack this one before it fully initializes its size or is able to fight back. Need a solution
 		setRelativeSizeHelper(Size);
 		Log.Info( "Base Object OnStart" );
-		base.OnStart();
+		//base.OnStart();
 		PhysicalModelRenderer.setModel( ModelFile, AnimGraph, ModelMaterial );
 		onTeamChange();
 		Tags.Add( objectTypeTag );
@@ -54,7 +37,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 		setHealth(MaxHealth);
 	}
 
-	public virtual void select()
+	public override void select()
 	{
 		if(!Network.IsOwner) {  return; }
 		selected = true;
@@ -62,7 +45,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 		ThisHealthBar.setShowHealthBar( true );
 	}
 
-	public virtual void deSelect()
+	public override void deSelect()
 	{
 		if (!Network.IsOwner) { return; }
 		selected = false;
@@ -95,7 +78,7 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 		Destroy();
 	}
 
-	public virtual void setRelativeSizeHelper( Vector3 unitSize )
+	public override void setRelativeSizeHelper( Vector3 unitSize )
 	{
 		Log.Info( "Base Object Size Func" );
 		// The scale is going to be calculated from the ratio of the default model size and the object's given size modified by a global scaling constant
@@ -140,9 +123,9 @@ public class SkinnedRTSObject : Component, IScalable, IDamageable, ISelectable
 		}
 	}
 
-	public void setTeam(int newTeam)
+	public override void setTeam(int newTeam)
 	{
-		team = newTeam;
+		base.setTeam(newTeam);
 		onTeamChange();
 	}
 }

@@ -4,13 +4,16 @@ using System;
 class UnitModelBasic : UnitModelBase
 {
 
-	[Property] public ModelRenderer model { get; set; }
-
 	public override void setModel( Model newModel, AnimationGraph newAnimGraph, Material newMaterial )
 	{
-		model.Model = newModel;
+		skinnedModel.Model = newModel;
 		//model.AnimationGraph = newAnimGraph;
-		model.MaterialOverride = newMaterial;
+		skinnedModel.MaterialOverride = newMaterial;
+	}
+
+	public override void setOutlineState(UnitModelUtils.OutlineState newState)
+	{
+		//
 	}
 
 	public override void animateMovement( Vector3 velocity, Vector3 wishVelocity )
@@ -34,6 +37,11 @@ class UnitModelBasic : UnitModelBase
 	}
 
 	public override void animateDeath()
+	{
+		//
+	}
+
+	public override void setModelSize(Vector3 size)
 	{
 		//
 	}

@@ -12,7 +12,8 @@ public class PlayerUnitControl : Component
 
 	[Property]	RTSCamComponent RTSCam {  get; set; }
 	[Property] SelectionPanel selectionPanel { get; set; }
-	public List<SkinnedRTSObject> SelectedObjects { get; set; }
+	public List<SelectableObject> SelectedObjects { get; set; }
+	public ControlOrb SelectedOrb { get; set; }
 
 	private Rect selectionRect = new Rect();
 	private Vector2 startSelectPos {  get; set; }
@@ -29,7 +30,8 @@ public class PlayerUnitControl : Component
 			return;
 		}
 		base.OnStart();
-		SelectedObjects = new List<SkinnedRTSObject>();
+		SelectedObjects = new List<SelectableObject>();
+		SelectedOrb = null;
 		//DEBUG REMOVE
 		RTSPlayer.Local.myUnitFactory.SpawnDebugUnits();
 		//DEBUG REMOVE
@@ -75,11 +77,19 @@ public class PlayerUnitControl : Component
 		else if(Input.Released("Select"))
 		{
 			// Delesect all currently selected
-			foreach ( SkinnedRTSObject obj in SelectedObjects )
+			foreach ( SelectableObject obj in SelectedObjects )
 			{
 				obj.deSelect();
 			}
 			SelectedObjects.Clear();
+
+			// Deselect any selected orb
+			if(SelectedOrb != null)
+			{
+				SelectedOrb.deSelect();
+			}
+			SelectedOrb = null;
+
 			// For a drag just make sure we give them some time to actually click
 			// TODO: I think I can fix the jank here if I make multiselect ALSO depend on how large of a rectangle you actually draw
 			if ( Time.Now - startSelectTime > CLICK_TIME )
@@ -138,8 +148,6 @@ public class PlayerUnitControl : Component
 			// This is for a single click
 			else
 			{
-				//RTSPlayer.Local.LocalGame.GameHUD.setSelectionVars( false, false );
-
 				var mouseScreenPos = Mouse.Position;
 				// Set up and run mouse ray to find what we're now selecting
 				var mouseDirection = RTSCam.CamView.ScreenPixelToRay( mouseScreenPos );
@@ -147,11 +155,13 @@ public class PlayerUnitControl : Component
 				var tr = mouseRay.Run();
 
 				// Get unit under ray
+				//FIX WHEN YOU CLICK ON THE SKY
 				var hitUnitComponents = tr.GameObject.Components.GetAll().OfType<Unit>();
-				var hitBuildingComponents = tr.GameObject.Components.GetAll().OfType<Building>();
+				var hitOrbComponents = tr.GameObject.Components.GetAll().OfType<ControlOrb>();
+				//var hitBuildingComponents = tr.GameObject.Components.GetAll().OfType<Building>();
 				var hitSomethingValid = false;
 
-				if ( hitUnitComponents.Any() != false || hitBuildingComponents.Any() != false )
+				if ( hitUnitComponents.Any() != false || hitOrbComponents.Any() != false )
 				{
 					// Select unit if one is hit
 					if ( hitUnitComponents.Any() )
@@ -169,20 +179,16 @@ public class PlayerUnitControl : Component
 						}
 					}
 
-					// Select building if one is hit
-					if ( hitBuildingComponents.Any() )
+					// Select orb if one is hit
+					if (hitOrbComponents.Any() )
 					{
-						var selectedBuilding = hitBuildingComponents.First();
-						// Make sure the unit is ours
-						if ( selectedBuilding.team == RTSPlayer.Local.Team )
-						{
-							//Log.Info( "Team " + team + " " + selectedUnit.GameObject.Name + " Selected from team " + selectedUnit.team );
-							// Select Building
-							SelectedObjects.Add( selectedBuilding );
-							selectedBuilding.select();
-							RTSPlayer.Local.LocalGame.GameHud.setSelectionVars( true, true, false );
-							hitSomethingValid = true;
-						}
+						var selectedOrb = hitOrbComponents.First();
+						Log.Info("Hit Orb!");
+						// Select Orb
+						SelectedObjects.Add( selectedOrb );
+						selectedOrb.select();
+						RTSPlayer.Local.LocalGame.GameHud.setSelectionVars( true, true, false );
+						hitSomethingValid = true;
 					}
 					if (! hitSomethingValid )
 					{
