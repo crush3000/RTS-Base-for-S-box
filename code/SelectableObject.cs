@@ -58,6 +58,11 @@ public class SelectableObject : Component, IScalable, ISelectable
 		PhysicalModelRenderer.setOutlineState(UnitModelUtils.OutlineState.None);
 	}
 
+	public virtual List<DynamicButton> getDynamicButtons()
+	{
+		return new List<DynamicButton>();
+	}
+
 	public virtual void setRelativeSizeHelper(Vector3 unitSize)
 	{
 		Log.Info("Base Object Size Func");

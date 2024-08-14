@@ -20,8 +20,6 @@
 
 	public bool showPanel = true;
 
-	private DynamicToggleButton unitStanceButton;
-
 	private string AttackStanceImagePath;
 	private string DefendStanceImagePath;
 
@@ -41,17 +39,18 @@
 
 	public SelectableObject focusedUnit;
 
-	/* public void setButtons(List<DynamicButton> newbuttonList)
-		* {
-		* }
-		*/
+	public void setButtons(List<DynamicButton> newbuttonList)
+	{
+		currentButtonList = newbuttonList;
+	}
+
+	private static List<DynamicButton> emptyList = new List<DynamicButton>();
 
 	protected override void OnStart()
 	{
 		base.OnStart();
 		AttackStanceImagePath = AttackStanceImageResource.ResourcePath.Split(".")[0] + ".png";
 		DefendStanceImagePath = DefendStanceImageResource.ResourcePath.Split(".")[0] + ".png";
-		unitStanceButton = new DynamicToggleButton('z', AttackStanceImagePath, DefendStanceImagePath, stanceButtonClicked);
 		currentButtonList = new List<DynamicButton>();
 		focusedUnitPortraitImage = "";
 		focusedUnitHealth = "";
@@ -64,11 +63,11 @@
 		focusedUnit = null;
 
 		//TEST CODE
-		currentButtonList.Add(unitStanceButton);
-		for(int i=0;i<14;i++)
-		{
-			currentButtonList.Add(new DynamicButton('a', DefendStanceImagePath, printy));
-		}
+		//currentButtonList.Add(unitStanceButton);
+		//for(int i=0;i<14;i++)
+		//{
+		//	currentButtonList.Add(new DynamicButton('a', DefendStanceImagePath, printy));
+		//}
 		/////
 	}
 
@@ -124,8 +123,6 @@
 		focusedUnit = null;
 		if(isSelect)
 		{
-			// Setup Stance Button
-			unitStanceButton.setEnabled(true);
 
 			if (isSingleUnitSelected)
 			{
@@ -137,7 +134,7 @@
 					// Grab stats
 					foreach (SelectableObject obj in selectedObjList)
 					{
-
+						setButtons(obj.getDynamicButtons());
 						focusedUnit = obj;
 						focusedUnitPortraitImage = obj.PortraitImage;
 						selectedUnitName = obj.name;
@@ -147,27 +144,29 @@
 							focusedUnitHealth = "Health: " + ((SkinnedRTSObject)obj).currentHealthPoints + "/" + ((SkinnedRTSObject)obj).MaxHealth;
 							selectedUnitMeleeDamage = "Melee Damage: " + ((Unit)obj).MeleeAttackDamage;
 							selectedUnitRangedDamage = "Ranged Damage: " + ((Unit)obj).RangedAttackDamage;
+							//setButtons(((Unit)obj).getDynamicButtons());
 						}
 						else
 						{
+							//setButtons(((ControlOrb)obj).getDynamicButtons());
 							selectedUnitMeleeDamage = "";
 							selectedUnitRangedDamage = "";
 							focusedUnitHealth = "";
 						}
 					}
 
-					if (isUnitInAttackStance)
+					/*if (isUnitInAttackStance)
 					{
 						unitStanceButton.setButtonState(AttackStanceImagePath);
 					}
 					else
 					{
 						unitStanceButton.setButtonState(DefendStanceImagePath);
-					}
+					}*/
 				}
 				else
 				{
-					
+
 				}
 			}
 			else
@@ -177,6 +176,7 @@
 					SelectableObject firstUnit = RTSPlayer.Local.UnitControl.SelectedObjects.First();
 					//focusedUnit = firstUnit;
 					unitListItemClicked(firstUnit);
+					setButtons(firstUnit.getDynamicButtons());
 					//unitStanceButton.buttonState = !(((Unit)focusedUnit).isInAttackMode);
 				}
 
@@ -192,6 +192,7 @@
 		}
 		else
 		{
+			currentButtonList = emptyList;
 			focusedUnitPortraitImage = "";
 			focusedUnitHealth = "";
 			selectedUnitName = "";
@@ -201,25 +202,8 @@
 			focusedUnit = null;
 			this.isSingleUnitSelected = false;
 			this.selectionPresent = false;
-
-			unitStanceButton.setEnabled(false);
 		}
 
-		this.StateHasChanged();
-		this.Panel.Style.Dirty();
-	}
-
-	public void stanceButtonClicked()
-	{
-		if (unitStanceButton.activeBackgroundImage == AttackStanceImagePath)
-		{
-			((Unit)focusedUnit).setIsInAttackMode(false);
-		}
-		else
-		{
-			((Unit)focusedUnit).setIsInAttackMode(true);
-		}
-		unitStanceButton.toggleButtonState();
 		this.StateHasChanged();
 		this.Panel.Style.Dirty();
 	}
@@ -228,15 +212,7 @@
 	{
 		Log.Info("Clicked Unit List Item " + unit.GameObject.Name);
 		focusedUnit = unit;
-
-		if (((Unit)focusedUnit).isInAttackMode)
-		{
-			unitStanceButton.setButtonState(AttackStanceImagePath);
-		}
-		else
-		{
-			unitStanceButton.setButtonState(DefendStanceImagePath);
-		}
+		setButtons(unit.getDynamicButtons());
 		this.StateHasChanged();
 		this.Panel.Style.Dirty();
 	}

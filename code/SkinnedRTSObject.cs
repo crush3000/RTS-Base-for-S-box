@@ -21,6 +21,8 @@ public class SkinnedRTSObject : SelectableObject, IScalable, IDamageable, ISelec
 
 	[Sync] public int currentHealthPoints { get; private set; }
 
+	protected List<DynamicButton> buttons { get; set; }
+
 	// Constants
 	private const float CLICK_HITBOX_RADIUS_MULTIPLIER = 1f;
 
@@ -30,6 +32,7 @@ public class SkinnedRTSObject : SelectableObject, IScalable, IDamageable, ISelec
 		setRelativeSizeHelper(Size);
 		Log.Info( "Base Object OnStart" );
 		//base.OnStart();
+		buttons = new List<DynamicButton>();
 		PhysicalModelRenderer.setModel( ModelFile, AnimGraph, ModelMaterial );
 		onTeamChange();
 		Tags.Add( objectTypeTag );
@@ -104,6 +107,11 @@ public class SkinnedRTSObject : SelectableObject, IScalable, IDamageable, ISelec
 		// Auto Calculate other visual element sizes
 		PhysicalModelRenderer.setModelSize( defaultModelSize );
 		ThisHealthBar.setSize( defaultModelSize );
+	}
+
+	public override List<DynamicButton> getDynamicButtons()
+	{
+		return buttons;
 	}
 
 	public void onTeamChange()

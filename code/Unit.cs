@@ -44,6 +44,8 @@ class Unit : SkinnedRTSObject
 	private float lastMoveOrderTime = Time.Now;
 	public bool isInAttackMode = true;
 
+	private DynamicToggleButton unitStanceButton;
+
 	// Unit Constants
 	public const string UNIT_TAG = "unit";
 	private const float MOVE_ORDER_FREQUENCY = .1f;
@@ -53,18 +55,21 @@ class Unit : SkinnedRTSObject
 	private const float CLICK_HITBOX_RADIUS_MULTIPLIER = .5f;
 	private const float GLOBAL_UNIT_SCALE = .1f;
 
+	private const string AttackStanceImagePath = "materials/attack_stance.png";
+	private const string DefendStanceImagePath = "materials/defend_stance.png";
+
 	protected override void OnStart()
 	{
 		Log.Info( "Unit Object OnStart" );
 		objectTypeTag = UNIT_TAG;
 		base.OnStart();
-			foreach ( var tag in Tags )
-		{
-			Log.Info( tag );
-		}
 
 		commandGiven = UnitModelUtils.CommandType.None;
 		homeTargetLocation = Transform.Position;
+		unitStanceButton = new DynamicToggleButton('x', AttackStanceImagePath, DefendStanceImagePath, stanceButtonClicked);
+		unitStanceButton.setEnabled( true );
+		buttons.Add(unitStanceButton);
+
 	}
 
 	protected override void OnUpdate()
@@ -338,5 +343,18 @@ class Unit : SkinnedRTSObject
 		// Auto Calculate other visual element sizes
 		PhysicalModelRenderer.setModelSize( defaultModelSize );
 		ThisHealthBar.setSize( defaultModelSize );
+	}
+
+	public void stanceButtonClicked()
+	{
+		if (unitStanceButton.activeBackgroundImage == AttackStanceImagePath)
+		{
+			setIsInAttackMode(false);
+		}
+		else
+		{
+			setIsInAttackMode(true);
+		}
+		unitStanceButton.toggleButtonState();
 	}
 }
