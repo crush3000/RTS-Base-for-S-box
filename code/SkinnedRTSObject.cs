@@ -21,8 +21,6 @@ public class SkinnedRTSObject : SelectableObject, IScalable, IDamageable, ISelec
 
 	[Sync] public int currentHealthPoints { get; private set; }
 
-	protected List<DynamicButton> buttons { get; set; }
-
 	// Constants
 	private const float CLICK_HITBOX_RADIUS_MULTIPLIER = 1f;
 

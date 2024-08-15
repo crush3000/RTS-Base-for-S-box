@@ -13,7 +13,6 @@ public class PlayerUnitControl : Component
 	[Property]	RTSCamComponent RTSCam {  get; set; }
 	[Property] SelectionPanel selectionPanel { get; set; }
 	public List<SelectableObject> SelectedObjects { get; set; }
-	public ControlOrb SelectedOrb { get; set; }
 
 	private Rect selectionRect = new Rect();
 	private Vector2 startSelectPos {  get; set; }
@@ -31,7 +30,6 @@ public class PlayerUnitControl : Component
 		}
 		base.OnStart();
 		SelectedObjects = new List<SelectableObject>();
-		SelectedOrb = null;
 		//DEBUG REMOVE
 		RTSPlayer.Local.myUnitFactory.SpawnDebugUnits();
 		//DEBUG REMOVE
@@ -82,13 +80,6 @@ public class PlayerUnitControl : Component
 				obj.deSelect();
 			}
 			SelectedObjects.Clear();
-
-			// Deselect any selected orb
-			if(SelectedOrb != null)
-			{
-				SelectedOrb.deSelect();
-			}
-			SelectedOrb = null;
 
 			// For a drag just make sure we give them some time to actually click
 			// TODO: I think I can fix the jank here if I make multiselect ALSO depend on how large of a rectangle you actually draw

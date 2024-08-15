@@ -31,6 +31,8 @@ public class SelectableObject : Component, IScalable, ISelectable
 
 	protected string objectTypeTag = "";
 
+	protected List<DynamicButton> buttons { get; set; }
+
 	// Constants
 	private const float CLICK_HITBOX_RADIUS_MULTIPLIER = 1f;
 
@@ -42,6 +44,7 @@ public class SelectableObject : Component, IScalable, ISelectable
 		base.OnStart();
 		PhysicalModelRenderer.setModel(ModelFile, null, ModelMaterial);
 		Tags.Add(objectTypeTag);
+		buttons = new List<DynamicButton>();
 	}
 
 	public virtual void select()
@@ -60,7 +63,7 @@ public class SelectableObject : Component, IScalable, ISelectable
 
 	public virtual List<DynamicButton> getDynamicButtons()
 	{
-		return new List<DynamicButton>();
+		return buttons;
 	}
 
 	public virtual void setRelativeSizeHelper(Vector3 unitSize)

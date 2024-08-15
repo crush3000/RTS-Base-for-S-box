@@ -67,7 +67,6 @@ class Unit : SkinnedRTSObject
 		commandGiven = UnitModelUtils.CommandType.None;
 		homeTargetLocation = Transform.Position;
 		unitStanceButton = new DynamicToggleButton('x', AttackStanceImagePath, DefendStanceImagePath, stanceButtonClicked);
-		unitStanceButton.setEnabled( true );
 		buttons.Add(unitStanceButton);
 
 	}

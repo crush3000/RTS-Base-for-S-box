@@ -54,89 +54,6 @@
       "Enabled": true
     },
     {
-      "__guid": "eb8b4e93-e065-47f6-a029-64ca210dfabc",
-      "Flags": 0,
-      "Name": "Spawner Orb",
-      "Position": "402.0809,1072.692,184.9817",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "NetworkOrphaned": 3,
-      "OwnerTransfer": 2,
-      "Components": [
-        {
-          "__type": "ControlOrb",
-          "__guid": "7f5920a2-e218-4b96-8e91-71628b9e2551",
-          "ModelFile": "models/dev/sphere.vmdl",
-          "ModelMaterial": "materials/default.vmat",
-          "name": "Spawner Orb",
-          "OrbHighlight": {
-            "_type": "component",
-            "component_id": "54fd3cfa-e13d-4bb2-ae03-0d8b35facfc1",
-            "go": "eb8b4e93-e065-47f6-a029-64ca210dfabc",
-            "component_type": "HighlightOutline"
-          },
-          "PhysicalModelRenderer": {
-            "_type": "component",
-            "component_id": "2b9ec37c-0ca8-48cd-b119-d1aecbe52cc6",
-            "go": "eb8b4e93-e065-47f6-a029-64ca210dfabc",
-            "component_type": "UnitModelBasic"
-          },
-          "PortraitImage": "materials/spawner_icon.png",
-          "SelectionHitbox": {
-            "_type": "component",
-            "component_id": "ca8dc545-442b-4b29-878c-24b77dde7f4a",
-            "go": "eb8b4e93-e065-47f6-a029-64ca210dfabc",
-            "component_type": "BoxCollider"
-          },
-          "Size": "100,100,100",
-          "Type": "Spawner"
-        },
-        {
-          "__type": "Sandbox.HighlightOutline",
-          "__guid": "54fd3cfa-e13d-4bb2-ae03-0d8b35facfc1",
-          "Color": "1,1,1,1",
-          "InsideColor": "0,0,0,0",
-          "InsideObscuredColor": "0,0,0,0",
-          "ObscuredColor": "0,0,0,0.4",
-          "Width": 0.25
-        },
-        {
-          "__type": "Sandbox.BoxCollider",
-          "__guid": "ca8dc545-442b-4b29-878c-24b77dde7f4a",
-          "Center": "0,0,0",
-          "IsTrigger": false,
-          "Scale": "50,50,50",
-          "Static": false
-        },
-        {
-          "__type": "UnitModelBasic",
-          "__guid": "2b9ec37c-0ca8-48cd-b119-d1aecbe52cc6",
-          "selectionOutlineState": "Mine",
-          "outline": {
-            "_type": "component",
-            "component_id": "54fd3cfa-e13d-4bb2-ae03-0d8b35facfc1",
-            "go": "eb8b4e93-e065-47f6-a029-64ca210dfabc",
-            "component_type": "HighlightOutline"
-          },
-          "skinnedModel": {
-            "_type": "component",
-            "component_id": "ccf1e817-2c0e-45e1-bb96-45079960a154",
-            "go": "eb8b4e93-e065-47f6-a029-64ca210dfabc",
-            "component_type": "SkinnedModelRenderer"
-          }
-        },
-        {
-          "__type": "Sandbox.SkinnedModelRenderer",
-          "__guid": "ccf1e817-2c0e-45e1-bb96-45079960a154",
-          "BodyGroups": 18446744073709551615,
-          "CreateBoneObjects": false,
-          "RenderType": "On",
-          "Tint": "1,1,1,1",
-          "UseAnimGraph": false
-        }
-      ]
-    },
-    {
       "__guid": "3456dd03-a89b-4534-a1db-cd7acbdf5d17",
       "Flags": 0,
       "Name": "Trap Orb",
@@ -172,7 +89,7 @@
             "component_type": "BoxCollider"
           },
           "Size": "100,100,100",
-          "Type": "Trap"
+          "ThisOrbType": "Trap"
         },
         {
           "__type": "UnitModelBasic",
@@ -216,6 +133,106 @@
           "IsTrigger": false,
           "Scale": "50,50,50",
           "Static": false
+        }
+      ]
+    },
+    {
+      "__guid": "d0f4beb4-098e-47db-b02f-43ab206eb349",
+      "Flags": 0,
+      "Name": "Real Spawner Orb",
+      "Position": "244.691,1014.956,150.9806",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkOrphaned": 3,
+      "OwnerTransfer": 2,
+      "Components": [
+        {
+          "__type": "SpawnerOrb",
+          "__guid": "67ebe9a0-f6bb-41ab-8b56-94380a52d7ed",
+          "ModelFile": "models/dev/sphere.vmdl",
+          "ModelMaterial": "materials/default.vmat",
+          "name": "Spawner Orb",
+          "OrbHighlight": {
+            "_type": "component",
+            "component_id": "939dae9b-779d-4ed3-bac2-ce59c2d05403",
+            "go": "d0f4beb4-098e-47db-b02f-43ab206eb349",
+            "component_type": "HighlightOutline"
+          },
+          "PhysicalModelRenderer": {
+            "_type": "component",
+            "component_id": "44598e56-6826-4709-a9e8-18f28f9ea6e9",
+            "go": "d0f4beb4-098e-47db-b02f-43ab206eb349",
+            "component_type": "UnitModelBasic"
+          },
+          "PortraitImage": "materials/spawner_icon.png",
+          "SelectionHitbox": {
+            "_type": "component",
+            "component_id": "4204bb2e-dd58-4bb4-b2e3-ab3c04ded705",
+            "go": "d0f4beb4-098e-47db-b02f-43ab206eb349",
+            "component_type": "BoxCollider"
+          },
+          "Size": "100,100,100",
+          "spawnableUnitList": [
+            {
+              "_type": "component",
+              "component_id": "d6de9eb8-1cca-4d7e-85e2-ea4b3fb4f66f",
+              "go": "d0f4beb4-098e-47db-b02f-43ab206eb349",
+              "component_type": "UnitPortraitTuple"
+            }
+          ],
+          "ThisOrbType": "Spawner"
+        },
+        {
+          "__type": "UnitPortraitTuple",
+          "__guid": "d6de9eb8-1cca-4d7e-85e2-ea4b3fb4f66f",
+          "UnitPortraitImage": "materials/skeltal_portrait.PNG",
+          "UnitPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/skeltal.prefab"
+          }
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "4204bb2e-dd58-4bb4-b2e3-ab3c04ded705",
+          "Center": "0,0,0",
+          "IsTrigger": false,
+          "Scale": "1,1,1",
+          "Static": false
+        },
+        {
+          "__type": "UnitModelBasic",
+          "__guid": "44598e56-6826-4709-a9e8-18f28f9ea6e9",
+          "selectionOutlineState": "Mine",
+          "outline": {
+            "_type": "component",
+            "component_id": "939dae9b-779d-4ed3-bac2-ce59c2d05403",
+            "go": "d0f4beb4-098e-47db-b02f-43ab206eb349",
+            "component_type": "HighlightOutline"
+          },
+          "skinnedModel": {
+            "_type": "component",
+            "component_id": "b3754e14-d06a-4872-a03e-4dc980a6654e",
+            "go": "d0f4beb4-098e-47db-b02f-43ab206eb349",
+            "component_type": "SkinnedModelRenderer"
+          }
+        },
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "b3754e14-d06a-4872-a03e-4dc980a6654e",
+          "BodyGroups": 18446744073709551615,
+          "CreateBoneObjects": false,
+          "RenderType": "Off",
+          "Tint": "1,1,1,1",
+          "UseAnimGraph": false
+        },
+        {
+          "__type": "Sandbox.HighlightOutline",
+          "__guid": "939dae9b-779d-4ed3-bac2-ce59c2d05403",
+          "Color": "1,1,1,1",
+          "InsideColor": "0,0,0,0",
+          "InsideObscuredColor": "0,0,0,0",
+          "ObscuredColor": "0,0,0,0.4",
+          "Width": 0.25
         }
       ]
     }
