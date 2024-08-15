@@ -6,7 +6,6 @@
 		//TEST CODE
 		if (RTSPlayer.Local.Team == 0)
 		{
-			Log.Info("Spawning skeltals?");
 			//Friendly Group
 			spawnUnit(RTSPlayer.Local.skeltalPrefab, 0, new Vector3(607.9f, 1004.7f, 93.609f));
 			spawnUnit(RTSPlayer.Local.skeltalPrefab, 0, new Vector3(715.14f, 1004.7f, 99.609f));

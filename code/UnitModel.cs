@@ -4,8 +4,6 @@ using System;
 class UnitModel : UnitModelBase
 {
 
-	/*[Sync]*/ //[Property] public new SkinnedModelRenderer skinnedModel {  get; set; }
-
 	public override void setModel( Model newModel, AnimationGraph newAnimGraph, Material newMaterial )
 	{
 		skinnedModel.Model = newModel;
@@ -42,24 +40,5 @@ class UnitModel : UnitModelBase
 	{
 		skinnedModel.SceneModel.SetAnimParameter( "onDeath", true );
 		addToCorpsePile();
-	}
-
-	protected override void OnStart()
-	{
-		//Log.Info( "Trying to start the animationhandler" );
-		//foreach ( var anim in model.SceneModel.DirectPlayback.Animations )
-		//{
-		//	Log.Info( anim );
-		//}
-	}
-
-	protected override void OnUpdate()
-	{
-		//Log.Info( model.SceneModel.Tags.TryGetAll() );
-		//if ( model.SceneModel.Tags. )
-		//{
-		//	attackSet = false;
-		//	model.SceneModel.SetAnimParameter( "isAttacking", false );
-		//}
 	}
 }

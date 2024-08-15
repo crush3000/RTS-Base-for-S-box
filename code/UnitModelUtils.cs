@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 public class UnitModelUtils
 {
-	//public const uint COLOR_MINE = 0x00FF0080;
 	public const uint COLOR_MINE = 0x8000FF00;
 	public const uint COLOR_ALLY = 0x80FF0000;
 	public const uint COLOR_NEUTRAL = 0x80FFFFFF;

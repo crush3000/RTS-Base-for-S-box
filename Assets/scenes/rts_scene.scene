@@ -139,7 +139,7 @@
     {
       "__guid": "d0f4beb4-098e-47db-b02f-43ab206eb349",
       "Flags": 0,
-      "Name": "Real Spawner Orb",
+      "Name": "Spawner Orb",
       "Position": "244.691,1014.956,150.9806",
       "Enabled": true,
       "NetworkMode": 1,

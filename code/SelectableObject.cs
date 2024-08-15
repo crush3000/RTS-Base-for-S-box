@@ -40,7 +40,6 @@ public class SelectableObject : Component, IScalable, ISelectable
 	{
 		//TODO there is a bug where units can attack this one before it fully initializes its size or is able to fight back. Need a solution
 		setRelativeSizeHelper(Size);
-		Log.Info("Selectable Object OnStart");
 		base.OnStart();
 		PhysicalModelRenderer.setModel(ModelFile, null, ModelMaterial);
 		Tags.Add(objectTypeTag);
@@ -67,8 +66,7 @@ public class SelectableObject : Component, IScalable, ISelectable
 	}
 
 	public virtual void setRelativeSizeHelper(Vector3 unitSize)
-	{
-		Log.Info("Base Object Size Func");
+	{;
 		// The scale is going to be calculated from the ratio of the default model size and the object's given size modified by a global scaling constant
 		Vector3 defaultModelSize = ModelFile.Bounds.Size;
 

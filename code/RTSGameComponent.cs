@@ -24,9 +24,4 @@ public class RTSGameComponent : Component
 		}
 		base.OnStart();
 	}
-
-	/*protected override void OnDestroy()
-	{
-		thisGame.destroyRefs();
-	}*/
 }

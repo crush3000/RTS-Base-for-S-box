@@ -60,7 +60,6 @@ class Unit : SkinnedRTSObject
 
 	protected override void OnStart()
 	{
-		Log.Info( "Unit Object OnStart" );
 		objectTypeTag = UNIT_TAG;
 		base.OnStart();
 
@@ -239,9 +238,6 @@ class Unit : SkinnedRTSObject
 	{
 		//Log.Info( this.GameObject.Name + " dies!" );
 		PhysicalModelRenderer.animateDeath();
-		//GameObject.Destroy();
-		//Destroy();
-		Log.Info( "Unit Die" );
 		UnitNavAgent.Enabled = false;
 		UnitMeleeCollider.Enabled = false;
 		UnitAutoMeleeCollider.Enabled = false;
@@ -290,12 +286,11 @@ class Unit : SkinnedRTSObject
 
 	public override void setRelativeSizeHelper(Vector3 unitSize)
 	{
-		Log.Info( "Unit Object SizeFunc" );
 		// The scale is going to be calculated from the ratio of the default model size and the unit's given size modified by a global scaling constant
 		Vector3 defaultModelSize = ModelFile.Bounds.Size;
 
 		//Vector3 globalScaleModifier = Vector3.One * Scene.GetAllObjects( true ).Where( go => go.Name == "RTSGameOptions" ).First().Components.GetAll<RTSGameOptionsComponent>().First().getFloatValue( RTSGameOptionsComponent.GLOBAL_UNIT_SCALE );
-		Log.Info( ModelFile.Bounds.Size );
+		//Log.Info( ModelFile.Bounds.Size );
 
 		Vector3 globalScaleModifier = Vector3.One * GLOBAL_UNIT_SCALE;//RTSPlayer.Local.LocalGame.GameOptions.getFloatValue( RTSGameOptionsComponent.GLOBAL_UNIT_SCALE );
 		Vector3 targetModelSize = new Vector3((unitSize.x * globalScaleModifier.x), (unitSize.y * globalScaleModifier.y), (unitSize.z * globalScaleModifier.z));
@@ -303,13 +298,13 @@ class Unit : SkinnedRTSObject
 		float targetxyMax = float.Max( targetModelSize.x, targetModelSize.y );
 		float defaultxyMin = float.Min( defaultModelSize.x, defaultModelSize.y );
 		float defaultxyMax = float.Max( defaultModelSize.x, defaultModelSize.y );
-		Log.Info("defaultModelSize: " +  defaultModelSize);
-		Log.Info("Target Model Size: " + targetModelSize );
-		Log.Info( "Calculated Scale: " + new Vector3(
-			((unitSize.x * globalScaleModifier.x) / defaultModelSize.x),
-			((unitSize.y * globalScaleModifier.y) / defaultModelSize.y),
-			((unitSize.z * globalScaleModifier.z) / defaultModelSize.z)
-			));
+		//Log.Info("defaultModelSize: " +  defaultModelSize);
+		//Log.Info("Target Model Size: " + targetModelSize );
+		//Log.Info( "Calculated Scale: " + new Vector3(
+			//((unitSize.x * globalScaleModifier.x) / defaultModelSize.x),
+			//((unitSize.y * globalScaleModifier.y) / defaultModelSize.y),
+			//((unitSize.z * globalScaleModifier.z) / defaultModelSize.z)
+			//));
 		Transform.LocalScale = new Vector3(
 			(targetModelSize.x / defaultModelSize.x),
 			(targetModelSize.y / defaultModelSize.y),

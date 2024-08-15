@@ -116,7 +116,6 @@ public class PlayerUnitControl : Component
 					}
 
 					// TODO: Make the stance stuff less cheesy
-					Log.Info( SelectedObjects.Count() );
 					if ( SelectedObjects.Count() == 1 )
 					{
 						RTSPlayer.Local.LocalGame.GameHud.setSelectionVars( true, true, ((Unit)SelectedObjects.First()).isInAttackMode );
@@ -174,7 +173,7 @@ public class PlayerUnitControl : Component
 					if (hitOrbComponents.Any() )
 					{
 						var selectedOrb = hitOrbComponents.First();
-						Log.Info("Hit Orb!");
+						//Log.Info("Hit Orb!");
 						// Select Orb
 						SelectedObjects.Add( selectedOrb );
 						selectedOrb.select();
@@ -208,7 +207,7 @@ public class PlayerUnitControl : Component
 			var tr = mouseRay.Run();
 			// Get hit components
 			var hitRtsObjects = tr.GameObject.Components.GetAll().OfType<SkinnedRTSObject>();
-			Log.Info(tr.GameObject.Name);
+			//Log.Info(tr.GameObject.Name);
 			var hitWorldObjects = tr.GameObject.Components.GetAll().OfType<MapCollider>();
 			
 			// Set Up Attack Command if we hit an enemy unit
@@ -217,7 +216,7 @@ public class PlayerUnitControl : Component
 			if ( hitRtsObjects.Any() && hitRtsObjects.First().team != RTSPlayer.Local.Team)
 			{
 				commandType = UnitModelUtils.CommandType.Attack;
-				Log.Info( "Team " + RTSPlayer.Local.Team + " " + ((SkinnedRTSObject)(hitRtsObjects.First())).GameObject.Name + " Selected to be attacked!" );
+				//Log.Info( "Team " + RTSPlayer.Local.Team + " " + ((SkinnedRTSObject)(hitRtsObjects.First())).GameObject.Name + " Selected to be attacked!" );
 				commandTarget = (SkinnedRTSObject)(hitRtsObjects.First());
 			}
 			// Otherwise Set Up Move Command
@@ -259,7 +258,7 @@ public class PlayerUnitControl : Component
 			var tr = mouseRay.Run();
 
 			//Call Unit Factory Here.
-			Log.Info( "Spawning Skeltal!" );
+			//Log.Info( "Spawning Skeltal!" );
 			RTSPlayer.Local.myUnitFactory.spawnUnit(RTSPlayer.Local.skeltalPrefab, RTSPlayer.Local.Team, tr.EndPosition);
 			//Log.Info( "Spawning Skeltal House!" );
 			//RTSGame.Instance.ThisPlayer.myUnitFactory.spawnUnit( RTSGame.Instance.ThisPlayer.skeltalHousePrefab, tr.EndPosition );
