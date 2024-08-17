@@ -1,11 +1,11 @@
 {
-  "Title": "RTS_Base",
+  "Title": "Suck It Up",
   "Type": "game",
-  "Org": "local",
-  "Ident": "rts_base",
+  "Org": "crush",
+  "Ident": "suckitup",
   "Schema": 1,
-  "IncludeSourceFiles": false,
-  "Resources": null,
+  "IncludeSourceFiles": true,
+  "Resources": "\nmaterials/temple_portrait.PNG\nmaterials/skeltal_portrait.PNG\nmaterials/attack_stance.png\nmaterials/defend_stance.png",
   "PackageReferences": [],
   "EditorReferences": null,
   "Metadata": {

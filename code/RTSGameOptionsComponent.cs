@@ -22,7 +22,7 @@ public sealed class RTSGameOptionsComponent : Component
 
 	protected override void OnDestroy() 
 	{
-		gameOptions.destroyList();
+		//gameOptions.destroyList();
 	}
 
 	public void setValue(string key, object value)

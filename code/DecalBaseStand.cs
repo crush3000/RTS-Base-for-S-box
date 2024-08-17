@@ -4,7 +4,7 @@ using System;
 
 public class DecalBaseStand : UnitBaseStandBase
 {
-	[Property] public DecalRenderer BaseStandModel { get; set; }
+	//[Property] public new DecalRenderer BaseStandModel { get; set; }
 
 	[Property] public UnitModelUtils.OutlineState SelectionOutlineState = UnitModelUtils.OutlineState.Neutral;
 

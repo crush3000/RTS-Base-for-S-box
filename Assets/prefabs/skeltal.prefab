@@ -5,6 +5,9 @@
     "Name": "skeltal",
     "Tags": "unit",
     "Enabled": true,
+    "NetworkMode": 1,
+    "NetworkOrphaned": 1,
+    "OwnerTransfer": 2,
     "Components": [
       {
         "__type": "Unit",
@@ -35,7 +38,6 @@
           "component_type": "BoxCollider"
         },
         "Size": "133.7544,195.3692,180.2918",
-        "team": 0,
         "ThisHealthBar": {
           "_type": "component",
           "component_id": "f6d58d2a-15e3-4ef4-8e43-bcf483540be8",
@@ -115,6 +117,8 @@
         "Flags": 0,
         "Name": "UnitModel",
         "Enabled": true,
+        "NetworkOrphaned": 1,
+        "OwnerTransfer": 2,
         "Components": [
           {
             "__type": "UnitModel",
@@ -126,22 +130,23 @@
               "go": "346ea0ca-af0a-47f1-94c4-7c8434f94491",
               "component_type": "DecalBaseStand"
             },
-            "model": {
-              "_type": "component",
-              "component_id": "ee32ceff-a1e4-403c-bf07-64074d1d48b1",
-              "go": "0a9f2c6d-d3d2-49e1-ac0c-0f2b8500adb6",
-              "component_type": "SkinnedModelRenderer"
-            },
             "outline": {
               "_type": "component",
               "component_id": "1abc7017-5623-44bb-952d-efcaa27a614e",
               "go": "0a9f2c6d-d3d2-49e1-ac0c-0f2b8500adb6",
               "component_type": "HighlightOutline"
+            },
+            "skinnedModel": {
+              "_type": "component",
+              "component_id": "ee32ceff-a1e4-403c-bf07-64074d1d48b1",
+              "go": "0a9f2c6d-d3d2-49e1-ac0c-0f2b8500adb6",
+              "component_type": "SkinnedModelRenderer"
             }
           },
           {
             "__type": "Sandbox.SkinnedModelRenderer",
             "__guid": "ee32ceff-a1e4-403c-bf07-64074d1d48b1",
+            "AnimationGraph": "animgraphs/sk_light_infantry_a.vanmgrph",
             "BodyGroups": 18446744073709551615,
             "CreateBoneObjects": true,
             "RenderType": "On",
@@ -166,19 +171,13 @@
             "Position": "0,0,50",
             "Rotation": "0,0.7071068,0,0.7071068",
             "Enabled": true,
+            "NetworkOrphaned": 1,
+            "OwnerTransfer": 2,
             "Components": [
-              {
-                "__type": "Sandbox.ModelRenderer",
-                "__guid": "d72e8c2c-4906-44db-b37e-985fb6c6a53c",
-                "__enabled": false,
-                "BodyGroups": 18446744073709551615,
-                "Model": "models/vidya/cylinder_white_64.vmdl",
-                "RenderType": "On",
-                "Tint": "0,1,0,0.50196"
-              },
               {
                 "__type": "DecalBaseStand",
                 "__guid": "0e45791b-eba5-41ed-bfad-17052e26f0b5",
+                "BaseSelectionState": "None",
                 "SelectionOutlineState": "Mine",
                 "BaseStandModel": {
                   "_type": "component",
@@ -454,6 +453,8 @@
         "Flags": 0,
         "Name": "UnitHealthBar",
         "Enabled": true,
+        "NetworkOrphaned": 1,
+        "OwnerTransfer": 2,
         "Components": [
           {
             "__type": "HealthBar",
@@ -494,8 +495,6 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__references": [
-    "vidya.model-cylinder64"
-  ],
+  "__references": [],
   "__version": 1
 }

@@ -14,9 +14,11 @@ public class DynamicButton
 	public Action thisButtonAction { get; set; }
 	public bool isEnabled { get; set; }
 
-	private string isEnabledStyleString = BUTTON_DISABLED_STYLE;
-	private string buttonPointerEventsString = BUTTON_EVENTS_DISABLED_STYLE;
-	private string isEnabledStyleHintString = BUTTON_DISABLED_HINT_STYLE;
+	private string isEnabledStyleString = BUTTON_ENABLED_STYLE;
+	private string buttonPointerEventsString = BUTTON_EVENTS_ENABLED_STYLE;
+	private string isEnabledStyleHintString = BUTTON_ENABLED_HINT_STYLE;
+
+	public DynamicButton() { }
 
 	public DynamicButton(char hotkey, string bgFile, Action clickAction)
 	{
