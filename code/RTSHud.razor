@@ -43,7 +43,9 @@
 	{
 		base.OnStart();
 		unitStanceButton = new DynamicToggleButton('z', ATTACK_STANCE_IMAGE, DEFEND_STANCE_IMAGE, stanceButtonClicked);
+		//Log.Info("Is this null? " + unitStanceButton);
 		currentButtonList = new List<DynamicButton>();
+		//Log.Info("Is this null? " + currentButtonList);
 		focusedUnitPortraitImage = "";
 		focusedUnitHealth = "";
 		selectedUnitName = "";
@@ -55,6 +57,7 @@
 		focusedUnit = null;
 		//TEST CODE
 		currentButtonList.Add(unitStanceButton);
+		//unitStanceButton.setEnabled(true);
 		for(int i=0;i<14;i++)
 		{
 			currentButtonList.Add(new DynamicButton('a', DEFEND_STANCE_IMAGE,printy ));
@@ -234,7 +237,7 @@
 				{
 					foreach (SkinnedRTSObject selectedUnit in RTSGame.Instance.ThisPlayer.UnitControl.SelectedObjects)
 					{
-						<div @onclick="@(() => unitListItemClicked(selectedUnit))" class=@(focusedUnit == selectedUnit ? "portraitStatusPanelListItemFocused" : "portraitStatusPanelListItem")>
+						<button @onclick="@(() => unitListItemClicked(selectedUnit))" class=@(focusedUnit == selectedUnit ? "portraitStatusPanelListItemFocused" : "portraitStatusPanelListItem")>
 							<div style="background-image: url(@(selectedUnit.PortraitImage));" class="portraitImage"></div>
 							<div class="portraitStatusList">@(getUnitHealthString(selectedUnit))</div>
 						</button>

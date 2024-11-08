@@ -154,6 +154,7 @@ public class PlayerUnitControl : Component
 							// Select Unit
 							SelectedObjects.Add( selectedUnit );
 							selectedUnit.select();
+							Log.Info("isnull?" + selectedUnit.isInAttackMode);
 							RTSGame.Instance.GameHUD.setSelectionVars( true, true, selectedUnit.isInAttackMode );
 							hitSomethingValid = true;
 						}

@@ -495,7 +495,7 @@
   "MenuIcon": null,
   "ResourceVersion": 1,
   "__references": [
-    "vidya.model-cylinder64"
+    "vidya.model-cylinder64#51577"
   ],
   "__version": 1
 }
