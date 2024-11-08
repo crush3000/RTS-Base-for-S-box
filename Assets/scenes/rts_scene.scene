@@ -2,6 +2,21 @@
   "__guid": "f185b88e-db15-49d5-b3d1-c77068bd7618",
   "GameObjects": [
     {
+      "__guid": "fd5422ef-df5a-42b6-8051-29860701f760",
+      "Flags": 0,
+      "Name": "Scene Information",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SceneInformation",
+          "__guid": "d49c7d86-fae7-4cb8-baaf-af33ae649b41",
+          "Description": "",
+          "SceneTags": "",
+          "Title": "rts_scene"
+        }
+      ]
+    },
+    {
       "__guid": "c7a17bca-5a92-4484-9126-4bd9cc2556d9",
       "Flags": 0,
       "Name": "RTSGameOptions",
@@ -57,7 +72,7 @@
           },
           "ThisScreen": {
             "_type": "component",
-            "component_id": "952f06ca-394b-4c81-9b14-a344a670f0db",
+            "component_id": "6ef52b09-b0bb-4b45-a854-b5667066ef9f",
             "go": "0341ba11-a8d6-482e-8cbf-cf21beffa91d",
             "component_type": "ScreenPanel"
           }
@@ -77,7 +92,7 @@
           "Team": 0,
           "UnitControl": {
             "_type": "component",
-            "component_id": "6fb4307f-6ce5-441a-8940-c3e501122ea7",
+            "component_id": "1c1ec29e-3e34-4b9a-b673-cdf874c398bd",
             "go": "4dcd2ae3-e8fc-46ab-ad0c-594f2f1388ab",
             "component_type": "PlayerUnitControl"
           },
@@ -117,6 +132,8 @@
           "EnableCollision": true,
           "MapName": "maps/rts_river.vmap",
           "NoOrigin": true,
+          "OnMapLoaded": null,
+          "OnMapUnloaded": null,
           "UseMapFromLaunch": true
         }
       ],
@@ -351,7 +368,8 @@
           "Center": "0,0,0",
           "IsTrigger": false,
           "Scale": "50,50,50",
-          "Static": false
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
         }
       ],
       "Children": [
@@ -359,7 +377,6 @@
           "__guid": "fb61ed76-912a-4f99-a5ad-07f3e681a147",
           "Flags": 0,
           "Name": "BuildingModel",
-          "Position": "0,0,0",
           "Enabled": true,
           "Components": [
             {
@@ -398,7 +415,22 @@
               "__type": "Sandbox.SkinnedModelRenderer",
               "__guid": "f37a0487-c480-48d7-956f-8df0cf50fa71",
               "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
               "CreateBoneObjects": false,
+              "Morphs": {},
+              "Parameters": {
+                "bools": {},
+                "ints": {},
+                "floats": {},
+                "vectors": {},
+                "rotations": {}
+              },
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
               "RenderType": "On",
               "Tint": "1,1,1,1",
               "UseAnimGraph": true
@@ -431,6 +463,12 @@
                   "CutoffAngleSoftness": 5,
                   "Material": "materials/circle.vmat",
                   "Mod2XBlending": false,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
                   "Size": "1,1,1",
                   "TintColor": "0,1,0,0.50196",
                   "TriPlanar": false
@@ -469,6 +507,12 @@
               "InteractionRange": 0,
               "LookAtCamera": true,
               "PanelSize": "20000,2000",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
               "RenderScale": 1,
               "VerticalAlign": "Center"
             },
@@ -493,6 +537,7 @@
           "AutoScreenScale": true,
           "Opacity": 1,
           "Scale": 1,
+          "ScaleStrategy": "ConsistentHeight",
           "ZIndex": 100
         }
       ],
@@ -501,7 +546,6 @@
           "__guid": "dded4699-7725-45c2-8268-07c33cd5711d",
           "Flags": 0,
           "Name": "HUD",
-          "Position": "0,0,0",
           "Enabled": true,
           "Components": [
             {
@@ -518,9 +562,13 @@
     "MaxFixedUpdates": 5,
     "NetworkFrequency": 30,
     "NetworkInterpolation": true,
+    "PhysicsSubSteps": 1,
     "ThreadedAnimation": true,
     "TimeScale": 1,
     "UseFixedUpdate": true,
+    "Metadata": {
+      "Title": "rts_scene"
+    },
     "NavMesh": {
       "Enabled": true,
       "IncludeStaticBodies": true,
@@ -534,9 +582,9 @@
       "IncludedBodies": ""
     }
   },
+  "ResourceVersion": 2,
   "Title": "rts_scene",
-  "Description": "",
-  "ResourceVersion": 1,
+  "Description": null,
   "__references": [],
-  "__version": 1
+  "__version": 2
 }
